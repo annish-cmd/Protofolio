@@ -2308,3 +2308,131 @@ textarea {
     display: none !important;
   }
 }
+
+/* ======================================
+   BLACK HOLE ANIMATION SECTION
+====================================== */
+.blackhole-section {
+  --bh-bg: #000;
+  --bh-label-color: rgba(255, 255, 255, 0.4);
+  --bh-sub-color: rgba(255, 255, 255, 0.3);
+  --bh-glow-opacity: 0.7;
+
+  position: relative;
+  width: 100%;
+  height: 600px;
+  overflow: hidden;
+  background: var(--bh-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* ── Light-mode overrides ── */
+[data-theme="light"] .blackhole-section {
+  --bh-bg: #f8faff;
+  --bh-label-color: rgba(80, 60, 120, 0.55);
+  --bh-sub-color: rgba(100, 80, 140, 0.45);
+  --bh-glow-opacity: 0.5;
+}
+
+/* Gradient fades that blend the section into surrounding content */
+.blackhole-section::before,
+.blackhole-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 140px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.blackhole-section::before {
+  top: 0;
+  background: linear-gradient(to bottom, var(--bg), transparent);
+}
+
+.blackhole-section::after {
+  bottom: 0;
+  background: linear-gradient(to top, var(--bg), transparent);
+}
+
+/* Slightly taller fades in light mode for seamless blending */
+[data-theme="light"] .blackhole-section::before,
+[data-theme="light"] .blackhole-section::after {
+  height: 160px;
+}
+
+/* The canvas fills the whole section */
+#blackholeCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Text overlay floating above the canvas */
+.blackhole-text-overlay {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  text-align: center;
+  animation: bhTextFloat 6s ease-in-out infinite;
+}
+
+.bh-label {
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bh-label-color);
+}
+
+.bh-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 0 40px rgba(139, 92, 246, var(--bh-glow-opacity)));
+}
+
+/* Warmer golden gradient title in light mode */
+[data-theme="light"] .bh-title {
+  background: linear-gradient(135deg, #6366f1, #f59e0b, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.35));
+}
+
+.bh-sub {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--bh-sub-color);
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+@keyframes bhTextFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@media (max-width: 768px) {
+  .blackhole-section {
+    height: 400px;
+  }
+}

@@ -654,3 +654,301 @@ window.addEventListener('scroll', () => {
     orb.style.transform = `translateY(${scrollY * speed}px)`;
   });
 });
+
+// ============================================================
+// 16. BLACK HOLE ANIMATION
+// ============================================================
+(function initBlackHole() {
+  const canvas = document.getElementById('blackholeCanvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  let W, H, cx, cy, animId, running = false;
+
+  /* ---- resize ---- */
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+    cx = W / 2;
+    cy = H / 2;
+  }
+
+  window.addEventListener('resize', () => { resize(); });
+  resize();
+
+  /* ---- orbital particles ---- */
+  const NUM_PARTICLES = 280;
+  const particles = [];
+
+  class BHParticle {
+    constructor() { this.reset(true); }
+
+    reset(init) {
+      const minR = 80;
+      const maxR = Math.min(W, H) * 0.48;
+      this.r      = init
+        ? minR + Math.random() * (maxR - minR)
+        : maxR * (0.35 + Math.random() * 0.65);
+
+      this.angle  = Math.random() * Math.PI * 2;
+      this.speed  = (0.003 + 0.015 / (this.r / 60)) * (Math.random() > 0.5 ? 1 : -1);
+      this.size   = 0.5 + Math.random() * 1.8;
+
+      const t = 1 - (this.r - minR) / (maxR - minR); // 0 = far, 1 = near
+
+      // Dark mode palette: purple → pink
+      const hueD = 240 + t * 60;
+      const satD = 80 + t * 20;
+      const lgtD = 55 + t * 30;
+      this.colorDark  = `hsl(${hueD},${satD}%,${lgtD}%)`;
+
+      // Light mode palette: warm amber → golden-orange
+      const hueL = 30 + t * 20;   // 30 orange → 50 gold
+      const satL = 85 + t * 15;
+      const lgtL = 45 + t * 15;
+      this.colorLight = `hsl(${hueL},${satL}%,${lgtL}%)`;
+
+      this.alpha  = 0.3 + t * 0.7;
+      this.tiltX  = 0.22 + Math.random() * 0.15;
+      this.trail  = [];
+    }
+
+    update() {
+      this.angle += this.speed;
+      this.r -= 0.06 + 0.12 * (1 - this.r / 300);
+      if (this.r < 38) { this.reset(false); return; }
+
+      const x = cx + Math.cos(this.angle) * this.r;
+      const y = cy + Math.sin(this.angle) * this.r * this.tiltX;
+
+      this.trail.unshift({ x, y, a: this.alpha });
+      if (this.trail.length > 12) this.trail.pop();
+    }
+
+    draw(isLight) {
+      if (this.trail.length < 2) return;
+      const color = isLight ? this.colorLight : this.colorDark;
+
+      // Trail
+      for (let i = 1; i < this.trail.length; i++) {
+        const fade = (1 - i / this.trail.length) * this.trail[0].a * 0.5;
+        ctx.beginPath();
+        ctx.moveTo(this.trail[i - 1].x, this.trail[i - 1].y);
+        ctx.lineTo(this.trail[i].x, this.trail[i].y);
+        ctx.strokeStyle = color.replace(')', `,${fade})`).replace('hsl', 'hsla');
+        ctx.lineWidth = this.size * (1 - i / this.trail.length);
+        ctx.stroke();
+      }
+
+      // Head dot
+      const { x, y } = this.trail[0];
+      ctx.beginPath();
+      ctx.arc(x, y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = color.replace(')', `,${this.alpha})`).replace('hsl', 'hsla');
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < NUM_PARTICLES; i++) {
+    particles.push(new BHParticle());
+  }
+
+  /* ---- accretion-disk angle ---- */
+  let diskAngle = 0;
+
+  /* ---- main render ---- */
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    // ── Detect current theme ──────────────────────────────────
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+    // ── Solid base fill ───────────────────────────────────────
+    ctx.fillStyle = isLight ? '#f8faff' : '#000';
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Central ambient glow ──────────────────────────────────
+    const space = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.5);
+    if (isLight) {
+      space.addColorStop(0,   'rgba(99,102,241,0.08)');
+      space.addColorStop(0.4, 'rgba(139,92,246,0.04)');
+      space.addColorStop(1,   'rgba(248,250,255,0)');
+    } else {
+      space.addColorStop(0,   'rgba(15,5,40,0.0)');
+      space.addColorStop(0.5, 'rgba(5,0,20,0.3)');
+      space.addColorStop(1,   'rgba(0,0,0,0.6)');
+    }
+    ctx.fillStyle = space;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── Outer gravitational-lensing rings ─────────────────────
+    const rings = [
+      { r: 210, alpha: isLight ? 0.08  : 0.04 },
+      { r: 170, alpha: isLight ? 0.12  : 0.07 },
+      { r: 140, alpha: isLight ? 0.16  : 0.10 },
+      { r: 115, alpha: isLight ? 0.20  : 0.13 },
+    ];
+    rings.forEach(({ r, alpha }) => {
+      const gr = ctx.createRadialGradient(cx, cy, r - 12, cx, cy, r + 12);
+      if (isLight) {
+        gr.addColorStop(0,   `rgba(245,158,11,0)`);
+        gr.addColorStop(0.5, `rgba(245,158,11,${alpha})`);
+        gr.addColorStop(1,   `rgba(245,158,11,0)`);
+      } else {
+        gr.addColorStop(0,   `rgba(100,80,255,0)`);
+        gr.addColorStop(0.5, `rgba(130,80,255,${alpha})`);
+        gr.addColorStop(1,   `rgba(100,80,255,0)`);
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = gr;
+      ctx.lineWidth = 22;
+      ctx.stroke();
+    });
+
+    // ── Spinning accretion disk ───────────────────────────────
+    diskAngle += 0.004;
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(diskAngle);
+
+    const diskW = 200, diskH = 38;
+    const diskGrad = ctx.createLinearGradient(-diskW, 0, diskW, 0);
+    if (isLight) {
+      diskGrad.addColorStop(0,    'rgba(245,158,11,0)');
+      diskGrad.addColorStop(0.2,  'rgba(251,191,36,0.25)');
+      diskGrad.addColorStop(0.42, 'rgba(253,224,71,0.5)');
+      diskGrad.addColorStop(0.5,  'rgba(254,240,138,0.65)');
+      diskGrad.addColorStop(0.58, 'rgba(253,224,71,0.5)');
+      diskGrad.addColorStop(0.8,  'rgba(251,191,36,0.25)');
+      diskGrad.addColorStop(1,    'rgba(245,158,11,0)');
+    } else {
+      diskGrad.addColorStop(0,    'rgba(255,120,40,0)');
+      diskGrad.addColorStop(0.2,  'rgba(255,160,60,0.18)');
+      diskGrad.addColorStop(0.42, 'rgba(255,220,120,0.42)');
+      diskGrad.addColorStop(0.5,  'rgba(255,255,220,0.55)');
+      diskGrad.addColorStop(0.58, 'rgba(255,220,120,0.42)');
+      diskGrad.addColorStop(0.8,  'rgba(255,160,60,0.18)');
+      diskGrad.addColorStop(1,    'rgba(255,120,40,0)');
+    }
+
+    ctx.beginPath();
+    ctx.ellipse(0, 0, diskW, diskH, 0, 0, Math.PI * 2);
+    ctx.fillStyle = diskGrad;
+    ctx.fill();
+
+    // Second disk ring
+    const diskGrad2 = ctx.createLinearGradient(-diskW * 0.7, 0, diskW * 0.7, 0);
+    if (isLight) {
+      diskGrad2.addColorStop(0,    'rgba(254,240,138,0)');
+      diskGrad2.addColorStop(0.5,  'rgba(255,255,255,0.25)'); // White center
+      diskGrad2.addColorStop(1,    'rgba(254,240,138,0)');
+    } else {
+      diskGrad2.addColorStop(0,    'rgba(120,60,255,0)');
+      diskGrad2.addColorStop(0.5,  'rgba(180,80,255,0.22)');
+      diskGrad2.addColorStop(1,    'rgba(120,60,255,0)');
+    }
+    ctx.beginPath();
+    ctx.ellipse(0, 0, diskW * 0.7, diskH * 0.55, 0, 0, Math.PI * 2);
+    ctx.fillStyle = diskGrad2;
+    ctx.fill();
+
+    ctx.restore();
+
+    // ── Orbiting particles ────────────────────────────────────
+    const front = [], back = [];
+    particles.forEach(p => {
+      const y = cy + Math.sin(p.angle) * p.r * p.tiltX;
+      (y < cy ? back : front).push(p);
+    });
+    back.forEach(p  => { p.update(); p.draw(isLight); });
+
+    // ── Singularity core ──────────────────────────────────────
+    const bhR = 46;
+
+    // Outer photon-sphere glow
+    const psGlow = ctx.createRadialGradient(cx, cy, bhR * 0.6, cx, cy, bhR * 1.8);
+    if (isLight) {
+      psGlow.addColorStop(0,   'rgba(254,240,138,0.5)'); // Warm yellow glow
+      psGlow.addColorStop(0.4, 'rgba(253,224,71,0.2)');
+      psGlow.addColorStop(1,   'rgba(240,240,250,0)');
+    } else {
+      psGlow.addColorStop(0,   'rgba(120,60,255,0.5)');
+      psGlow.addColorStop(0.4, 'rgba(80,20,200,0.2)');
+      psGlow.addColorStop(1,   'rgba(0,0,0,0)');
+    }
+    ctx.beginPath();
+    ctx.arc(cx, cy, bhR * 1.8, 0, Math.PI * 2);
+    ctx.fillStyle = psGlow;
+    ctx.fill();
+
+    // Photon ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, bhR + 5, 0, Math.PI * 2);
+    ctx.strokeStyle = isLight ? 'rgba(254,240,138,0.8)' : 'rgba(200,140,255,0.55)';
+    ctx.lineWidth = isLight ? 2 : 3;
+    ctx.stroke();
+
+    // Core
+    const core = ctx.createRadialGradient(cx - bhR * 0.2, cy - bhR * 0.2, 0, cx, cy, bhR);
+    if (isLight) {
+      core.addColorStop(0,   'rgba(255,255,255,1)'); // Bright white center
+      core.addColorStop(0.6, 'rgba(254,240,138,1)'); // Creamy yellow
+      core.addColorStop(1,   'rgba(253,224,71,1)');  // Golden yellow
+    } else {
+      core.addColorStop(0,   'rgba(30,10,60,1)');
+      core.addColorStop(0.6, 'rgba(0,0,0,1)');
+      core.addColorStop(1,   'rgba(0,0,0,1)');
+    }
+    ctx.beginPath();
+    ctx.arc(cx, cy, bhR, 0, Math.PI * 2);
+    ctx.fillStyle = core;
+    ctx.fill();
+
+    // ── Front-side particles ──────────────────────────────────
+    front.forEach(p => { p.update(); p.draw(isLight); });
+
+    // ── Polar jets ───────────────────────────────────────────
+    const jetLen = H * 0.38;
+    [[cx, cy - bhR, cx, cy - bhR - jetLen],
+     [cx, cy + bhR, cx, cy + bhR + jetLen]].forEach(([x1, y1, x2, y2]) => {
+      const jet = ctx.createLinearGradient(x1, y1, x2, y2);
+      if (isLight) {
+        jet.addColorStop(0,   'rgba(245,158,11,0.35)');
+        jet.addColorStop(0.5, 'rgba(251,191,36,0.12)');
+        jet.addColorStop(1,   'rgba(253,224,71,0)');
+      } else {
+        jet.addColorStop(0,   'rgba(160,80,255,0.45)');
+        jet.addColorStop(0.5, 'rgba(100,50,255,0.15)');
+        jet.addColorStop(1,   'rgba(60,20,200,0)');
+      }
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.strokeStyle = jet;
+      ctx.lineWidth = 6 + Math.sin(Date.now() * 0.003) * 3;
+      ctx.stroke();
+    });
+
+    if (running) animId = requestAnimationFrame(render);
+  }
+
+  /* ---- IntersectionObserver: only animate when visible ---- */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        if (!running) {
+          running = true;
+          resize();
+          render();
+        }
+      } else {
+        running = false;
+        cancelAnimationFrame(animId);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  observer.observe(canvas.closest('.blackhole-section'));
+})();
+
