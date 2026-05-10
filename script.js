@@ -139,6 +139,9 @@ function initParticles() {
 // 3. CUSTOM CURSOR
 // ============================================================
 function initCursor() {
+  // Disable custom cursor on touch devices for better performance and usability
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
+
   const cursor = document.querySelector('.cursor');
   const follower = document.querySelector('.cursor-follower');
   if (!cursor || !follower) return;

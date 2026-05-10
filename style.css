@@ -2284,3 +2284,18 @@ textarea {
     padding: 28px;
   }
 }
+
+/* ---- DISABLE CUSTOM CURSOR ON TOUCH DEVICES ---- */
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  body, button, .theme-toggle, .hamburger, .btn, .contact-card, .faq-question, .faq-question::after, .footer-link, .back-to-top {
+    cursor: auto !important;
+  }
+  
+  a, button, .btn, .theme-toggle, .hamburger, .faq-question, .footer-link, .back-to-top {
+    cursor: pointer !important;
+  }
+  
+  .cursor, .cursor-follower {
+    display: none !important;
+  }
+}
