@@ -109,14 +109,17 @@ function initParticles() {
 
   function drawConnections() {
     for (let i = 0; i < particles.length; i++) {
+      const p1 = particles[i];
       for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 100) {
+        const p2 = particles[j];
+        const dx = p1.x - p2.x;
+        const dy = p1.y - p2.y;
+        const distSq = dx * dx + dy * dy;
+        if (distSq < 10000) { // 100 * 100
+          const dist = Math.sqrt(distSq);
           ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
           ctx.strokeStyle = `rgba(99,102,241,${0.08 * (1 - dist / 100)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
@@ -162,15 +165,14 @@ function initCursor() {
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
+    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
   });
 
   function animateFollower() {
-    followerX += (mouseX - followerX) * 0.15;
-    followerY += (mouseY - followerY) * 0.15;
-    follower.style.left = followerX + 'px';
-    follower.style.top = followerY + 'px';
+    // Increased lerp factor from 0.15 to 0.25 for snappier follow
+    followerX += (mouseX - followerX) * 0.25;
+    followerY += (mouseY - followerY) * 0.25;
+    follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
     requestAnimationFrame(animateFollower);
   }
   animateFollower();
@@ -677,7 +679,7 @@ window.addEventListener('scroll', () => {
   resize();
 
   /* ---- orbital particles ---- */
-  const NUM_PARTICLES = 280;
+  const NUM_PARTICLES = 200;
   const particles = [];
 
   class BHParticle {
@@ -692,21 +694,20 @@ window.addEventListener('scroll', () => {
 
       this.angle  = Math.random() * Math.PI * 2;
       this.speed  = (0.003 + 0.015 / (this.r / 60)) * (Math.random() > 0.5 ? 1 : -1);
-      this.size   = 0.5 + Math.random() * 1.8;
+      this.size   = 0.5 + Math.random() * 1.5;
 
-      const t = 1 - (this.r - minR) / (maxR - minR); // 0 = far, 1 = near
+      const t = 1 - (this.r - minR) / (maxR - minR);
 
-      // Dark mode palette: purple → pink
-      const hueD = 240 + t * 60;
-      const satD = 80 + t * 20;
-      const lgtD = 55 + t * 30;
-      this.colorDark  = `hsl(${hueD},${satD}%,${lgtD}%)`;
+      // Store HSL components to avoid string replacements
+      const hueD = (240 + t * 60) | 0;
+      const satD = (80 + t * 20) | 0;
+      const lgtD = (55 + t * 30) | 0;
+      this.hslDark = `${hueD},${satD}%,${lgtD}%`;
 
-      // Light mode palette: warm amber → golden-orange
-      const hueL = 30 + t * 20;   // 30 orange → 50 gold
-      const satL = 85 + t * 15;
-      const lgtL = 45 + t * 15;
-      this.colorLight = `hsl(${hueL},${satL}%,${lgtL}%)`;
+      const hueL = (30 + t * 20) | 0;
+      const satL = (85 + t * 15) | 0;
+      const lgtL = (45 + t * 15) | 0;
+      this.hslLight = `${hueL},${satL}%,${lgtL}%`;
 
       this.alpha  = 0.3 + t * 0.7;
       this.tiltX  = 0.22 + Math.random() * 0.15;
@@ -718,57 +719,63 @@ window.addEventListener('scroll', () => {
       this.r -= 0.06 + 0.12 * (1 - this.r / 300);
       if (this.r < 38) { this.reset(false); return; }
 
-      const x = cx + Math.cos(this.angle) * this.r;
-      const y = cy + Math.sin(this.angle) * this.r * this.tiltX;
+      const x = (cx + Math.cos(this.angle) * this.r) | 0;
+      const y = (cy + Math.sin(this.angle) * this.r * this.tiltX) | 0;
 
-      this.trail.unshift({ x, y, a: this.alpha });
-      if (this.trail.length > 12) this.trail.pop();
+      this.trail.unshift({ x, y });
+      if (this.trail.length > 8) this.trail.pop();
     }
 
     draw(isLight) {
       if (this.trail.length < 2) return;
-      const color = isLight ? this.colorLight : this.colorDark;
+      const hsl = isLight ? this.hslLight : this.hslDark;
 
-      // Trail
+      // Trail segments
+      ctx.globalAlpha = 1;
       for (let i = 1; i < this.trail.length; i++) {
-        const fade = (1 - i / this.trail.length) * this.trail[0].a * 0.5;
+        const fade = (1 - i / this.trail.length) * this.alpha * 0.4;
         ctx.beginPath();
         ctx.moveTo(this.trail[i - 1].x, this.trail[i - 1].y);
         ctx.lineTo(this.trail[i].x, this.trail[i].y);
-        ctx.strokeStyle = color.replace(')', `,${fade})`).replace('hsl', 'hsla');
+        ctx.strokeStyle = `hsla(${hsl},${fade})`;
         ctx.lineWidth = this.size * (1 - i / this.trail.length);
         ctx.stroke();
       }
 
-      // Head dot
-      const { x, y } = this.trail[0];
-      ctx.beginPath();
-      ctx.arc(x, y, this.size, 0, Math.PI * 2);
-      ctx.fillStyle = color.replace(')', `,${this.alpha})`).replace('hsl', 'hsla');
-      ctx.fill();
+      // Head dot (use small rect for better perf than arc)
+      const p = this.trail[0];
+      ctx.fillStyle = `hsla(${hsl},${this.alpha})`;
+      ctx.fillRect(p.x - this.size, p.y - this.size, this.size * 2, this.size * 2);
     }
   }
 
   for (let i = 0; i < NUM_PARTICLES; i++) {
     particles.push(new BHParticle());
-  }
+  };
 
   /* ---- accretion-disk angle ---- */
   let diskAngle = 0;
 
   /* ---- main render ---- */
+  let isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+  // Efficient theme tracking instead of querying DOM every frame
+  const themeObserver = new MutationObserver(() => {
+    isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
   function render() {
     ctx.clearRect(0, 0, W, H);
-
-    // ── Detect current theme ──────────────────────────────────
-    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
 
     // ── Solid base fill ───────────────────────────────────────
     ctx.fillStyle = isLight ? '#f8faff' : '#000';
     ctx.fillRect(0, 0, W, H);
 
+    const minWH = Math.min(W, H);
+
     // ── Central ambient glow ──────────────────────────────────
-    const space = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.5);
+    const space = ctx.createRadialGradient(cx, cy, 0, cx, cy, minWH * 0.5);
     if (isLight) {
       space.addColorStop(0,   'rgba(99,102,241,0.08)');
       space.addColorStop(0.4, 'rgba(139,92,246,0.04)');
@@ -782,27 +789,21 @@ window.addEventListener('scroll', () => {
     ctx.fillRect(0, 0, W, H);
 
     // ── Outer gravitational-lensing rings ─────────────────────
-    const rings = [
-      { r: 210, alpha: isLight ? 0.08  : 0.04 },
-      { r: 170, alpha: isLight ? 0.12  : 0.07 },
-      { r: 140, alpha: isLight ? 0.16  : 0.10 },
-      { r: 115, alpha: isLight ? 0.20  : 0.13 },
-    ];
-    rings.forEach(({ r, alpha }) => {
+    const ringConfig = isLight 
+      ? [{ r: 210, a: 0.08 }, { r: 170, a: 0.12 }, { r: 140, a: 0.16 }, { r: 115, a: 0.20 }]
+      : [{ r: 210, a: 0.04 }, { r: 170, a: 0.07 }, { r: 140, a: 0.10 }, { r: 115, a: 0.13 }];
+    
+    ctx.lineWidth = 22;
+    ringConfig.forEach(({ r, a }) => {
       const gr = ctx.createRadialGradient(cx, cy, r - 12, cx, cy, r + 12);
-      if (isLight) {
-        gr.addColorStop(0,   `rgba(245,158,11,0)`);
-        gr.addColorStop(0.5, `rgba(245,158,11,${alpha})`);
-        gr.addColorStop(1,   `rgba(245,158,11,0)`);
-      } else {
-        gr.addColorStop(0,   `rgba(100,80,255,0)`);
-        gr.addColorStop(0.5, `rgba(130,80,255,${alpha})`);
-        gr.addColorStop(1,   `rgba(100,80,255,0)`);
-      }
+      const color = isLight ? `245,158,11` : `100,80,255`;
+      gr.addColorStop(0,   `rgba(${color},0)`);
+      gr.addColorStop(0.5, `rgba(${color},${a})`);
+      gr.addColorStop(1,   `rgba(${color},0)`);
+      
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.strokeStyle = gr;
-      ctx.lineWidth = 22;
       ctx.stroke();
     });
 
@@ -817,42 +818,35 @@ window.addEventListener('scroll', () => {
     if (isLight) {
       diskGrad.addColorStop(0,    'rgba(245,158,11,0)');
       diskGrad.addColorStop(0.2,  'rgba(251,191,36,0.25)');
-      diskGrad.addColorStop(0.42, 'rgba(253,224,71,0.5)');
       diskGrad.addColorStop(0.5,  'rgba(254,240,138,0.65)');
-      diskGrad.addColorStop(0.58, 'rgba(253,224,71,0.5)');
       diskGrad.addColorStop(0.8,  'rgba(251,191,36,0.25)');
       diskGrad.addColorStop(1,    'rgba(245,158,11,0)');
     } else {
       diskGrad.addColorStop(0,    'rgba(255,120,40,0)');
       diskGrad.addColorStop(0.2,  'rgba(255,160,60,0.18)');
-      diskGrad.addColorStop(0.42, 'rgba(255,220,120,0.42)');
       diskGrad.addColorStop(0.5,  'rgba(255,255,220,0.55)');
-      diskGrad.addColorStop(0.58, 'rgba(255,220,120,0.42)');
       diskGrad.addColorStop(0.8,  'rgba(255,160,60,0.18)');
       diskGrad.addColorStop(1,    'rgba(255,120,40,0)');
     }
-
+    ctx.fillStyle = diskGrad;
     ctx.beginPath();
     ctx.ellipse(0, 0, diskW, diskH, 0, 0, Math.PI * 2);
-    ctx.fillStyle = diskGrad;
     ctx.fill();
 
-    // Second disk ring
     const diskGrad2 = ctx.createLinearGradient(-diskW * 0.7, 0, diskW * 0.7, 0);
     if (isLight) {
       diskGrad2.addColorStop(0,    'rgba(254,240,138,0)');
-      diskGrad2.addColorStop(0.5,  'rgba(255,255,255,0.25)'); // White center
+      diskGrad2.addColorStop(0.5,  'rgba(255,255,255,0.25)');
       diskGrad2.addColorStop(1,    'rgba(254,240,138,0)');
     } else {
       diskGrad2.addColorStop(0,    'rgba(120,60,255,0)');
       diskGrad2.addColorStop(0.5,  'rgba(180,80,255,0.22)');
       diskGrad2.addColorStop(1,    'rgba(120,60,255,0)');
     }
+    ctx.fillStyle = diskGrad2;
     ctx.beginPath();
     ctx.ellipse(0, 0, diskW * 0.7, diskH * 0.55, 0, 0, Math.PI * 2);
-    ctx.fillStyle = diskGrad2;
     ctx.fill();
-
     ctx.restore();
 
     // ── Orbiting particles ────────────────────────────────────
@@ -865,11 +859,9 @@ window.addEventListener('scroll', () => {
 
     // ── Singularity core ──────────────────────────────────────
     const bhR = 46;
-
-    // Outer photon-sphere glow
     const psGlow = ctx.createRadialGradient(cx, cy, bhR * 0.6, cx, cy, bhR * 1.8);
     if (isLight) {
-      psGlow.addColorStop(0,   'rgba(254,240,138,0.5)'); // Warm yellow glow
+      psGlow.addColorStop(0,   'rgba(254,240,138,0.5)');
       psGlow.addColorStop(0.4, 'rgba(253,224,71,0.2)');
       psGlow.addColorStop(1,   'rgba(240,240,250,0)');
     } else {
@@ -877,41 +869,38 @@ window.addEventListener('scroll', () => {
       psGlow.addColorStop(0.4, 'rgba(80,20,200,0.2)');
       psGlow.addColorStop(1,   'rgba(0,0,0,0)');
     }
+    ctx.fillStyle = psGlow;
     ctx.beginPath();
     ctx.arc(cx, cy, bhR * 1.8, 0, Math.PI * 2);
-    ctx.fillStyle = psGlow;
     ctx.fill();
 
-    // Photon ring
     ctx.beginPath();
     ctx.arc(cx, cy, bhR + 5, 0, Math.PI * 2);
     ctx.strokeStyle = isLight ? 'rgba(254,240,138,0.8)' : 'rgba(200,140,255,0.55)';
     ctx.lineWidth = isLight ? 2 : 3;
     ctx.stroke();
 
-    // Core
     const core = ctx.createRadialGradient(cx - bhR * 0.2, cy - bhR * 0.2, 0, cx, cy, bhR);
     if (isLight) {
-      core.addColorStop(0,   'rgba(255,255,255,1)'); // Bright white center
-      core.addColorStop(0.6, 'rgba(254,240,138,1)'); // Creamy yellow
-      core.addColorStop(1,   'rgba(253,224,71,1)');  // Golden yellow
+      core.addColorStop(0,   'rgba(255,255,255,1)');
+      core.addColorStop(0.6, 'rgba(254,240,138,1)');
+      core.addColorStop(1,   'rgba(253,224,71,1)');
     } else {
       core.addColorStop(0,   'rgba(30,10,60,1)');
       core.addColorStop(0.6, 'rgba(0,0,0,1)');
       core.addColorStop(1,   'rgba(0,0,0,1)');
     }
+    ctx.fillStyle = core;
     ctx.beginPath();
     ctx.arc(cx, cy, bhR, 0, Math.PI * 2);
-    ctx.fillStyle = core;
     ctx.fill();
 
-    // ── Front-side particles ──────────────────────────────────
     front.forEach(p => { p.update(); p.draw(isLight); });
 
     // ── Polar jets ───────────────────────────────────────────
     const jetLen = H * 0.38;
-    [[cx, cy - bhR, cx, cy - bhR - jetLen],
-     [cx, cy + bhR, cx, cy + bhR + jetLen]].forEach(([x1, y1, x2, y2]) => {
+    const jetW = 6 + Math.sin(Date.now() * 0.003) * 3;
+    [[cx, cy - bhR, cx, cy - bhR - jetLen], [cx, cy + bhR, cx, cy + bhR + jetLen]].forEach(([x1, y1, x2, y2]) => {
       const jet = ctx.createLinearGradient(x1, y1, x2, y2);
       if (isLight) {
         jet.addColorStop(0,   'rgba(245,158,11,0.35)');
@@ -922,11 +911,11 @@ window.addEventListener('scroll', () => {
         jet.addColorStop(0.5, 'rgba(100,50,255,0.15)');
         jet.addColorStop(1,   'rgba(60,20,200,0)');
       }
+      ctx.strokeStyle = jet;
+      ctx.lineWidth = jetW;
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
-      ctx.strokeStyle = jet;
-      ctx.lineWidth = 6 + Math.sin(Date.now() * 0.003) * 3;
       ctx.stroke();
     });
 
