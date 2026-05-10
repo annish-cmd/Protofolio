@@ -139,11 +139,21 @@ function initParticles() {
 // 3. CUSTOM CURSOR
 // ============================================================
 function initCursor() {
-  // Disable custom cursor on touch devices for better performance and usability
-  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
-
   const cursor = document.querySelector('.cursor');
   const follower = document.querySelector('.cursor-follower');
+
+  // Disable custom cursor on touch devices for better performance and usability
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 768) {
+    if (cursor) cursor.style.display = 'none';
+    if (follower) follower.style.display = 'none';
+    document.body.style.cursor = 'auto';
+    
+    // reset cursor for hoverables as well
+    const style = document.createElement('style');
+    style.innerHTML = 'body * { cursor: auto !important; }';
+    document.head.appendChild(style);
+    return;
+  }
   if (!cursor || !follower) return;
 
   let mouseX = 0, mouseY = 0;

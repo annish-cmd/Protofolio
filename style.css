@@ -150,6 +150,15 @@ textarea {
   border-color: var(--primary);
 }
 
+@media (hover: none) and (pointer: coarse), (max-width: 768px) {
+  .cursor, .cursor-follower {
+    display: none !important;
+  }
+  body, button, a, .btn, input, textarea {
+    cursor: auto !important;
+  }
+}
+
 /* ---- PRELOADER ---- */
 .preloader {
   position: fixed;
