@@ -7,6 +7,8 @@
 
 // ---- DOM READY ----
 document.addEventListener('DOMContentLoaded', () => {
+  // Scroll to top on every page refresh/load
+  window.scrollTo(0, 0);
   initPreloader();
   initParticles();
   initCursor();
@@ -34,6 +36,7 @@ function initPreloader() {
     setTimeout(() => {
       preloader.classList.add('hidden');
       document.body.classList.remove('loading');
+      window.scrollTo(0, 0);
     }, 2200);
   });
 }
@@ -69,10 +72,12 @@ function initParticles() {
     reset() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2 + 0.5;
-      this.speedX = (Math.random() - 0.5) * 0.6;
-      this.speedY = (Math.random() - 0.5) * 0.6;
-      this.opacity = Math.random() * 0.5 + 0.1;
+      // Slightly bigger bubbles - visible but not too big
+      this.size = Math.random() * 2.5 + 1.5;
+      this.speedX = (Math.random() - 0.5) * 0.5;
+      this.speedY = (Math.random() - 0.5) * 0.5;
+      // Good visibility with subtle transparency
+      this.opacity = Math.random() * 0.4 + 0.2;
       this.color = Math.random() > 0.5 ? '99,102,241' : '139,92,246';
     }
 
@@ -84,8 +89,9 @@ function initParticles() {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const force = (120 - dist) / 120;
+        // Mouse repulsion - bubbles run away from cursor
+        if (dist < 100) {
+          const force = (100 - dist) / 100;
           this.x += (dx / dist) * force * 2;
           this.y += (dy / dist) * force * 2;
         }
@@ -96,14 +102,22 @@ function initParticles() {
     }
 
     draw() {
+      // Main bubble
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
       ctx.fill();
+
+      // Subtle glow for attraction
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size + 1, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${this.color},${this.opacity * 0.15})`;
+      ctx.fill();
     }
   }
 
-  for (let i = 0; i < 100; i++) {
+  // Moderate count - enough to be attractive but not overwhelming
+  for (let i = 0; i < 80; i++) {
     particles.push(new Particle());
   }
 
@@ -177,17 +191,7 @@ function initCursor() {
   }
   animateFollower();
 
-  const hoverables = document.querySelectorAll('a, button, .project-card, .skill-tag, .tag');
-  hoverables.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.classList.add('hover');
-      follower.classList.add('hover');
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.classList.remove('hover');
-      follower.classList.remove('hover');
-    });
-  });
+  // Simple cursor - no hover effect on links/buttons
 }
 
 // ============================================================
@@ -658,261 +662,288 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================================
-// 16. BLACK HOLE ANIMATION
+// 16. INTERSTELLAR BLACK HOLE
 // ============================================================
 (function initBlackHole() {
   const canvas = document.getElementById('blackholeCanvas');
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let W, H, cx, cy, animId, running = false;
+  let W, H, cx, cy, running = false, animId;
+  let isLight = false;
+  let diskAngle = 0;
 
-  /* ---- resize ---- */
+  /* resize */
   function resize() {
     W = canvas.width  = canvas.offsetWidth;
     H = canvas.height = canvas.offsetHeight;
     cx = W / 2;
     cy = H / 2;
   }
-
   window.addEventListener('resize', () => { resize(); });
   resize();
 
-  /* ---- orbital particles ---- */
-  const NUM_PARTICLES = 200;
-  const particles = [];
+  /* theme observer */
+  const themeObs = new MutationObserver(() => {
+    isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  });
+  themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  class BHParticle {
-    constructor() { this.reset(true); }
+  /* orbital debris — 600 particles */
+  const NUM_DEBRIS = 600;
+  const debris = [];
 
-    reset(init) {
-      const minR = 80;
-      const maxR = Math.min(W, H) * 0.48;
-      this.r      = init
-        ? minR + Math.random() * (maxR - minR)
-        : maxR * (0.35 + Math.random() * 0.65);
+  class Debris {
+    constructor(init) { this._reset(init); }
 
-      this.angle  = Math.random() * Math.PI * 2;
-      this.speed  = (0.003 + 0.015 / (this.r / 60)) * (Math.random() > 0.5 ? 1 : -1);
-      this.size   = 0.5 + Math.random() * 1.5;
-
-      const t = 1 - (this.r - minR) / (maxR - minR);
-
-      // Store HSL components to avoid string replacements
-      const hueD = (240 + t * 60) | 0;
-      const satD = (80 + t * 20) | 0;
-      const lgtD = (55 + t * 30) | 0;
-      this.hslDark = `${hueD},${satD}%,${lgtD}%`;
-
-      const hueL = (30 + t * 20) | 0;
-      const satL = (85 + t * 15) | 0;
-      const lgtL = (45 + t * 15) | 0;
-      this.hslLight = `${hueL},${satL}%,${lgtL}%`;
-
-      this.alpha  = 0.3 + t * 0.7;
-      this.tiltX  = 0.22 + Math.random() * 0.15;
-      this.trail  = [];
+    _reset(init) {
+      this.angle = Math.random() * Math.PI * 2;
+      const minR = 56, maxR = Math.min(W, H) * 0.46;
+      this.r = init ? minR + Math.random() * (maxR - minR) : maxR * (0.4 + Math.random() * 0.6);
+      this.speed = 0.004 + 0.016 / (this.r / 60);
+      if (Math.random() > 0.5) this.speed = -this.speed;
+      this.size = 0.4 + Math.random() * 1.8;
+      this.tiltX = 0.32 + Math.random() * 0.12;
+      this.trail = [];
+      this.trailLen = 5 + Math.floor(Math.random() * 8);
     }
 
     update() {
       this.angle += this.speed;
-      this.r -= 0.06 + 0.12 * (1 - this.r / 300);
-      if (this.r < 38) { this.reset(false); return; }
-
-      const x = (cx + Math.cos(this.angle) * this.r) | 0;
-      const y = (cy + Math.sin(this.angle) * this.r * this.tiltX) | 0;
-
+      this.r -= 0.035 + 0.08 * (1 - this.r / 220);
+      if (this.r < 52) { this._reset(false); return; }
+      const x = cx + Math.cos(this.angle) * this.r;
+      const y = cy + Math.sin(this.angle) * this.r * this.tiltX;
       this.trail.unshift({ x, y });
-      if (this.trail.length > 8) this.trail.pop();
+      if (this.trail.length > this.trailLen) this.trail.pop();
     }
 
-    draw(isLight) {
-      if (this.trail.length < 2) return;
-      const hsl = isLight ? this.hslLight : this.hslDark;
+    beamingFactor() {
+      const norm = Math.cos(this.angle);
+      return Math.max(0.05, 1 + norm * 1.2);
+    }
 
-      // Trail segments
-      ctx.globalAlpha = 1;
+    draw() {
+      if (this.trail.length < 2) return;
+      const beam = this.beamingFactor();
+      const tNorm = 1 - (this.r - 52) / (Math.min(W, H) * 0.46 - 52);
+      const hue = (30 - tNorm * 25) | 0;
+      const sat = (85 + tNorm * 15) | 0;
+      const lig = (45 + tNorm * 30) | 0;
+      const alpha = (0.25 + tNorm * 0.5) * beam;
       for (let i = 1; i < this.trail.length; i++) {
-        const fade = (1 - i / this.trail.length) * this.alpha * 0.4;
+        const fade = (1 - i / this.trail.length) * alpha * 0.35;
         ctx.beginPath();
         ctx.moveTo(this.trail[i - 1].x, this.trail[i - 1].y);
         ctx.lineTo(this.trail[i].x, this.trail[i].y);
-        ctx.strokeStyle = `hsla(${hsl},${fade})`;
+        ctx.strokeStyle = 'hsla(' + hue + ',' + sat + '%,' + lig + '%,' + fade + ')';
         ctx.lineWidth = this.size * (1 - i / this.trail.length);
         ctx.stroke();
       }
-
-      // Head dot (use small rect for better perf than arc)
       const p = this.trail[0];
-      ctx.fillStyle = `hsla(${hsl},${this.alpha})`;
+      ctx.fillStyle = 'hsla(' + hue + ',' + sat + '%,' + lig + '%,' + alpha + ')';
       ctx.fillRect(p.x - this.size, p.y - this.size, this.size * 2, this.size * 2);
     }
   }
 
-  for (let i = 0; i < NUM_PARTICLES; i++) {
-    particles.push(new BHParticle());
-  };
+  for (let i = 0; i < NUM_DEBRIS; i++) debris.push(new Debris(true));
 
-  /* ---- accretion-disk angle ---- */
-  let diskAngle = 0;
-
-  /* ---- main render ---- */
-  let isLight = document.documentElement.getAttribute('data-theme') === 'light';
-
-  // Efficient theme tracking instead of querying DOM every frame
-  const themeObserver = new MutationObserver(() => {
-    isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  });
-  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-
-  function render() {
-    ctx.clearRect(0, 0, W, H);
-
-    // ── Solid base fill ───────────────────────────────────────
-    ctx.fillStyle = isLight ? '#f8faff' : '#000';
-    ctx.fillRect(0, 0, W, H);
-
-    const minWH = Math.min(W, H);
-
-    // ── Central ambient glow ──────────────────────────────────
-    const space = ctx.createRadialGradient(cx, cy, 0, cx, cy, minWH * 0.5);
-    if (isLight) {
-      space.addColorStop(0,   'rgba(99,102,241,0.08)');
-      space.addColorStop(0.4, 'rgba(139,92,246,0.04)');
-      space.addColorStop(1,   'rgba(248,250,255,0)');
-    } else {
-      space.addColorStop(0,   'rgba(15,5,40,0.0)');
-      space.addColorStop(0.5, 'rgba(5,0,20,0.3)');
-      space.addColorStop(1,   'rgba(0,0,0,0.6)');
-    }
-    ctx.fillStyle = space;
-    ctx.fillRect(0, 0, W, H);
-
-    // ── Outer gravitational-lensing rings ─────────────────────
-    const ringConfig = isLight 
-      ? [{ r: 210, a: 0.08 }, { r: 170, a: 0.12 }, { r: 140, a: 0.16 }, { r: 115, a: 0.20 }]
-      : [{ r: 210, a: 0.04 }, { r: 170, a: 0.07 }, { r: 140, a: 0.10 }, { r: 115, a: 0.13 }];
-    
-    ctx.lineWidth = 22;
-    ringConfig.forEach(({ r, a }) => {
-      const gr = ctx.createRadialGradient(cx, cy, r - 12, cx, cy, r + 12);
-      const color = isLight ? `245,158,11` : `100,80,255`;
-      gr.addColorStop(0,   `rgba(${color},0)`);
-      gr.addColorStop(0.5, `rgba(${color},${a})`);
-      gr.addColorStop(1,   `rgba(${color},0)`);
-      
-      ctx.beginPath();
-      ctx.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx.strokeStyle = gr;
-      ctx.stroke();
-    });
-
-    // ── Spinning accretion disk ───────────────────────────────
-    diskAngle += 0.004;
+  function drawDiskHalf(bhR) {
+    const dw = bhR * 5.5, dh = bhR * 0.72;
     ctx.save();
     ctx.translate(cx, cy);
     ctx.rotate(diskAngle);
 
-    const diskW = 200, diskH = 38;
-    const diskGrad = ctx.createLinearGradient(-diskW, 0, diskW, 0);
+    const diskGrad = ctx.createLinearGradient(-dw, 0, dw, 0);
     if (isLight) {
       diskGrad.addColorStop(0,    'rgba(245,158,11,0)');
-      diskGrad.addColorStop(0.2,  'rgba(251,191,36,0.25)');
-      diskGrad.addColorStop(0.5,  'rgba(254,240,138,0.65)');
-      diskGrad.addColorStop(0.8,  'rgba(251,191,36,0.25)');
+      diskGrad.addColorStop(0.15, 'rgba(251,191,36,0.35)');
+      diskGrad.addColorStop(0.35, 'rgba(254,240,138,0.75)');
+      diskGrad.addColorStop(0.5,  'rgba(255,255,255,0.95)');
+      diskGrad.addColorStop(0.65, 'rgba(254,240,138,0.75)');
+      diskGrad.addColorStop(0.85, 'rgba(251,191,36,0.35)');
       diskGrad.addColorStop(1,    'rgba(245,158,11,0)');
     } else {
-      diskGrad.addColorStop(0,    'rgba(255,120,40,0)');
-      diskGrad.addColorStop(0.2,  'rgba(255,160,60,0.18)');
-      diskGrad.addColorStop(0.5,  'rgba(255,255,220,0.55)');
-      diskGrad.addColorStop(0.8,  'rgba(255,160,60,0.18)');
-      diskGrad.addColorStop(1,    'rgba(255,120,40,0)');
+      diskGrad.addColorStop(0,    'rgba(255,100,20,0)');
+      diskGrad.addColorStop(0.12, 'rgba(255,140,40,0.25)');
+      diskGrad.addColorStop(0.3,  'rgba(255,180,80,0.5)');
+      diskGrad.addColorStop(0.5,  'rgba(255,255,220,0.92)');
+      diskGrad.addColorStop(0.7,  'rgba(255,200,100,0.6)');
+      diskGrad.addColorStop(0.88, 'rgba(255,150,60,0.3)');
+      diskGrad.addColorStop(1,    'rgba(255,100,20,0)');
     }
+    ctx.beginPath();
+    ctx.ellipse(0, 0, dw, dh, 0, 0, Math.PI * 2);
     ctx.fillStyle = diskGrad;
-    ctx.beginPath();
-    ctx.ellipse(0, 0, diskW, diskH, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    const diskGrad2 = ctx.createLinearGradient(-diskW * 0.7, 0, diskW * 0.7, 0);
-    if (isLight) {
-      diskGrad2.addColorStop(0,    'rgba(254,240,138,0)');
-      diskGrad2.addColorStop(0.5,  'rgba(255,255,255,0.25)');
-      diskGrad2.addColorStop(1,    'rgba(254,240,138,0)');
+    // beaming overlay
+    ctx.globalCompositeOperation = 'screen';
+    const beamGrad = ctx.createLinearGradient(-dw, 0, dw, 0);
+    if (!isLight) {
+      beamGrad.addColorStop(0,    'rgba(255,200,100,0.25)');
+      beamGrad.addColorStop(0.3,  'rgba(255,180,80,0.08)');
+      beamGrad.addColorStop(0.7,  'rgba(255,150,60,0.08)');
+      beamGrad.addColorStop(1,    'rgba(200,80,20,0.18)');
     } else {
-      diskGrad2.addColorStop(0,    'rgba(120,60,255,0)');
-      diskGrad2.addColorStop(0.5,  'rgba(180,80,255,0.22)');
-      diskGrad2.addColorStop(1,    'rgba(120,60,255,0)');
+      beamGrad.addColorStop(0,    'rgba(255,255,255,0.2)');
+      beamGrad.addColorStop(0.5,  'rgba(255,255,255,0)');
+      beamGrad.addColorStop(1,    'rgba(255,255,255,0)');
     }
-    ctx.fillStyle = diskGrad2;
     ctx.beginPath();
-    ctx.ellipse(0, 0, diskW * 0.7, diskH * 0.55, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, dw, dh, 0, 0, Math.PI * 2);
+    ctx.fillStyle = beamGrad;
     ctx.fill();
+    ctx.globalCompositeOperation = 'source-over';
+
+    // inner hot ring
+    const innerRing = ctx.createRadialGradient(0, 0, bhR * 1.1, 0, 0, bhR * 1.6);
+    if (isLight) {
+      innerRing.addColorStop(0, 'rgba(255,255,255,0.5)');
+      innerRing.addColorStop(1, 'rgba(254,240,138,0)');
+    } else {
+      innerRing.addColorStop(0, 'rgba(255,255,220,0.55)');
+      innerRing.addColorStop(1, 'rgba(255,180,60,0)');
+    }
+    ctx.beginPath();
+    ctx.ellipse(0, 0, bhR * 1.6, dh * 1.6, 0, 0, Math.PI * 2);
+    ctx.fillStyle = innerRing;
+    ctx.fill();
+
     ctx.restore();
+  }
 
-    // ── Orbiting particles ────────────────────────────────────
-    const front = [], back = [];
-    particles.forEach(p => {
-      const y = cy + Math.sin(p.angle) * p.r * p.tiltX;
-      (y < cy ? back : front).push(p);
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+    const BH_R = Math.min(W, H) * 0.068;
+    const PHOTON_R = BH_R * 1.52;
+
+    // space background
+    ctx.fillStyle = isLight ? '#f8faff' : '#000';
+    ctx.fillRect(0, 0, W, H);
+
+    if (!isLight) {
+      // nebula haze
+      const nebula = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.55);
+      nebula.addColorStop(0,    'rgba(20,5,50,0.35)');
+      nebula.addColorStop(0.45, 'rgba(10,2,25,0.15)');
+      nebula.addColorStop(1,    'rgba(0,0,0,0)');
+      ctx.fillStyle = nebula;
+      ctx.fillRect(0, 0, W, H);
+
+      // star field
+      ctx.fillStyle = 'rgba(255,255,255,0.6)';
+      for (let i = 0; i < 80; i++) {
+        const sx = ((i * 137.508) % 1) * W;
+        const sy = ((i * 97.431) % 1) * H;
+        const sr = 0.3 + (i % 3) * 0.3;
+        if (Math.sqrt((sx - cx) ** 2 + (sy - cy) ** 2) > BH_R * 2.5) {
+          ctx.fillRect(sx, sy, sr, sr);
+        }
+      }
+    }
+
+    // Einstein ring halos
+    const haloRadii  = [BH_R * 3.8, BH_R * 3.2, BH_R * 2.6, BH_R * 2.1];
+    const haloAlphas = isLight ? [0.06, 0.09, 0.12, 0.16] : [0.05, 0.08, 0.11, 0.15];
+    haloRadii.forEach((r, i) => {
+      const halo = ctx.createRadialGradient(cx, cy, r - 18, cx, cy, r + 18);
+      const col  = isLight ? '245,158,11' : '100,80,255';
+      halo.addColorStop(0,   'rgba(' + col + ',0)');
+      halo.addColorStop(0.5, 'rgba(' + col + ',' + haloAlphas[i] + ')');
+      halo.addColorStop(1,   'rgba(' + col + ',0)');
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.strokeStyle = halo;
+      ctx.lineWidth = 28;
+      ctx.stroke();
     });
-    back.forEach(p  => { p.update(); p.draw(isLight); });
 
-    // ── Singularity core ──────────────────────────────────────
-    const bhR = 46;
-    const psGlow = ctx.createRadialGradient(cx, cy, bhR * 0.6, cx, cy, bhR * 1.8);
-    if (isLight) {
-      psGlow.addColorStop(0,   'rgba(254,240,138,0.5)');
-      psGlow.addColorStop(0.4, 'rgba(253,224,71,0.2)');
-      psGlow.addColorStop(1,   'rgba(240,240,250,0)');
-    } else {
-      psGlow.addColorStop(0,   'rgba(120,60,255,0.5)');
-      psGlow.addColorStop(0.4, 'rgba(80,20,200,0.2)');
-      psGlow.addColorStop(1,   'rgba(0,0,0,0)');
-    }
-    ctx.fillStyle = psGlow;
-    ctx.beginPath();
-    ctx.arc(cx, cy, bhR * 1.8, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(cx, cy, bhR + 5, 0, Math.PI * 2);
-    ctx.strokeStyle = isLight ? 'rgba(254,240,138,0.8)' : 'rgba(200,140,255,0.55)';
-    ctx.lineWidth = isLight ? 2 : 3;
-    ctx.stroke();
-
-    const core = ctx.createRadialGradient(cx - bhR * 0.2, cy - bhR * 0.2, 0, cx, cy, bhR);
-    if (isLight) {
-      core.addColorStop(0,   'rgba(255,255,255,1)');
-      core.addColorStop(0.6, 'rgba(254,240,138,1)');
-      core.addColorStop(1,   'rgba(253,224,71,1)');
-    } else {
-      core.addColorStop(0,   'rgba(30,10,60,1)');
-      core.addColorStop(0.6, 'rgba(0,0,0,1)');
-      core.addColorStop(1,   'rgba(0,0,0,1)');
-    }
-    ctx.fillStyle = core;
-    ctx.beginPath();
-    ctx.arc(cx, cy, bhR, 0, Math.PI * 2);
-    ctx.fill();
-
-    front.forEach(p => { p.update(); p.draw(isLight); });
-
-    // ── Polar jets ───────────────────────────────────────────
-    const jetLen = H * 0.38;
-    const jetW = 6 + Math.sin(Date.now() * 0.003) * 3;
-    [[cx, cy - bhR, cx, cy - bhR - jetLen], [cx, cy + bhR, cx, cy + bhR + jetLen]].forEach(([x1, y1, x2, y2]) => {
-      const jet = ctx.createLinearGradient(x1, y1, x2, y2);
+    // photon ring
+    {
+      const pg = ctx.createRadialGradient(cx, cy, PHOTON_R - 16, cx, cy, PHOTON_R + 16);
       if (isLight) {
-        jet.addColorStop(0,   'rgba(245,158,11,0.35)');
-        jet.addColorStop(0.5, 'rgba(251,191,36,0.12)');
+        pg.addColorStop(0,    'rgba(253,224,71,0)');
+        pg.addColorStop(0.35, 'rgba(254,240,138,0.7)');
+        pg.addColorStop(0.5,  'rgba(255,255,255,0.95)');
+        pg.addColorStop(0.65, 'rgba(254,240,138,0.7)');
+        pg.addColorStop(1,    'rgba(253,224,71,0)');
+      } else {
+        pg.addColorStop(0,    'rgba(255,160,40,0)');
+        pg.addColorStop(0.3,  'rgba(255,200,80,0.5)');
+        pg.addColorStop(0.5,  'rgba(255,255,220,0.95)');
+        pg.addColorStop(0.7,  'rgba(255,200,80,0.5)');
+        pg.addColorStop(1,    'rgba(255,160,40,0)');
+      }
+      ctx.beginPath();
+      ctx.arc(cx, cy, PHOTON_R, 0, Math.PI * 2);
+      ctx.strokeStyle = pg;
+      ctx.lineWidth = 28;
+      ctx.stroke();
+    }
+
+    // accretion disk
+    diskAngle += 0.003;
+    drawDiskHalf(BH_R);
+
+    // debris particles behind BH
+    const behind = [], front = [];
+    debris.forEach(p => {
+      const y = cy + Math.sin(p.angle) * p.r * p.tiltX;
+      if (y < cy) behind.push(p); else front.push(p);
+    });
+    behind.forEach(p => { p.update(); p.draw(); });
+
+    // event horizon glow rim
+    const rimGlow = ctx.createRadialGradient(cx, cy, BH_R * 0.85, cx, cy, BH_R * 1.35);
+    if (isLight) {
+      rimGlow.addColorStop(0,   'rgba(254,240,138,0)');
+      rimGlow.addColorStop(0.5, 'rgba(253,224,71,0.2)');
+      rimGlow.addColorStop(1,   'rgba(245,158,11,0)');
+    } else {
+      rimGlow.addColorStop(0,   'rgba(255,160,40,0)');
+      rimGlow.addColorStop(0.45,'rgba(255,180,80,0.25)');
+      rimGlow.addColorStop(1,   'rgba(255,120,40,0)');
+    }
+    ctx.beginPath();
+    ctx.arc(cx, cy, BH_R * 1.35, 0, Math.PI * 2);
+    ctx.fillStyle = rimGlow;
+    ctx.fill();
+
+    // the black void
+    ctx.beginPath();
+    ctx.arc(cx, cy, BH_R, 0, Math.PI * 2);
+    ctx.fillStyle = isLight ? '#f8faff' : '#000';
+    ctx.fill();
+
+    // front debris
+    front.forEach(p => { p.update(); p.draw(); });
+
+    // polar relativistic jets
+    const jetLen = H * 0.4;
+    const jetPulse = 1 + 0.15 * Math.sin(Date.now() * 0.0025);
+    const jetW = (4 + Math.sin(Date.now() * 0.003) * 2) * jetPulse;
+
+    [
+      [cx, cy - BH_R * 1.05, cx, cy - BH_R * 1.05 - jetLen],
+      [cx, cy + BH_R * 1.05, cx, cy + BH_R * 1.05 + jetLen],
+    ].forEach(function(pair) {
+      var x1 = pair[0], y1 = pair[1], x2 = pair[2], y2 = pair[3];
+      var jet = ctx.createLinearGradient(x1, y1, x2, y2);
+      if (isLight) {
+        jet.addColorStop(0,   'rgba(245,158,11,' + (0.4 * jetPulse) + ')');
+        jet.addColorStop(0.3, 'rgba(251,191,36,' + (0.2 * jetPulse) + ')');
+        jet.addColorStop(0.7, 'rgba(253,224,71,' + (0.08 * jetPulse) + ')');
         jet.addColorStop(1,   'rgba(253,224,71,0)');
       } else {
-        jet.addColorStop(0,   'rgba(160,80,255,0.45)');
-        jet.addColorStop(0.5, 'rgba(100,50,255,0.15)');
+        jet.addColorStop(0,   'rgba(160,80,255,' + (0.5 * jetPulse) + ')');
+        jet.addColorStop(0.25,'rgba(120,50,255,' + (0.3 * jetPulse) + ')');
+        jet.addColorStop(0.6, 'rgba(80,20,200,' + (0.12 * jetPulse) + ')');
         jet.addColorStop(1,   'rgba(60,20,200,0)');
       }
       ctx.strokeStyle = jet;
       ctx.lineWidth = jetW;
+      ctx.lineCap = 'round';
       ctx.beginPath();
       ctx.moveTo(x1, y1);
       ctx.lineTo(x2, y2);
@@ -922,15 +953,10 @@ window.addEventListener('scroll', () => {
     if (running) animId = requestAnimationFrame(render);
   }
 
-  /* ---- IntersectionObserver: only animate when visible ---- */
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
-        if (!running) {
-          running = true;
-          resize();
-          render();
-        }
+        if (!running) { running = true; resize(); render(); }
       } else {
         running = false;
         cancelAnimationFrame(animId);
@@ -938,6 +964,26 @@ window.addEventListener('scroll', () => {
     });
   }, { threshold: 0.05 });
 
-  observer.observe(canvas.closest('.blackhole-section'));
+  var section = canvas.closest('.blackhole-section');
+  if (section) observer.observe(section);
 })();
+
+// ============================================================
+// BACKGROUND PARTICLES (BUBBLES) CUSTOMIZATION
+// ============================================================
+// These are the background bubbles that run from your cursor
+//
+// Settings:
+// - Count: 80 particles
+// - Size: 1.5-4px
+// - Speed: 0.5
+// - Opacity: 0.2-0.6
+// - Mouse repulsion: 100px radius
+// - Glow effect added for attraction
+//
+// To adjust:
+// - More bubbles: increase 80 in the for loop
+// - Bigger bubbles: change this.size range
+// - Faster: increase speedX/speedY values
+// - Stronger mouse effect: increase repulsion radius or force
 

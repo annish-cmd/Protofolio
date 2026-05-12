@@ -679,15 +679,14 @@
           </span>
           <span class="skill-tag">
             <svg viewBox="0 0 24 24" width="14" height="14" fill="#007396">
-              <path
-                d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149" />
+              <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0-.001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82" />
             </svg>
             Java
           </span>
           <span class="skill-tag">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#E44D26" stroke-width="2">
+              <path d="M4 20h16M12 4l8 4v8l-8 4-8-4V8l8-4z"/>
+              <circle cx="12" cy="12" r="3"/>
             </svg>
             Linux
           </span>
@@ -699,31 +698,33 @@
             Git
           </span>
           <span class="skill-tag">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="23 7 16 12 23 17 23 7" />
-              <rect x="1" y="5" width="15" height="14" rx="2" />
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#E44D26" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
             </svg>
             Video Editing
           </span>
           <span class="skill-tag">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="12" cy="12" r="10" />
-              <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01" />
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#6366f1" stroke-width="2">
+              <path d="M12 3v18M3 12h18"/>
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M12 9v-2M12 17v-2M9 12H7M17 12h-2"/>
             </svg>
             UI/UX
           </span>
 
           <span class="skill-tag">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" />
-              <line x1="8" y1="21" x2="16" y2="21" />
-              <line x1="12" y1="17" x2="12" y2="21" />
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#3ddc84" stroke-width="2">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
             IT Support
           </span>
           <span class="skill-tag">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#f59e0b" stroke-width="2">
+              <path d="M9 18h6M10 22h4M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/>
+              <path d="M12 3v2"/>
             </svg>
             Problem Solving
           </span>
@@ -1166,6 +1167,184 @@
     </div>
   </section>
 
+  <!-- ========== BOY TYPING SECTION ========== -->
+  <!--
+    Customization Guide:
+    - Float elements (fe1-fe10): Adjust size via CSS .fe1-.fe10 width/height
+    - Float animation: Modify @keyframes floatEle timing in style.css
+    - Dog position: Change .dog-companion left/bottom values in style.css
+    - Boy character: All parts are in .boy-desk-wrapper > .boy-character
+  -->
+  <section class="boy-typing-section section reveal" id="coding-section">
+    <div class="boy-typing-container">
+      <div class="boy-desk-wrapper">
+        <!-- Floating decorative bubbles - Enhanced with more visibility -->
+        <div class="float-element fe1">
+          <svg viewBox="0 0 24 24" fill="none" width="24" height="24">
+            <polyline points="16 18 22 12 16 6" stroke="var(--primary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="8 6 2 12 8 18" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="float-element fe2">
+          <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="var(--secondary)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="float-element fe3">
+          <svg viewBox="0 0 24 24" fill="none" width="18" height="18">
+            <circle cx="12" cy="12" r="10" stroke="var(--pink)" stroke-width="2.5"/>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2" stroke="var(--pink)" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="9" y1="9" x2="9.01" y2="9" stroke="var(--pink)" stroke-width="2.5" stroke-linecap="round"/>
+            <line x1="15" y1="9" x2="15.01" y2="9" stroke="var(--pink)" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <!-- Additional floating bubbles for extra decoration -->
+        <div class="float-element fe4">
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" stroke="var(--primary)" stroke-width="2" fill="rgba(99,102,241,0.2)"/>
+          </svg>
+        </div>
+        <div class="float-element fe5">
+          <svg viewBox="0 0 24 24" fill="none" width="14" height="14">
+            <rect x="3" y="3" width="18" height="18" rx="2" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M3 9h18M9 21V9" stroke="var(--accent)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="float-element fe6">
+          <svg viewBox="0 0 24 24" fill="none" width="12" height="12">
+            <circle cx="12" cy="12" r="10" stroke="var(--secondary)" stroke-width="2"/>
+            <circle cx="12" cy="12" r="4" stroke="var(--secondary)" stroke-width="2"/>
+            <circle cx="12" cy="12" r="1" fill="var(--secondary)"/>
+          </svg>
+        </div>
+        <div class="float-element fe7">
+          <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+            <path d="M12 3v18M3 12h18" stroke="var(--pink)" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 8l4 4-4 4-4-4 4-4z" fill="rgba(236,72,153,0.3)" stroke="var(--pink)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="float-element fe8">
+          <svg viewBox="0 0 24 24" fill="none" width="15" height="15">
+            <path d="M4 4h16v16H4z" stroke="var(--primary)" stroke-width="2" fill="rgba(99,102,241,0.15)"/>
+            <path d="M8 8h8M8 12h6M8 16h4" stroke="var(--primary)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="float-element fe9">
+          <svg viewBox="0 0 24 24" fill="none" width="13" height="13">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" stroke="var(--secondary)" stroke-width="2" fill="rgba(245,158,11,0.2)"/>
+          </svg>
+        </div>
+        <div class="float-element fe10">
+          <svg viewBox="0 0 24 24" fill="none" width="17" height="17">
+            <circle cx="12" cy="12" r="9" stroke="var(--accent)" stroke-width="2"/>
+            <path d="M9 12l2 2 4-4" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <!-- Main boy typing illustration -->
+        <div class="boy-character">
+          <!-- Chair -->
+          <div class="chair">
+            <div class="chair-back"></div>
+            <div class="chair-seat"></div>
+            <div class="chair-leg chair-leg-l"></div>
+            <div class="chair-leg chair-leg-r"></div>
+          </div>
+
+          <!-- Desk -->
+          <div class="desk">
+            <div class="desk-top"></div>
+            <div class="desk-leg desk-leg-l"></div>
+            <div class="desk-leg desk-leg-r"></div>
+          </div>
+
+          <!-- Laptop on desk -->
+          <div class="laptop">
+            <div class="laptop-screen">
+              <div class="screen-content">
+                <div class="code-line cl1"><span class="code-dot cd1"></span><span class="code-text ct1"></span></div>
+                <div class="code-line cl2"><span class="code-dot cd2"></span><span class="code-text ct2"></span></div>
+                <div class="code-line cl3"><span class="code-dot cd3"></span><span class="code-text ct3"></span></div>
+                <div class="code-line cl4"><span class="code-dot cd4"></span><span class="code-text ct4"></span></div>
+                <div class="code-line cl5"><span class="code-dot cd5"></span><span class="code-text ct5"></span></div>
+              </div>
+              <div class="cursor-blink-screen"></div>
+            </div>
+            <div class="laptop-base"></div>
+          </div>
+
+          <!-- Boy body (torso) -->
+          <div class="boy-torso">
+            <div class="tshirt"></div>
+          </div>
+
+          <!-- Boy head -->
+          <div class="boy-head">
+            <div class="hair"></div>
+            <div class="face">
+              <div class="eyes">
+                <div class="eye eye-l"></div>
+                <div class="eye eye-r"></div>
+              </div>
+              <div class="mouth-smile"></div>
+            </div>
+            <div class="ear ear-l"></div>
+            <div class="ear ear-r"></div>
+          </div>
+
+          <!-- Arms typing -->
+          <div class="arm arm-l">
+            <div class="hand hand-l"></div>
+          </div>
+          <div class="arm arm-r">
+            <div class="hand hand-r"></div>
+          </div>
+        </div>
+
+        <!-- Coffee cup -->
+        <div class="coffee-cup">
+          <div class="cup-body"></div>
+          <div class="cup-steam">
+            <div class="steam s1"></div>
+            <div class="steam s2"></div>
+            <div class="steam s3"></div>
+          </div>
+        </div>
+
+        <!-- Plant decoration -->
+        <div class="plant">
+          <div class="pot"></div>
+          <div class="leaves">
+            <div class="leaf leaf1"></div>
+            <div class="leaf leaf2"></div>
+            <div class="leaf leaf3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text content -->
+      <div class="typing-text-content">
+        <h3 class="typing-heading">Turning <span class="gradient-text">Ideas</span> Into Reality</h3>
+        <p class="typing-desc">Crafting seamless digital experiences through clean, efficient code — one line at a time.</p>
+        <div class="typing-stats">
+          <div class="tstat">
+            <span class="tstat-num gradient-text">2.5K+</span>
+            <span class="tstat-label">Lines Coded</span>
+          </div>
+          <div class="tstat">
+            <span class="tstat-num gradient-text">50+</span>
+            <span class="tstat-label">Commits</span>
+          </div>
+          <div class="tstat">
+            <span class="tstat-num gradient-text">100%</span>
+            <span class="tstat-label">Dedication</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ========== CONTACT SECTION ========== -->
   <section class="contact section" id="contact">
     <div class="section-header reveal">
@@ -1284,7 +1463,7 @@
     <div class="blackhole-text-overlay">
       <span class="bh-label">Drawn into the</span>
       <span class="bh-title gradient-text">Black Hole</span>
-      <span class="bh-sub">Where you think it's End, but it is just starting</span>
+      <span class="bh-sub">When you think it's End, but it is just Beginning</span>
     </div>
     <canvas id="blackholeCanvas"></canvas>
   </section>
