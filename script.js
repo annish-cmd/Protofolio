@@ -52,10 +52,12 @@ function initParticles() {
   let particles = [];
   let mouse = { x: null, y: null };
   let animId;
+  let isMobile = window.innerWidth <= 768;
 
   const resize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    isMobile = window.innerWidth <= 768;
   };
 
   resize();
@@ -72,12 +74,10 @@ function initParticles() {
     reset() {
       this.x = Math.random() * canvas.width;
       this.y = Math.random() * canvas.height;
-      // Slightly bigger bubbles - visible but not too big
-      this.size = Math.random() * 2.5 + 1.5;
-      this.speedX = (Math.random() - 0.5) * 0.5;
-      this.speedY = (Math.random() - 0.5) * 0.5;
-      // Good visibility with subtle transparency
-      this.opacity = Math.random() * 0.4 + 0.2;
+      this.size = Math.random() * 2 + 1;
+      this.speedX = (Math.random() - 0.5) * 0.3;
+      this.speedY = (Math.random() - 0.5) * 0.3;
+      this.opacity = Math.random() * 0.3 + 0.15;
       this.color = Math.random() > 0.5 ? '99,102,241' : '139,92,246';
     }
 
@@ -89,11 +89,10 @@ function initParticles() {
         const dx = this.x - mouse.x;
         const dy = this.y - mouse.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
-        // Mouse repulsion - bubbles run away from cursor
-        if (dist < 100) {
-          const force = (100 - dist) / 100;
-          this.x += (dx / dist) * force * 2;
-          this.y += (dy / dist) * force * 2;
+        if (dist < 80) {
+          const force = (80 - dist) / 80;
+          this.x += (dx / dist) * force * 1.5;
+          this.y += (dy / dist) * force * 1.5;
         }
       }
 
@@ -102,26 +101,21 @@ function initParticles() {
     }
 
     draw() {
-      // Main bubble
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${this.color},${this.opacity})`;
       ctx.fill();
-
-      // Subtle glow for attraction
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size + 1, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${this.color},${this.opacity * 0.15})`;
-      ctx.fill();
     }
   }
 
-  // Moderate count - enough to be attractive but not overwhelming
-  for (let i = 0; i < 80; i++) {
+  // Fewer particles on mobile for better performance
+  const particleCount = isMobile ? 25 : 50;
+  for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle());
   }
 
   function drawConnections() {
+    if (isMobile) return; // Skip connections on mobile
     for (let i = 0; i < particles.length; i++) {
       const p1 = particles[i];
       for (let j = i + 1; j < particles.length; j++) {
@@ -129,12 +123,12 @@ function initParticles() {
         const dx = p1.x - p2.x;
         const dy = p1.y - p2.y;
         const distSq = dx * dx + dy * dy;
-        if (distSq < 10000) { // 100 * 100
+        if (distSq < 10000) {
           const dist = Math.sqrt(distSq);
           ctx.beginPath();
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(99,102,241,${0.08 * (1 - dist / 100)})`;
+          ctx.strokeStyle = `rgba(99,102,241,${0.06 * (1 - dist / 100)})`;
           ctx.lineWidth = 0.5;
           ctx.stroke();
         }
@@ -671,6 +665,7 @@ window.addEventListener('scroll', () => {
   const ctx = canvas.getContext('2d');
   let W, H, cx, cy, running = false, animId;
   let isLight = false;
+  let isMobile = false;
   let diskAngle = 0;
 
   /* resize */
@@ -679,6 +674,7 @@ window.addEventListener('scroll', () => {
     H = canvas.height = canvas.offsetHeight;
     cx = W / 2;
     cy = H / 2;
+    isMobile = window.innerWidth <= 768;
   }
   window.addEventListener('resize', () => { resize(); });
   resize();
@@ -689,8 +685,8 @@ window.addEventListener('scroll', () => {
   });
   themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  /* orbital debris — 600 particles */
-  const NUM_DEBRIS = 600;
+  /* orbital debris - reduced for mobile */
+  const NUM_DEBRIS = isMobile ? 80 : 200;
   const debris = [];
 
   class Debris {
@@ -702,10 +698,10 @@ window.addEventListener('scroll', () => {
       this.r = init ? minR + Math.random() * (maxR - minR) : maxR * (0.4 + Math.random() * 0.6);
       this.speed = 0.004 + 0.016 / (this.r / 60);
       if (Math.random() > 0.5) this.speed = -this.speed;
-      this.size = 0.4 + Math.random() * 1.8;
+      this.size = 0.4 + Math.random() * 1.4;
       this.tiltX = 0.32 + Math.random() * 0.12;
       this.trail = [];
-      this.trailLen = 5 + Math.floor(Math.random() * 8);
+      this.trailLen = isMobile ? 3 : (5 + Math.floor(Math.random() * 5));
     }
 
     update() {
@@ -823,17 +819,20 @@ window.addEventListener('scroll', () => {
     ctx.fillRect(0, 0, W, H);
 
     if (!isLight) {
-      // nebula haze
-      const nebula = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.55);
-      nebula.addColorStop(0,    'rgba(20,5,50,0.35)');
-      nebula.addColorStop(0.45, 'rgba(10,2,25,0.15)');
-      nebula.addColorStop(1,    'rgba(0,0,0,0)');
-      ctx.fillStyle = nebula;
-      ctx.fillRect(0, 0, W, H);
+      // nebula haze - simplified for mobile
+      if (!isMobile) {
+        const nebula = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(W, H) * 0.55);
+        nebula.addColorStop(0,    'rgba(20,5,50,0.35)');
+        nebula.addColorStop(0.45, 'rgba(10,2,25,0.15)');
+        nebula.addColorStop(1,    'rgba(0,0,0,0)');
+        ctx.fillStyle = nebula;
+        ctx.fillRect(0, 0, W, H);
+      }
 
-      // star field
+      // star field - reduced on mobile
       ctx.fillStyle = 'rgba(255,255,255,0.6)';
-      for (let i = 0; i < 80; i++) {
+      const starCount = isMobile ? 20 : 80;
+      for (let i = 0; i < starCount; i++) {
         const sx = ((i * 137.508) % 1) * W;
         const sy = ((i * 97.431) % 1) * H;
         const sr = 0.3 + (i % 3) * 0.3;
@@ -843,9 +842,10 @@ window.addEventListener('scroll', () => {
       }
     }
 
-    // Einstein ring halos
-    const haloRadii  = [BH_R * 3.8, BH_R * 3.2, BH_R * 2.6, BH_R * 2.1];
-    const haloAlphas = isLight ? [0.06, 0.09, 0.12, 0.16] : [0.05, 0.08, 0.11, 0.15];
+    // Einstein ring halos - reduced on mobile
+    const haloCount = isMobile ? 2 : 4;
+    const haloRadii  = isMobile ? [BH_R * 3.8, BH_R * 2.6] : [BH_R * 3.8, BH_R * 3.2, BH_R * 2.6, BH_R * 2.1];
+    const haloAlphas = isLight ? (isMobile ? [0.08, 0.14] : [0.06, 0.09, 0.12, 0.16]) : (isMobile ? [0.07, 0.13] : [0.05, 0.08, 0.11, 0.15]);
     haloRadii.forEach((r, i) => {
       const halo = ctx.createRadialGradient(cx, cy, r - 18, cx, cy, r + 18);
       const col  = isLight ? '245,158,11' : '100,80,255';
@@ -855,13 +855,13 @@ window.addEventListener('scroll', () => {
       ctx.beginPath();
       ctx.arc(cx, cy, r, 0, Math.PI * 2);
       ctx.strokeStyle = halo;
-      ctx.lineWidth = 28;
+      ctx.lineWidth = isMobile ? 16 : 28;
       ctx.stroke();
     });
 
     // photon ring
     {
-      const pg = ctx.createRadialGradient(cx, cy, PHOTON_R - 16, cx, cy, PHOTON_R + 16);
+      const pg = ctx.createRadialGradient(cx, cy, PHOTON_R - (isMobile ? 10 : 16), cx, cy, PHOTON_R + (isMobile ? 10 : 16));
       if (isLight) {
         pg.addColorStop(0,    'rgba(253,224,71,0)');
         pg.addColorStop(0.35, 'rgba(254,240,138,0.7)');
@@ -878,7 +878,7 @@ window.addEventListener('scroll', () => {
       ctx.beginPath();
       ctx.arc(cx, cy, PHOTON_R, 0, Math.PI * 2);
       ctx.strokeStyle = pg;
-      ctx.lineWidth = 28;
+      ctx.lineWidth = isMobile ? 16 : 28;
       ctx.stroke();
     }
 
@@ -919,36 +919,31 @@ window.addEventListener('scroll', () => {
     // front debris
     front.forEach(p => { p.update(); p.draw(); });
 
-    // polar relativistic jets
-    const jetLen = H * 0.4;
-    const jetPulse = 1 + 0.15 * Math.sin(Date.now() * 0.0025);
-    const jetW = (4 + Math.sin(Date.now() * 0.003) * 2) * jetPulse;
+    // polar relativistic jets - simplified on mobile
+    if (!isMobile) {
+      const jetLen = H * 0.4;
+      const jetPulse = 1 + 0.15 * Math.sin(Date.now() * 0.0025);
+      const jetW = (4 + Math.sin(Date.now() * 0.003) * 2) * jetPulse;
 
-    [
-      [cx, cy - BH_R * 1.05, cx, cy - BH_R * 1.05 - jetLen],
-      [cx, cy + BH_R * 1.05, cx, cy + BH_R * 1.05 + jetLen],
-    ].forEach(function(pair) {
-      var x1 = pair[0], y1 = pair[1], x2 = pair[2], y2 = pair[3];
-      var jet = ctx.createLinearGradient(x1, y1, x2, y2);
-      if (isLight) {
-        jet.addColorStop(0,   'rgba(245,158,11,' + (0.4 * jetPulse) + ')');
-        jet.addColorStop(0.3, 'rgba(251,191,36,' + (0.2 * jetPulse) + ')');
-        jet.addColorStop(0.7, 'rgba(253,224,71,' + (0.08 * jetPulse) + ')');
-        jet.addColorStop(1,   'rgba(253,224,71,0)');
-      } else {
+      [
+        [cx, cy - BH_R * 1.05, cx, cy - BH_R * 1.05 - jetLen],
+        [cx, cy + BH_R * 1.05, cx, cy + BH_R * 1.05 + jetLen],
+      ].forEach(function(pair) {
+        var x1 = pair[0], y1 = pair[1], x2 = pair[2], y2 = pair[3];
+        var jet = ctx.createLinearGradient(x1, y1, x2, y2);
         jet.addColorStop(0,   'rgba(160,80,255,' + (0.5 * jetPulse) + ')');
         jet.addColorStop(0.25,'rgba(120,50,255,' + (0.3 * jetPulse) + ')');
         jet.addColorStop(0.6, 'rgba(80,20,200,' + (0.12 * jetPulse) + ')');
         jet.addColorStop(1,   'rgba(60,20,200,0)');
-      }
-      ctx.strokeStyle = jet;
-      ctx.lineWidth = jetW;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(x1, y1);
-      ctx.lineTo(x2, y2);
-      ctx.stroke();
-    });
+        ctx.strokeStyle = jet;
+        ctx.lineWidth = jetW;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      });
+    }
 
     if (running) animId = requestAnimationFrame(render);
   }

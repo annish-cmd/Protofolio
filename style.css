@@ -475,32 +475,32 @@ textarea {
 .orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.15;
+  filter: blur(60px);
+  opacity: 0.12;
   animation: orbFloat 8s ease-in-out infinite;
 }
 
 .orb1 {
-  width: 500px;
-  height: 500px;
+  width: 350px;
+  height: 350px;
   background: radial-gradient(circle, #6366f1, transparent);
-  top: -100px;
-  right: -100px;
+  top: -80px;
+  right: -80px;
   animation-delay: 0s;
 }
 
 .orb2 {
-  width: 400px;
-  height: 400px;
+  width: 280px;
+  height: 280px;
   background: radial-gradient(circle, #ec4899, transparent);
-  bottom: -50px;
-  left: -50px;
+  bottom: -40px;
+  left: -40px;
   animation-delay: -3s;
 }
 
 .orb3 {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   background: radial-gradient(circle, #10b981, transparent);
   top: 50%;
   left: 40%;
@@ -2145,6 +2145,37 @@ textarea {
 }
 
 /* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .hero-bg-orbs {
+    opacity: 0.08;
+  }
+
+  .orb1 {
+    width: 200px;
+    height: 200px;
+    top: -50px;
+    right: -50px;
+  }
+
+  .orb2 {
+    width: 160px;
+    height: 160px;
+    bottom: -30px;
+    left: -30px;
+  }
+
+  .orb3 {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    left: 30%;
+  }
+
+  #particleCanvas {
+    opacity: 0.2;
+  }
+}
+
 @media (max-width: 1100px) {
   .projects-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -2279,6 +2310,31 @@ textarea {
 
   .testimonial-card {
     padding: 28px;
+  }
+
+  /* Extra small screens - further reduce orbs */
+  .hero-bg-orbs {
+    opacity: 0.06;
+  }
+
+  .orb1 {
+    width: 150px;
+    height: 150px;
+  }
+
+  .orb2 {
+    width: 120px;
+    height: 120px;
+  }
+
+  .orb3 {
+    width: 80px;
+    height: 80px;
+  }
+
+  /* Hide some float elements on very small screens */
+  .fe4, .fe6, .fe8, .fe9 {
+    display: none;
   }
 }
 
@@ -3102,6 +3158,18 @@ textarea {
   .typing-stats {
     justify-content: center;
   }
+
+  /* Mobile float elements - reduced sizes */
+  .fe1 { width: 36px; height: 36px; }
+  .fe2 { width: 30px; height: 30px; }
+  .fe3 { width: 28px; height: 28px; }
+  .fe4 { width: 26px; height: 26px; }
+  .fe5 { width: 24px; height: 24px; }
+  .fe6 { width: 22px; height: 22px; }
+  .fe7 { width: 28px; height: 28px; }
+  .fe8 { width: 20px; height: 20px; }
+  .fe9 { width: 18px; height: 18px; }
+  .fe10 { width: 24px; height: 24px; }
 }
 
 @media (max-width: 600px) {
