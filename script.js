@@ -5,13 +5,22 @@
 
 'use strict';
 
-// ---- DOM READY ----
-document.addEventListener('DOMContentLoaded', () => {
+// ---- APP STARTUP ----
+let appInitialized = false;
+
+function initApp() {
+  if (appInitialized) return;
+  if (!document.getElementById('navbar')) {
+    requestAnimationFrame(initApp);
+    return;
+  }
+  appInitialized = true;
+
   // Scroll to top on every page refresh/load
   window.scrollTo(0, 0);
+  initNavbar();
   initPreloader();
   initParticles();
-  initNavbar();
   initTypedText();
   initRevealOnScroll();
   initSkillBars();
@@ -22,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initBackToTop();
   initThemeToggle();
   initSmoothHover();
-});
+}
+
+initApp();
 
 // ============================================================
 // 1. PRELOADER
@@ -231,6 +242,8 @@ function initNavbar() {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         const scrollY = window.scrollY;
+        navbar.classList.toggle('scrolled', scrollY > 24);
+        updateActiveLink();
         orbs.forEach((orb, i) => {
           const speed = 0.05 + i * 0.03;
           orb.style.transform = `translateY(${scrollY * speed}px)`;
@@ -241,10 +254,15 @@ function initNavbar() {
     }
   });
 
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-  });
+  navbar.classList.toggle('scrolled', window.scrollY > 24);
+  updateActiveLink();
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  }
 
   links.forEach(link => {
     link.addEventListener('click', () => {
@@ -255,21 +273,18 @@ function initNavbar() {
 
   function updateActiveLink() {
     const sections = document.querySelectorAll('section[id]');
-    const scrollY = window.scrollY + 100;
+    const scrollY = window.scrollY + navbar.offsetHeight + 24;
+    let activeLink = document.querySelector('.nav-link[href="#home"]');
 
     sections.forEach(section => {
       const top = section.offsetTop;
-      const height = section.offsetHeight;
       const id = section.getAttribute('id');
       const link = document.querySelector(`.nav-link[href="#${id}"]`);
 
-      if (link) {
-        if (scrollY >= top && scrollY < top + height) {
-          links.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-        }
-      }
+      if (link && scrollY >= top) activeLink = link;
     });
+
+    links.forEach(link => link.classList.toggle('active', link === activeLink));
   }
 }
 

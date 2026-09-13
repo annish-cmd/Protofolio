@@ -1522,8 +1522,43 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script src="script.js"></script>
-</body>
-
   <!-- Custom Cursor -->
   <div class="cursor" aria-hidden="true"></div>
   <div class="cursor-follower" aria-hidden="true"></div>
+
+  <script>
+    (() => {
+      const setupNavbarScroll = () => {
+        const navbar = document.getElementById('navbar');
+        const links = [...document.querySelectorAll('.nav-link')];
+        const sections = [...document.querySelectorAll('section[id]')];
+        if (!navbar || !links.length || !sections.length || navbar.dataset.scrollReady) return;
+
+        navbar.dataset.scrollReady = 'true';
+        const updateNavbar = () => {
+          const marker = window.scrollY + navbar.offsetHeight + 24;
+          let activeId = 'home';
+
+          sections.forEach(section => {
+            if (marker >= section.offsetTop) activeId = section.id;
+          });
+
+          links.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === `#${activeId}`);
+          });
+          navbar.classList.toggle('scrolled', window.scrollY > 24);
+        };
+
+        window.addEventListener('scroll', updateNavbar, { passive: true });
+        window.addEventListener('resize', updateNavbar, { passive: true });
+        updateNavbar();
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupNavbarScroll, { once: true });
+      } else {
+        setupNavbarScroll();
+      }
+    })();
+  </script>
+</body>
