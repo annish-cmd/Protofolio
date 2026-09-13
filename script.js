@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.scrollTo(0, 0);
   initPreloader();
   initParticles();
-  initCursor();
   initNavbar();
   initTypedText();
   initRevealOnScroll();
@@ -197,13 +196,22 @@ function initNavbar() {
   const navLinks = document.getElementById('navLinks');
   const links = document.querySelectorAll('.nav-link');
 
+  // Optimized parallax scroll
+  const orbs = document.querySelectorAll('.orb');
+  let ticking = false;
+  
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 30) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        orbs.forEach((orb, i) => {
+          const speed = 0.05 + i * 0.03;
+          orb.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
     }
-    updateActiveLink();
   });
 
   hamburger.addEventListener('click', () => {

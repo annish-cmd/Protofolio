@@ -68,7 +68,7 @@ body {
   color: var(--text);
   line-height: 1.7;
   overflow-x: hidden;
-  cursor: none;
+  cursor: auto;
   transition: background 0.4s ease, color 0.4s ease;
 }
 
@@ -87,7 +87,7 @@ img {
 }
 
 button {
-  cursor: none;
+  cursor: auto;
   border: none;
   background: none;
   font-family: inherit;
@@ -113,30 +113,9 @@ textarea {
 }
 
 /* ---- CUSTOM CURSOR ---- */
-.cursor {
-  width: 12px;
-  height: 12px;
-  background: var(--primary);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s, height 0.3s, background 0.3s;
-  mix-blend-mode: normal;
-}
 
-.cursor-follower {
-  width: 36px;
-  height: 36px;
-  border: 2px solid rgba(99, 102, 241, 0.5);
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  /* No hover effect - cursor stays same size */
-}
+
+
 
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
   .cursor, .cursor-follower {
@@ -392,7 +371,7 @@ textarea {
   justify-content: center;
   color: var(--text-muted);
   transition: all var(--transition);
-  cursor: none;
+  cursor: auto;
 }
 
 .theme-toggle:hover {
@@ -429,7 +408,7 @@ textarea {
   flex-direction: column;
   gap: 5px;
   width: 30px;
-  cursor: none;
+  cursor: auto;
 }
 
 .hamburger span {
@@ -705,7 +684,7 @@ textarea {
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
-  cursor: none;
+  cursor: auto;
 }
 
 .btn::before {
@@ -1438,7 +1417,7 @@ textarea {
   background: var(--surface);
   border: 1px solid var(--border);
   transition: all var(--transition);
-  cursor: none;
+  cursor: auto;
 }
 
 .filter-btn:hover,
@@ -1700,7 +1679,7 @@ textarea {
   justify-content: center;
   color: var(--text-muted);
   transition: all var(--transition);
-  cursor: none;
+  cursor: auto;
 }
 
 .testi-btn:hover {
@@ -1720,7 +1699,7 @@ textarea {
   border-radius: 100px;
   background: var(--surface2);
   border: none;
-  cursor: none;
+  cursor: auto;
   transition: all var(--transition);
 }
 
@@ -2023,7 +2002,7 @@ textarea {
   pointer-events: none;
   transform: translateY(20px);
   transition: all var(--transition);
-  cursor: none;
+  cursor: auto;
 }
 
 .back-to-top.visible {
