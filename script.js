@@ -166,25 +166,52 @@ function initCursor() {
   }
   if (!cursor || !follower) return;
 
-  let mouseX = 0, mouseY = 0;
-  let followerX = 0, followerY = 0;
+  let pointerX = window.innerWidth / 2;
+  let pointerY = window.innerHeight / 2;
+  let cursorX = pointerX;
+  let cursorY = pointerY;
+  let followerX = pointerX;
+  let followerY = pointerY;
+  let frameId = 0;
 
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+  const render = () => {
+    cursorX += (pointerX - cursorX) * 0.42;
+    cursorY += (pointerY - cursorY) * 0.42;
+    followerX += (pointerX - followerX) * 0.16;
+    followerY += (pointerY - followerY) * 0.16;
+
+    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
+    follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
+    frameId = requestAnimationFrame(render);
+  };
+
+  const move = (event) => {
+    pointerX = event.clientX;
+    pointerY = event.clientY;
+    document.body.classList.add('cursor-ready');
+  };
+
+  document.addEventListener('pointermove', move, { passive: true });
+  document.addEventListener('pointerdown', () => document.body.classList.add('cursor-pressed'));
+  document.addEventListener('pointerup', () => document.body.classList.remove('cursor-pressed'));
+  document.addEventListener('pointerenter', () => document.body.classList.remove('cursor-hidden'));
+  document.addEventListener('pointerleave', () => document.body.classList.add('cursor-hidden'));
+
+  document.querySelectorAll('a, button, input, textarea, select, [role="button"]').forEach((element) => {
+    element.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
+    element.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
   });
 
-  function animateFollower() {
-    // Increased lerp factor from 0.15 to 0.25 for snappier follow
-    followerX += (mouseX - followerX) * 0.25;
-    followerY += (mouseY - followerY) * 0.25;
-    follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
-    requestAnimationFrame(animateFollower);
-  }
-  animateFollower();
+  window.addEventListener('scroll', () => {
+    document.body.classList.add('cursor-scrolling');
+    window.clearTimeout(window.cursorScrollTimer);
+    window.cursorScrollTimer = window.setTimeout(() => {
+      document.body.classList.remove('cursor-scrolling');
+    }, 120);
+  }, { passive: true });
 
-  // Simple cursor - no hover effect on links/buttons
+  frameId = requestAnimationFrame(render);
+  window.addEventListener('pagehide', () => cancelAnimationFrame(frameId), { once: true });
 }
 
 // ============================================================
@@ -652,19 +679,7 @@ function initSmoothHover() {
 }
 
 // ============================================================
-// 15. SECTION BACKGROUND PARALLAX
-// ============================================================
-window.addEventListener('scroll', () => {
-  const orbs = document.querySelectorAll('.orb');
-  const scrollY = window.scrollY;
-  orbs.forEach((orb, i) => {
-    const speed = 0.05 + i * 0.03;
-    orb.style.transform = `translateY(${scrollY * speed}px)`;
-  });
-});
-
-// ============================================================
-// 16. INTERSTELLAR BLACK HOLE
+// 15. INTERSTELLAR BLACK HOLE
 // ============================================================
 (function initBlackHole() {
   const canvas = document.getElementById('blackholeCanvas');

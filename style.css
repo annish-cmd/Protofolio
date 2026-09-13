@@ -87,7 +87,7 @@ img {
 }
 
 button {
-  cursor: auto;
+  cursor: pointer;
   border: none;
   background: none;
   font-family: inherit;
@@ -116,6 +116,63 @@ textarea {
 
 
 
+.cursor,
+.cursor-follower {
+  display: none !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 11000;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
+  will-change: transform, opacity, width, height, border-color, background-color;
+  transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease,
+    background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.cursor {
+  width: 7px;
+  height: 7px;
+  background: var(--secondary);
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.75);
+}
+
+.cursor-follower {
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(245, 158, 11, 0.72);
+  background: rgba(245, 158, 11, 0.08);
+  mix-blend-mode: difference;
+}
+
+.cursor-ready .cursor,
+.cursor-ready .cursor-follower {
+  opacity: 1;
+}
+
+.cursor-hover .cursor-follower {
+  width: 52px;
+  height: 52px;
+  border-color: var(--secondary);
+  background: rgba(245, 158, 11, 0.18);
+}
+
+.cursor-pressed .cursor {
+  opacity: 0.7;
+}
+
+.cursor-scrolling .cursor-follower {
+  width: 42px;
+  height: 42px;
+  border-color: var(--primary-light);
+}
+
+.cursor-hidden .cursor,
+.cursor-hidden .cursor-follower {
+  opacity: 0;
+}
 
 @media (hover: none) and (pointer: coarse), (max-width: 768px) {
   .cursor, .cursor-follower {
@@ -371,7 +428,7 @@ textarea {
   justify-content: center;
   color: var(--text-muted);
   transition: all var(--transition);
-  cursor: auto;
+  cursor: pointer;
 }
 
 .theme-toggle:hover {
@@ -408,7 +465,7 @@ textarea {
   flex-direction: column;
   gap: 5px;
   width: 30px;
-  cursor: auto;
+  cursor: pointer;
 }
 
 .hamburger span {
@@ -684,7 +741,7 @@ textarea {
   transition: all var(--transition);
   position: relative;
   overflow: hidden;
-  cursor: auto;
+  cursor: pointer;
 }
 
 .btn::before {
@@ -1417,7 +1474,7 @@ textarea {
   background: var(--surface);
   border: 1px solid var(--border);
   transition: all var(--transition);
-  cursor: auto;
+  cursor: pointer;
 }
 
 .filter-btn:hover,
@@ -1679,7 +1736,7 @@ textarea {
   justify-content: center;
   color: var(--text-muted);
   transition: all var(--transition);
-  cursor: auto;
+  cursor: pointer;
 }
 
 .testi-btn:hover {
@@ -1699,7 +1756,7 @@ textarea {
   border-radius: 100px;
   background: var(--surface2);
   border: none;
-  cursor: auto;
+  cursor: pointer;
   transition: all var(--transition);
 }
 
@@ -2002,7 +2059,7 @@ textarea {
   pointer-events: none;
   transform: translateY(20px);
   transition: all var(--transition);
-  cursor: auto;
+  cursor: pointer;
 }
 
 .back-to-top.visible {
