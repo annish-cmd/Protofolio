@@ -321,7 +321,7 @@ function initCounters() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const el = entry.target;
-        const target = parseInt(el.getAttribute('data-target'));
+        const target = parseFloat(el.getAttribute('data-target'));
         let current = 0;
         const step = target / 50;
         const interval = setInterval(() => {
