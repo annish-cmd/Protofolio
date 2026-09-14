@@ -31,6 +31,7 @@ function initApp() {
   initBackToTop();
   initThemeToggle();
   initSmoothHover();
+  initProjectActions();
 }
 
 initApp();
@@ -157,76 +158,7 @@ function initParticles() {
 }
 
 // ============================================================
-// 3. CUSTOM CURSOR
-// ============================================================
-function initCursor() {
-  const cursor = document.querySelector('.cursor');
-  const follower = document.querySelector('.cursor-follower');
-
-  // Disable custom cursor on touch devices for better performance and usability
-  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches || window.innerWidth <= 768) {
-    if (cursor) cursor.style.display = 'none';
-    if (follower) follower.style.display = 'none';
-    document.body.style.cursor = 'auto';
-    
-    // reset cursor for hoverables as well
-    const style = document.createElement('style');
-    style.innerHTML = 'body * { cursor: auto !important; }';
-    document.head.appendChild(style);
-    return;
-  }
-  if (!cursor || !follower) return;
-
-  let pointerX = window.innerWidth / 2;
-  let pointerY = window.innerHeight / 2;
-  let cursorX = pointerX;
-  let cursorY = pointerY;
-  let followerX = pointerX;
-  let followerY = pointerY;
-  let frameId = 0;
-
-  const render = () => {
-    cursorX += (pointerX - cursorX) * 0.42;
-    cursorY += (pointerY - cursorY) * 0.42;
-    followerX += (pointerX - followerX) * 0.16;
-    followerY += (pointerY - followerY) * 0.16;
-
-    cursor.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-    follower.style.transform = `translate3d(${followerX}px, ${followerY}px, 0) translate(-50%, -50%)`;
-    frameId = requestAnimationFrame(render);
-  };
-
-  const move = (event) => {
-    pointerX = event.clientX;
-    pointerY = event.clientY;
-    document.body.classList.add('cursor-ready');
-  };
-
-  document.addEventListener('pointermove', move, { passive: true });
-  document.addEventListener('pointerdown', () => document.body.classList.add('cursor-pressed'));
-  document.addEventListener('pointerup', () => document.body.classList.remove('cursor-pressed'));
-  document.addEventListener('pointerenter', () => document.body.classList.remove('cursor-hidden'));
-  document.addEventListener('pointerleave', () => document.body.classList.add('cursor-hidden'));
-
-  document.querySelectorAll('a, button, input, textarea, select, [role="button"]').forEach((element) => {
-    element.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover'));
-    element.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover'));
-  });
-
-  window.addEventListener('scroll', () => {
-    document.body.classList.add('cursor-scrolling');
-    window.clearTimeout(window.cursorScrollTimer);
-    window.cursorScrollTimer = window.setTimeout(() => {
-      document.body.classList.remove('cursor-scrolling');
-    }, 120);
-  }, { passive: true });
-
-  frameId = requestAnimationFrame(render);
-  window.addEventListener('pagehide', () => cancelAnimationFrame(frameId), { once: true });
-}
-
-// ============================================================
-// 4. NAVBAR
+// 3. NAVBAR
 // ============================================================
 function initNavbar() {
   const navbar = document.getElementById('navbar');
@@ -446,25 +378,86 @@ function initProjectFilter() {
     });
   });
 
-  // Add click handler for project cards
-  cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Don't redirect if clicking on a link inside the card
-      if (e.target.closest('a')) return;
-      
-      const githubUrl = card.getAttribute('data-github');
-      if (githubUrl) {
-        window.open(githubUrl, '_blank', 'noopener,noreferrer');
-      }
-    });
+}
 
-    // Make project cards appear clickable
-    card.style.cursor = 'pointer';
+// ============================================================
+// 10. PROJECT ACTIONS AND DETAILS MODAL
+// ============================================================
+function initProjectActions() {
+  const cards = document.querySelectorAll('.project-card');
+  if (!cards.length) return;
+
+  const githubIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" /></svg>';
+  const eyeIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.75" /></svg>';
+  const arrowIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" /></svg>';
+
+  const modal = document.createElement('div');
+  modal.className = 'project-modal';
+  modal.setAttribute('aria-hidden', 'true');
+  modal.innerHTML = `
+    <div class="project-modal-backdrop" data-modal-close></div>
+    <section class="project-modal-panel" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle">
+      <button class="project-modal-close" type="button" aria-label="Close project details" data-modal-close>&times;</button>
+      <span class="project-modal-kicker">Project overview</span>
+      <h2 id="projectModalTitle"></h2>
+      <p class="project-modal-description"></p>
+      <div class="project-modal-tags"></div>
+      <a class="project-modal-link" target="_blank" rel="noopener noreferrer">Open GitHub ${arrowIcon}</a>
+    </section>`;
+  document.body.appendChild(modal);
+
+  const modalTitle = modal.querySelector('#projectModalTitle');
+  const modalDescription = modal.querySelector('.project-modal-description');
+  const modalTags = modal.querySelector('.project-modal-tags');
+  const modalLink = modal.querySelector('.project-modal-link');
+
+  const closeModal = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  };
+
+  const openModal = (card) => {
+    modalTitle.textContent = card.querySelector('.project-title')?.textContent.trim() || 'Project';
+    modalDescription.textContent = card.querySelector('.project-desc')?.textContent.trim() || '';
+    modalTags.innerHTML = '';
+    card.querySelectorAll('.project-tag-badge').forEach((tag) => {
+      const tagElement = document.createElement('span');
+      tagElement.textContent = tag.textContent.trim();
+      modalTags.appendChild(tagElement);
+    });
+    modalLink.href = card.dataset.github || '#';
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
+  };
+
+  cards.forEach((card) => {
+    const info = card.querySelector('.project-info');
+    if (!info || info.querySelector('.project-actions')) return;
+
+    const actions = document.createElement('div');
+    actions.className = 'project-actions';
+    actions.innerHTML = `
+      <a class="project-view-link" href="${card.dataset.github || '#'}" target="_blank" rel="noopener noreferrer">
+        <span>View Project</span>${githubIcon}${arrowIcon}
+      </a>
+      <button class="project-details-btn" type="button" aria-label="View details for ${card.querySelector('.project-title')?.textContent.trim() || 'project'}">
+        ${eyeIcon}
+      </button>`;
+    info.appendChild(actions);
+
+    actions.querySelector('.project-details-btn').addEventListener('click', () => openModal(card));
+  });
+
+  modal.querySelectorAll('[data-modal-close]').forEach((element) => element.addEventListener('click', closeModal));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 }
 
 // ============================================================
-// 10. TESTIMONIALS SLIDER
+// 11. TESTIMONIALS SLIDER
 // ============================================================
 function initTestimonialsSlider() {
   const track = document.getElementById('testimonialsTrack');
@@ -702,7 +695,7 @@ function initSmoothHover() {
 
   const ctx = canvas.getContext('2d');
   let W, H, cx, cy, running = false, animId;
-  let isLight = false;
+  let isLight = document.documentElement.getAttribute('data-theme') === 'light';
   let isMobile = false;
   let diskAngle = 0;
 
@@ -720,6 +713,7 @@ function initSmoothHover() {
   /* theme observer */
   const themeObs = new MutationObserver(() => {
     isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    render();
   });
   themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 

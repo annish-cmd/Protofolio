@@ -112,77 +112,6 @@ textarea {
   border-radius: 10px;
 }
 
-/* ---- CUSTOM CURSOR ---- */
-
-
-
-.cursor,
-.cursor-follower {
-  display: none !important;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 11000;
-  pointer-events: none;
-  border-radius: 50%;
-  opacity: 0;
-  transform: translate3d(-100px, -100px, 0) translate(-50%, -50%);
-  will-change: transform, opacity, width, height, border-color, background-color;
-  transition: opacity 0.25s ease, width 0.25s ease, height 0.25s ease,
-    background-color 0.25s ease, border-color 0.25s ease;
-}
-
-.cursor {
-  width: 7px;
-  height: 7px;
-  background: var(--secondary);
-  box-shadow: 0 0 18px rgba(245, 158, 11, 0.75);
-}
-
-.cursor-follower {
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(245, 158, 11, 0.72);
-  background: rgba(245, 158, 11, 0.08);
-  mix-blend-mode: difference;
-}
-
-.cursor-ready .cursor,
-.cursor-ready .cursor-follower {
-  opacity: 1;
-}
-
-.cursor-hover .cursor-follower {
-  width: 52px;
-  height: 52px;
-  border-color: var(--secondary);
-  background: rgba(245, 158, 11, 0.18);
-}
-
-.cursor-pressed .cursor {
-  opacity: 0.7;
-}
-
-.cursor-scrolling .cursor-follower {
-  width: 42px;
-  height: 42px;
-  border-color: var(--primary-light);
-}
-
-.cursor-hidden .cursor,
-.cursor-hidden .cursor-follower {
-  opacity: 0;
-}
-
-@media (hover: none) and (pointer: coarse), (max-width: 768px) {
-  .cursor, .cursor-follower {
-    display: none !important;
-  }
-  body, button, a, .btn, input, textarea {
-    cursor: auto !important;
-  }
-}
-
 /* ---- PRELOADER ---- */
 .preloader {
   position: fixed;
@@ -1513,7 +1442,8 @@ textarea {
 .project-card:hover {
   transform: translateY(-10px);
   border-color: rgba(99, 102, 241, 0.5);
-  box-shadow: 0 20px 60px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 24px 60px rgba(99, 102, 241, 0.22), 0 0 0 1px rgba(79, 209, 197, 0.08),
+    0 0 42px rgba(79, 209, 197, 0.1);
 }
 
 .project-card.hidden {
@@ -1601,6 +1531,201 @@ textarea {
 
 .project-info {
   padding: 20px;
+}
+
+.project-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.project-view-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primary-light);
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: color var(--transition), text-shadow var(--transition), transform var(--transition);
+}
+
+.project-view-link svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-view-link svg:last-child {
+  width: 15px;
+  margin-left: 2px;
+}
+
+.project-view-link:hover {
+  color: var(--accent);
+  text-shadow: 0 0 18px rgba(16, 185, 129, 0.55);
+  transform: translateX(3px);
+}
+
+.project-details-btn {
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  color: var(--primary-light);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.06);
+  transition: color var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+.project-details-btn svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-details-btn:hover,
+.project-details-btn:focus-visible {
+  color: white;
+  border-color: var(--accent);
+  background: rgba(16, 185, 129, 0.18);
+  box-shadow: 0 0 22px rgba(16, 185, 129, 0.35);
+  transform: translateY(-2px) scale(1.04);
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s ease, visibility 0.22s ease;
+}
+
+.project-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.project-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 6, 18, 0.76);
+  backdrop-filter: blur(10px);
+}
+
+.project-modal-panel {
+  position: relative;
+  width: min(100%, 560px);
+  padding: 36px;
+  border: 1px solid rgba(99, 102, 241, 0.36);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--surface2), var(--surface));
+  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.5), 0 0 46px rgba(99, 102, 241, 0.2);
+  transform: translateY(16px) scale(0.98);
+  transition: transform 0.22s ease;
+}
+
+.project-modal.is-open .project-modal-panel {
+  transform: translateY(0) scale(1);
+}
+
+.project-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 34px;
+  height: 34px;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  line-height: 1;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  transition: color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.project-modal-close:hover {
+  color: var(--text);
+  border-color: var(--primary-light);
+  transform: rotate(90deg);
+}
+
+.project-modal-kicker {
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project-modal-panel h2 {
+  margin: 10px 40px 12px 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.2;
+  color: var(--text);
+}
+
+.project-modal-description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.project-modal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 26px;
+}
+
+.project-modal-tags span {
+  padding: 6px 10px;
+  border: 1px solid rgba(79, 209, 197, 0.22);
+  border-radius: 999px;
+  background: rgba(79, 209, 197, 0.08);
+  color: var(--primary-light);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.project-modal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.project-modal-link svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+body.modal-open {
+  overflow: hidden;
 }
 
 .project-tags-row {
@@ -2392,9 +2517,6 @@ textarea {
     cursor: pointer !important;
   }
   
-  .cursor, .cursor-follower {
-    display: none !important;
-  }
 }
 
 /* ======================================
