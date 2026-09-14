@@ -666,22 +666,45 @@ function initSmoothHover() {
   const cards = document.querySelectorAll('.project-card, .skill-category-card, .stat-card, .testimonial-card');
 
   cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const cx = rect.width / 2;
-      const cy = rect.height / 2;
+    let framePending = false;
+    let pointerX = 0;
+    let pointerY = 0;
+    let cardRect;
+
+    const render = () => {
+      const x = pointerX - cardRect.left;
+      const y = pointerY - cardRect.top;
+      const cx = cardRect.width / 2;
+      const cy = cardRect.height / 2;
       const tiltX = ((y - cy) / cy) * 5;
       const tiltY = ((cx - x) / cx) * 5;
 
+      card.style.setProperty('--pointer-x', `${x}px`);
+      card.style.setProperty('--pointer-y', `${y}px`);
       card.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-8px)`;
-      card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(99,102,241,0.06), transparent 60%), var(--surface)`;
+      framePending = false;
+    };
+
+    card.addEventListener('mousemove', (e) => {
+      pointerX = e.clientX;
+      pointerY = e.clientY;
+      if (!framePending) {
+        framePending = true;
+        requestAnimationFrame(render);
+      }
+    }, { passive: true });
+
+    card.addEventListener('mouseenter', () => {
+      cardRect = card.getBoundingClientRect();
+      card.classList.add('is-pointer-active');
     });
 
     card.addEventListener('mouseleave', () => {
       card.style.transform = '';
-      card.style.background = '';
+      card.style.removeProperty('--pointer-x');
+      card.style.removeProperty('--pointer-y');
+      card.classList.remove('is-pointer-active');
+      framePending = false;
     });
   });
 }

@@ -1435,8 +1435,29 @@ textarea {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: all var(--transition);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
   position: relative;
+  will-change: transform;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--pointer-x, 50%) var(--pointer-y, 50%), rgba(99, 102, 241, 0.1), transparent 56%);
+  transition: opacity 0.16s ease;
+}
+
+.project-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card.is-pointer-active::before {
+  opacity: 1;
 }
 
 .project-card:hover {
@@ -1494,7 +1515,7 @@ textarea {
   justify-content: center;
   gap: 12px;
   opacity: 0;
-  transition: opacity var(--transition);
+  transition: opacity 0.14s ease;
   backdrop-filter: blur(4px);
 }
 
@@ -1511,7 +1532,7 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--transition);
+  transition: transform 0.14s ease, background-color 0.14s ease, color 0.14s ease;
   transform: translateY(10px);
 }
 
