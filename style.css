@@ -830,6 +830,12 @@ textarea {
   animation: badgeFloat1 4s ease-in-out infinite;
 }
 
+.badge4 {
+  top: 20px;
+  left: -30px;
+  animation: badgeFloat3 4s ease-in-out infinite;
+}
+
 .badge2 {
   bottom: 80px;
   right: -40px;
@@ -2396,6 +2402,10 @@ body.modal-open {
   }
 
   .badge3 {
+    left: -10px;
+  }
+
+  .badge4 {
     left: -10px;
   }
 
