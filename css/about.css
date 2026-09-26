@@ -1,0 +1,248 @@
+/* =========================================================
+   ABOUT.CSS
+   ========================================================= */
+
+/* ===== COMPANY STORY ===== */
+.about-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: center;
+}
+
+.about-story__content .section__title {
+  text-align: left;
+}
+
+.about-story__content .section__title::after {
+  margin-left: 0;
+}
+
+.about-story__content p {
+  color: var(--color-text-muted);
+  font-size: 1.05rem;
+}
+
+.about-story__image-wrap {
+  position: relative;
+}
+
+.about-story__image {
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 4/3;
+}
+
+.about-story__badge {
+  position: absolute;
+  bottom: -24px;
+  left: -24px;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
+
+.about-story__badge-num {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #fff;
+}
+
+.about-story__badge-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ===== MISSION VISION ===== */
+.mv-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+
+.mv-card {
+  padding: var(--space-xl);
+}
+
+.mv-card__icon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-primary-light);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.mv-card__title {
+  margin-bottom: var(--space-sm);
+}
+
+.mv-card__text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+/* ===== TEAM SECTION ===== */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-xl);
+}
+
+.team-card {
+  text-align: center;
+}
+
+.team-card__avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: var(--color-primary-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-inline: auto;
+  margin-bottom: var(--space-md);
+}
+
+.team-card__name {
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.team-card__role {
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: var(--font-heading);
+  margin-bottom: var(--space-sm);
+}
+
+.team-card__desc {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* ===== CERTIFICATIONS ===== */
+.cert-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.cert-card {
+  padding: var(--space-xl) var(--space-lg);
+  text-align: center;
+  background: var(--color-bg-white);
+}
+
+.cert-card__icon {
+  width: 64px;
+  height: 64px;
+  background: var(--color-bg-tint);
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  margin-bottom: var(--space-md);
+  color: var(--color-accent);
+}
+
+.cert-card__name {
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.cert-card__org {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.cert-note {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* ===== ABOUT STATS ===== */
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.about-stat-card {
+  padding: var(--space-xl);
+  text-align: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-lg);
+}
+
+.about-stat-card__num {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: var(--space-sm);
+}
+
+.about-stat-card__label {
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .team-grid   { grid-template-columns: repeat(2, 1fr); }
+  .cert-grid   { grid-template-columns: repeat(2, 1fr); }
+  .about-stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .about-story {
+    grid-template-columns: 1fr;
+  }
+  .about-story__badge {
+    position: static;
+    margin-top: var(--space-xl);
+    display: inline-block;
+  }
+  .mv-grid { grid-template-columns: 1fr; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .cert-grid { grid-template-columns: 1fr 1fr; }
+  .about-stats-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+  .team-grid { grid-template-columns: 1fr; }
+  .cert-grid { grid-template-columns: 1fr; }
+  .about-stats-grid { grid-template-columns: 1fr; }
+}
