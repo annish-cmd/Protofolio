@@ -514,7 +514,7 @@ textarea.form-control {
 .navbar__links {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: 0.9rem;
 }
 
 .navbar__link {
@@ -530,7 +530,10 @@ textarea.form-control {
   white-space: nowrap;
 }
 
-.navbar__link:hover,
+.navbar__link:not(.active):hover {
+  color: var(--color-primary-dark);
+}
+
 .navbar__link.active {
   color: var(--color-primary);
   background: var(--color-primary-light);
