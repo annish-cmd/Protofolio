@@ -9,18 +9,22 @@
   position: relative;
   background-color: var(--color-bg-tint);
   overflow: hidden;
-  padding-block: clamp(1.5rem, 3vh, var(--space-2xl));
+  min-height: calc(100svh - var(--nav-height));
+  display: grid;
+  align-items: center;
+  padding-block: clamp(1rem, 2vh, 1.5rem);
 }
 
 .hero > .container {
-  max-width: 1280px;
+  max-width: 1440px;
+  padding-inline: clamp(1rem, 1.4vw, 1.25rem);
 }
 
 .hero__inner {
   display: grid;
-  grid-template-columns: 0.96fr 1.04fr;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
   align-items: center;
-  gap: var(--space-md);
+  gap: clamp(3rem, 5vw, 4rem);
 }
 
 .hero__content {
@@ -86,8 +90,8 @@
 }
 
 .hero-slider {
-  width: 140%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-2xl);
@@ -112,6 +116,7 @@
   width: calc(100% / var(--slide-count));
   height: 100%;
   object-fit: cover;
+  object-position: left center;
   flex-shrink: 0;
 }
 

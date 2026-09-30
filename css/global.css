@@ -468,10 +468,9 @@ textarea.form-control {
   gap: var(--space-lg);
   height: 100%;
   width: 100%;
-  max-width: var(--container-max);
+  max-width: 1440px;
   margin-inline: auto;
-  padding-left: 0.75rem;
-  padding-right: var(--container-padding);
+  padding-inline: clamp(1rem, 1.5vw, 1.5rem);
 }
 
 /* Logo */
