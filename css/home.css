@@ -86,8 +86,8 @@
 }
 
 .hero-slider {
-  width: 140%;
-  height: 110%;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-2xl);
@@ -111,7 +111,7 @@
 .hero-slider__img {
   width: calc(100% / var(--slide-count));
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
