@@ -1,573 +1,1369 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Recognized IT Service & Solution Pvt. Ltd. — Professional CCTV installation, networking, and IT support services across Nepal. Trusted by homes and businesses since 2010.">
-  <meta name="keywords" content="CCTV installation Nepal, networking Nepal, IT support Kathmandu, security cameras Nepal">
-  <meta property="og:title" content="Recognized IT Service & Solution | CCTV, Networking & IT Support Nepal">
-  <meta property="og:description" content="Reliable CCTV, Networking & IT Support serving homes and businesses across Nepal since 2010.">
-  <meta property="og:type" content="website">
-  <title>Recognized IT Service & Solution Pvt. Ltd. | CCTV, Networking & IT Support Nepal</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Recognized IT Service & Solution Pvt. Ltd. — Professional CCTV installation, networking, and IT support services across Nepal. Trusted by homes and businesses since 2010."
+    />
+    <meta
+      name="keywords"
+      content="CCTV installation Nepal, networking Nepal, IT support Kathmandu, security cameras Nepal"
+    />
+    <meta
+      property="og:title"
+      content="Recognized IT Service & Solution | CCTV, Networking & IT Support Nepal"
+    />
+    <meta
+      property="og:description"
+      content="Reliable CCTV, Networking & IT Support serving homes and businesses across Nepal since 2010."
+    />
+    <meta property="og:type" content="website" />
+    <title>
+      Recognized IT Service & Solution Pvt. Ltd. | CCTV, Networking & IT Support
+      Nepal
+    </title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- CSS: Global first, then page-specific -->
-  <link rel="stylesheet" href="css/global.css">
-  <link rel="stylesheet" href="css/home.css">
-</head>
-<body>
+    <!-- CSS: Global first, then page-specific -->
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body>
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar__inner">
+        <!-- Logo -->
+        <a
+          href="index.html"
+          class="navbar__logo"
+          aria-label="Recognized IT Service & Solution — Home"
+        >
+          <img
+            src="images/company_white.png"
+            alt="Recognized IT Service &amp; Solution"
+            class="navbar__logo-img"
+          />
+        </a>
 
-  <!-- ===== NAVIGATION ===== -->
-  <nav class="navbar" role="navigation" aria-label="Main navigation">
-    <div class="navbar__inner">
+        <!-- Desktop Navigation Links -->
+        <ul class="navbar__links" role="list">
+          <li>
+            <a href="index.html" class="navbar__link active" aria-current="page"
+              >Home</a
+            >
+          </li>
+          <li><a href="html/about.html" class="navbar__link">About</a></li>
+          <li>
+            <a href="html/services.html" class="navbar__link">Services</a>
+          </li>
+          <li>
+            <a href="html/portfolio.html" class="navbar__link">Portfolio</a>
+          </li>
+          <li><a href="html/contact.html" class="navbar__link">Contact</a></li>
+          <li><a href="html/shop.html" class="navbar__link">Shop</a></li>
+        </ul>
 
-      <!-- Logo -->
-      <a href="index.html" class="navbar__logo" aria-label="Recognized IT Service & Solution — Home">
-        <img src="images/company_white.png" alt="Recognized IT Service &amp; Solution" class="navbar__logo-img">
+        <!-- Desktop Actions -->
+        <div class="navbar__actions">
+          <a
+            href="html/cart.html"
+            class="navbar__action-btn"
+            aria-label="Shopping cart"
+          >
+            <!-- Cart icon -->
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              />
+            </svg>
+            <span class="navbar__cart-count" aria-label="items in cart">0</span>
+          </a>
+          <a
+            href="html/account.html"
+            class="navbar__action-btn"
+            aria-label="My Account"
+          >
+            <!-- User icon -->
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Hamburger -->
+        <button
+          class="navbar__hamburger"
+          id="navbarHamburger"
+          aria-controls="navbarMobile"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <!-- /navbar__inner -->
+
+      <!-- Mobile Menu -->
+      <div
+        class="navbar__mobile"
+        id="navbarMobile"
+        role="dialog"
+        aria-label="Mobile navigation"
+      >
+        <a href="index.html" class="navbar__link active" aria-current="page"
+          >Home</a
+        >
+        <a href="html/about.html" class="navbar__link">About</a>
+        <a href="html/services.html" class="navbar__link">Services</a>
+        <a href="html/portfolio.html" class="navbar__link">Portfolio</a>
+        <a href="html/contact.html" class="navbar__link">Contact</a>
+        <a href="html/shop.html" class="navbar__link">Shop</a>
+
+        <div class="navbar__mobile-actions">
+          <a href="html/cart.html" aria-label="Cart">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              />
+            </svg>
+            Cart
+          </a>
+          <a href="html/account.html" aria-label="My Account">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Account
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!-- /navbar -->
+
+    <main>
+      <!-- ===== HERO SECTION ===== -->
+      <section class="hero" aria-label="Hero">
+        <div class="container">
+          <div class="hero__inner">
+            <div class="hero__content">
+              <div class="hero__label">
+                <!-- Shield icon -->
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+                Nepal's Trusted IT &amp; Security Partner
+              </div>
+
+              <h1 class="hero__title">
+                Reliable CCTV,<br />
+                <span>Networking &amp; IT Support</span>
+              </h1>
+
+              <p class="hero__desc">
+                Expert installation and ongoing technical care for homes and
+                businesses throughout Nepal, delivered by local professionals
+                since 2010.
+              </p>
+
+              <div class="hero__actions">
+                <!-- WhatsApp CTA — replace +977XXXXXXXXX with real number -->
+                <a
+                  href="https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn--outline btn--lg"
+                >
+                  <!-- WhatsApp icon -->
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+                    />
+                  </svg>
+                  Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+            <!-- /hero__content -->
+
+            <div class="hero__image-wrap">
+              <div class="hero__shape" aria-hidden="true"></div>
+              <div
+                class="hero-slider"
+                id="heroSlider"
+                role="region"
+                aria-label="Featured services"
+              >
+                <div class="hero-slider__track">
+                  <img
+                    src="images/printer_office.png"
+                    alt="Printer and office IT setup"
+                    class="hero-slider__img"
+                    loading="eager"
+                    decoding="async"
+                  />
+                  <img
+                    src="images/laptop_support2.png"
+                    alt="Laptop support and maintenance"
+                    class="hero-slider__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <img
+                    src="images/access_control.png"
+                    alt="Access control systems"
+                    class="hero-slider__img"
+                    loading="lazy"
+                    decoding="async"
+                  />
+
+                  <img
+                    src="images/hardware.png"
+                    alt="Hardware repair services"
+                    class="hero-slider__img"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /hero__inner -->
+        </div>
+      </section>
+      <!-- /hero -->
+
+      <!-- ===== WHY CHOOSE US ===== -->
+      <section class="section" aria-labelledby="why-title">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__label">Why Us</span>
+            <h2 class="section__title" id="why-title">
+              Why Businesses & Homes Trust Us
+            </h2>
+            <p class="section__subtitle">
+              A decade of reliable service, certified professionals, and genuine
+              commitment to your security and connectivity.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card card">
+              <div class="feature-card__icon-wrap">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12 6 12 12 16 14" />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">10+ Years Experience</h3>
+              <p class="feature-card__desc">
+                Since 2010, we've solved real IT and security challenges for
+                hundreds of clients across Nepal.
+              </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card card">
+              <div class="feature-card__icon-wrap">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <polyline points="22 4 12 14.01 9 11.01" />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">Certified Technicians</h3>
+              <p class="feature-card__desc">
+                Our engineers hold industry certifications and undergo regular
+                training on the latest security and networking technologies.
+              </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card card">
+              <div class="feature-card__icon-wrap">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.91 12c-.3-.86-.5-1.76-.57-2.67a2 2 0 0 1 1.97-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.91 12c.78 1.35 1.78 2.59 2.9 3.72.88.83 1.89 1.57 2.98 2.19l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">24/7 Support</h3>
+              <p class="feature-card__desc">
+                Security never sleeps. Our support team is available around the
+                clock for emergencies and critical issues.
+              </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card card">
+              <div class="feature-card__icon-wrap">
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-card__title">Nationwide Service</h3>
+              <p class="feature-card__desc">
+                From Kathmandu Valley to Pokhara and beyond — our team delivers
+                consistent quality across Nepal.
+              </p>
+            </div>
+          </div>
+          <!-- /features-grid -->
+        </div>
+      </section>
+      <!-- /Why Choose US -->
+
+      <!-- ===== SERVICES PREVIEW ===== -->
+      <section class="section section--tint" aria-labelledby="services-title">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__label">Our Services</span>
+            <h2 class="section__title" id="services-title">
+              End-to-End IT &amp; Security Solutions
+            </h2>
+            <p class="section__subtitle">
+              From surveillance systems to full networking and IT infrastructure
+              — we bring expertise across the board.
+            </p>
+          </div>
+
+          <div class="services-grid">
+            <!-- Service 1 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
+                    />
+                    <circle cx="12" cy="13" r="4" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">
+                  CCTV Installation &amp; Monitoring
+                </h3>
+                <p class="service-card__desc">
+                  HD IP &amp; analog CCTV cameras, DVR/NVR setup, remote
+                  monitoring, and 24/7 recording solutions for homes and
+                  enterprises.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+                    <line x1="6" y1="6" x2="6.01" y2="6" />
+                    <line x1="6" y1="18" x2="6.01" y2="18" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">
+                  Networking Setup (LAN/WAN/WiFi)
+                </h3>
+                <p class="service-card__desc">
+                  Scalable enterprise LAN, WAN routing, secure WiFi access
+                  points, firewall configuration, and VPN setup for your
+                  business.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                    <line x1="8" y1="21" x2="16" y2="21" />
+                    <line x1="12" y1="17" x2="12" y2="21" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">
+                  IT Support &amp; Maintenance
+                </h3>
+                <p class="service-card__desc">
+                  Annual maintenance contracts, hardware repairs, OS support,
+                  antivirus deployment, and proactive IT monitoring for
+                  businesses.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 4 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="12" y1="2" x2="12" y2="6" />
+                    <line x1="12" y1="18" x2="12" y2="22" />
+                    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76" />
+                    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07" />
+                    <line x1="2" y1="12" x2="6" y2="12" />
+                    <line x1="18" y1="12" x2="22" y2="12" />
+                    <line x1="4.93" y1="19.07" x2="7.76" y2="16.24" />
+                    <line x1="16.24" y1="7.76" x2="19.07" y2="4.93" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">Structured Cabling</h3>
+                <p class="service-card__desc">
+                  Cat 5e/Cat 6 horizontal &amp; vertical cabling, patch panel
+                  installation, cable management, and certification testing.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 5 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">Access Control Systems</h3>
+                <p class="service-card__desc">
+                  Biometric readers, RFID card systems, electric door locks, and
+                  integrated visitor management for offices and buildings.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <!-- Service 6 -->
+            <div class="card service-card">
+              <div class="card__body">
+                <div class="service-card__icon">
+                  <svg
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                  </svg>
+                </div>
+                <h3 class="service-card__title">Server &amp; Cloud Setup</h3>
+                <p class="service-card__desc">
+                  On-premise server installation, cloud migration, data backup
+                  strategies, and hybrid infrastructure for growing businesses.
+                </p>
+                <a href="html/services.html" class="service-card__link">
+                  Learn more
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+          <!-- /services-grid -->
+
+          <div class="text-center">
+            <a href="html/services.html" class="btn btn--primary btn--lg"
+              >View All Services</a
+            >
+          </div>
+        </div>
+      </section>
+      <!-- /Services Preview -->
+
+      <!-- ===== STATS BAR ===== -->
+      <div class="stats-bar" aria-label="Company statistics">
+        <div class="container">
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-item__number">15+</div>
+              <div class="stat-item__label">Years in Business</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item__number">500+</div>
+              <div class="stat-item__label">Projects Completed</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item__number">350+</div>
+              <div class="stat-item__label">Happy Clients</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-item__number">12+</div>
+              <div class="stat-item__label">Cities Served</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /Stats -->
+
+      <!-- ===== PORTFOLIO PREVIEW ===== -->
+      <section class="section" aria-labelledby="portfolio-title">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__label">Our Work</span>
+            <h2 class="section__title" id="portfolio-title">
+              Featured Projects
+            </h2>
+            <p class="section__subtitle">
+              Real installations. Real results. Take a look at some of our
+              completed projects across Nepal.
+            </p>
+          </div>
+
+          <div class="portfolio-grid">
+            <!-- Portfolio item 1 -->
+            <article
+              class="portfolio-card"
+              aria-label="Project: Commercial CCTV, Kathmandu office"
+            >
+              <img
+                src="images/work1.jpeg"
+                alt="40-camera CCTV installation at a commercial office complex in Kathmandu"
+                class="portfolio-card__img"
+                loading="lazy"
+              />
+              <div class="portfolio-card__content">
+                <span class="portfolio-card__cat">CCTV | Kathmandu</span>
+                <h3 class="portfolio-card__title">
+                  Commercial Office CCTV — Kathmandu
+                </h3>
+              </div>
+            </article>
+
+            <!-- Portfolio item 2 -->
+            <article
+              class="portfolio-card"
+              aria-label="Project: Enterprise networking, Lalitpur"
+            >
+              <img
+                src="images/work2.jpeg"
+                alt="Structured cabling and network rack installation for a Lalitpur enterprise campus"
+                class="portfolio-card__img"
+                loading="lazy"
+              />
+              <div class="portfolio-card__content">
+                <span class="portfolio-card__cat">Networking | Lalitpur</span>
+                <h3 class="portfolio-card__title">
+                  Enterprise Network Infrastructure — Lalitpur
+                </h3>
+              </div>
+            </article>
+
+            <!-- Portfolio item 3 -->
+            <article
+              class="portfolio-card"
+              aria-label="Project: Server room setup, Pokhara"
+            >
+              <img
+                src="images/server.jpg"
+                alt="On-premise server room build-out for a mid-size business in Pokhara"
+                class="portfolio-card__img"
+                loading="lazy"
+              />
+              <div class="portfolio-card__content">
+                <span class="portfolio-card__cat">Server Setup | Pokhara</span>
+                <h3 class="portfolio-card__title">
+                  Server Room Build-Out — Pokhara
+                </h3>
+              </div>
+            </article>
+          </div>
+          <!-- /portfolio-grid -->
+
+          <div class="text-center">
+            <a href="html/portfolio.html" class="btn btn--outline btn--lg"
+              >View Full Portfolio</a
+            >
+          </div>
+        </div>
+      </section>
+      <!-- /Portfolio Preview -->
+
+      <!-- ===== TESTIMONIALS ===== -->
+      <section class="section section--tint" aria-labelledby="testi-title">
+        <div class="container">
+          <div class="section__header">
+            <span class="section__label">Testimonials</span>
+            <h2 class="section__title" id="testi-title">
+              What Our Clients Say
+            </h2>
+            <p class="section__subtitle">
+              Over 350 satisfied clients across Nepal — here's what some of them
+              have shared.
+            </p>
+          </div>
+
+          <div class="testi-grid">
+            <!-- Testimonial 1 -->
+            <article class="testi-card card">
+              <div class="testi-card__stars" aria-label="5 out of 5 stars">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+              </div>
+              <blockquote class="testi-card__text">
+                "Recognized IT installed a 24-camera system across our factory
+                floor in Bhaktapur within two days. The remote monitoring setup
+                runs flawlessly, and their after-sales support has been
+                exceptional."
+              </blockquote>
+              <div class="testi-card__author">
+                <div class="testi-card__avatar" aria-hidden="true">R</div>
+                <div class="testi-card__info">
+                  <h5>Rajendra Shrestha</h5>
+                  <p>Operations Manager, Bhaktapur Manufacturing</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Testimonial 2 -->
+            <article class="testi-card card">
+              <div class="testi-card__stars" aria-label="5 out of 5 stars">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+              </div>
+              <blockquote class="testi-card__text">
+                "We hired them to set up the entire network infrastructure for
+                our new Kathmandu office — 80 workstations, VoIP, and a
+                dedicated server room. Everything was delivered on time and
+                within budget."
+              </blockquote>
+              <div class="testi-card__author">
+                <div class="testi-card__avatar" aria-hidden="true">S</div>
+                <div class="testi-card__info">
+                  <h5>Sunita Tamang</h5>
+                  <p>IT Head, Kathmandu Finance Corp.</p>
+                </div>
+              </div>
+            </article>
+
+            <!-- Testimonial 3 -->
+            <article class="testi-card card">
+              <div class="testi-card__stars" aria-label="5 out of 5 stars">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                  />
+                </svg>
+              </div>
+              <blockquote class="testi-card__text">
+                "I called them at 11 PM when our main router crashed right
+                before a critical presentation the next morning. Their
+                technician had it resolved within 90 minutes. That kind of
+                reliability is rare in Nepal."
+              </blockquote>
+              <div class="testi-card__author">
+                <div class="testi-card__avatar" aria-hidden="true">A</div>
+                <div class="testi-card__info">
+                  <h5>Aakash Rai</h5>
+                  <p>Director, Pokhara Digital Agency</p>
+                </div>
+              </div>
+            </article>
+          </div>
+          <!-- /testi-grid -->
+        </div>
+      </section>
+      <!-- /Testimonials -->
+
+      <!-- ===== CTA BANNER ===== -->
+      <section class="cta-banner" aria-labelledby="cta-title">
+        <div class="cta-banner__inner">
+          <h2 class="cta-banner__title" id="cta-title">
+            Ready to Secure &amp; Connect Your Business?
+          </h2>
+          <p class="cta-banner__text">
+            Get a free consultation and quote from our team today. No obligation
+            — just expert advice tailored to your needs.
+          </p>
+          <div class="hero__actions" style="justify-content: center">
+            <a href="tel:+97715326218" class="btn btn--outline-white btn--lg"
+              >Call Us Now</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- /main -->
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" role="contentinfo">
+      <div class="container">
+        <div class="footer__top">
+          <!-- Brand column -->
+          <div>
+            <img
+              src="images/company_optimized.png"
+              alt="Recognized IT Service &amp; Solution"
+              class="footer__brand-logo"
+              loading="lazy"
+              decoding="async"
+            />
+            <p class="footer__brand-name">
+              Recognized IT Service &amp; Solution Pvt. Ltd.
+            </p>
+            <p class="footer__brand-desc">
+              Reliable CCTV, Networking &amp; IT Support serving homes and
+              businesses across Nepal since 2010. Your security and
+              connectivity, our commitment.
+            </p>
+            <div class="footer__social">
+              <!-- Facebook -->
+              <a
+                href="https://www.facebook.com/profile.php?id=100054583954360/"
+                target="_blank"
+                class="footer__social-link"
+                aria-label="Follow us on Facebook"
+                rel="noopener"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+              </a>
+              <!-- Instagram -->
+              <a
+                href="https://www.instagram.com/reco.gnizedit/"
+                target="_blank"
+                class="footer__social-link"
+                aria-label="Follow us on Instagram"
+                rel="noopener"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
+              <!-- LinkedIn -->
+              <a
+                href="#"
+                class="footer__social-link"
+                aria-label="Follow us on LinkedIn"
+                rel="noopener"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                  />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              </a>
+              <!-- YouTube -->
+              <a
+                href="#"
+                class="footer__social-link"
+                aria-label="Watch on YouTube"
+                rel="noopener"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"
+                  />
+                  <polygon
+                    fill="currentColor"
+                    points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="footer__col-title">Quick Links</h3>
+            <ul class="footer__links" role="list">
+              <li><a href="index.html" class="footer__link">Home</a></li>
+              <li>
+                <a href="html/about.html" class="footer__link">About Us</a>
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link">Services</a>
+              </li>
+              <li>
+                <a href="html/portfolio.html" class="footer__link">Portfolio</a>
+              </li>
+              <li><a href="html/shop.html" class="footer__link">Shop</a></li>
+              <li>
+                <a href="html/contact.html" class="footer__link">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services Links -->
+          <div>
+            <h3 class="footer__col-title">Services</h3>
+            <ul class="footer__links" role="list">
+              <li>
+                <a href="html/services.html" class="footer__link"
+                  >CCTV Installation</a
+                >
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link"
+                  >Networking Setup</a
+                >
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link">IT Support</a>
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link"
+                  >Structured Cabling</a
+                >
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link"
+                  >Access Control</a
+                >
+              </li>
+              <li>
+                <a href="html/services.html" class="footer__link"
+                  >Server &amp; Cloud</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div>
+            <h3 class="footer__col-title">Contact</h3>
+            <address style="font-style: normal">
+              <div class="footer__contact-item">
+                <!-- Location icon -->
+                <svg
+                  class="footer__contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span
+                  >Khechapokhari, New Rd, Kathmandu, Bagmati Province
+                  44600</span
+                >
+              </div>
+              <div class="footer__contact-item">
+                <!-- Phone icon -->
+                <svg
+                  class="footer__contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.37 19c-.3-.09-.62-.19-.93-.32A19.5 19.5 0 0 1 4.91 12a19.79 19.79 0 0 1-2.91-8.45A2 2 0 0 1 3.97 1.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.97 9.91a16 16 0 0 0 6.12 6.12l1.77-1.26a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+                <a href="tel:+97715326218" class="footer__link">01-5326218</a>
+              </div>
+              <div class="footer__contact-item">
+                <!-- Mail icon -->
+                <svg
+                  class="footer__contact-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <a href="mailto:recognizedit@gmail.com" class="footer__link"
+                  >recognizedit@gmail.com</a
+                >
+              </div>
+            </address>
+          </div>
+        </div>
+        <!-- /footer__top -->
+
+        <div class="footer__bottom">
+          <p>
+            &copy; 2026 Recognized IT Service &amp; Solution Pvt. Ltd. All
+            rights reserved.
+          </p>
+        </div>
+      </div>
+      <!-- /container -->
+    </footer>
+    <!-- /footer -->
+
+    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+    <!--
+  -->
+    <div class="whatsapp-float" aria-label="Chat with us on WhatsApp">
+      <a
+        href="https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="whatsapp-float__btn"
+        aria-label="Open WhatsApp chat"
+      >
+        <!-- Official WhatsApp SVG icon (white) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
+          />
+        </svg>
+        <span class="whatsapp-float__label">Chat with us</span>
       </a>
-
-      <!-- Desktop Navigation Links -->
-      <ul class="navbar__links" role="list">
-        <li><a href="index.html"     class="navbar__link active" aria-current="page">Home</a></li>
-        <li><a href="html/about.html"     class="navbar__link">About</a></li>
-        <li><a href="html/services.html"  class="navbar__link">Services</a></li>
-        <li><a href="html/portfolio.html" class="navbar__link">Portfolio</a></li>
-        <li><a href="html/contact.html"   class="navbar__link">Contact</a></li>
-        <li><a href="html/shop.html"      class="navbar__link">Shop</a></li>
-      </ul>
-
-      <!-- Desktop Actions -->
-      <div class="navbar__actions">
-        <a href="html/cart.html" class="navbar__action-btn" aria-label="Shopping cart">
-          <!-- Cart icon -->
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="navbar__cart-count" aria-label="items in cart">0</span>
-        </a>
-        <a href="html/account.html" class="navbar__action-btn" aria-label="My Account">
-          <!-- User icon -->
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
-      </div>
-
-      <!-- Mobile Hamburger -->
-      <button class="navbar__hamburger" id="navbarHamburger" aria-controls="navbarMobile" aria-expanded="false" aria-label="Toggle navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-    </div><!-- /navbar__inner -->
-
-    <!-- Mobile Menu -->
-    <div class="navbar__mobile" id="navbarMobile" role="dialog" aria-label="Mobile navigation">
-      <a href="index.html"     class="navbar__link active" aria-current="page">Home</a>
-      <a href="html/about.html"     class="navbar__link">About</a>
-      <a href="html/services.html"  class="navbar__link">Services</a>
-      <a href="html/portfolio.html" class="navbar__link">Portfolio</a>
-      <a href="html/contact.html"   class="navbar__link">Contact</a>
-      <a href="html/shop.html"      class="navbar__link">Shop</a>
-
-      <div class="navbar__mobile-actions">
-        <a href="html/cart.html" aria-label="Cart">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          Cart
-        </a>
-        <a href="html/account.html" aria-label="My Account">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Account
-        </a>
-      </div>
     </div>
 
-  </nav><!-- /navbar -->
-
-  <main>
-
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero" aria-label="Hero">
-      <div class="container">
-        <div class="hero__inner">
-
-          <div class="hero__content">
-            <div class="hero__label">
-              <!-- Shield icon -->
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Nepal's Trusted IT &amp; Security Partner
-            </div>
-
-            <h1 class="hero__title">
-              Reliable CCTV,<br>
-              <span>Networking &amp; IT Support</span>
-            </h1>
-
-            <p class="hero__desc">
-              Expert installation and ongoing technical care for homes and businesses throughout Nepal, delivered by local professionals since 2010.
-            </p>
-
-            <div class="hero__actions">
-              <!-- WhatsApp CTA — replace +977XXXXXXXXX with real number -->
-              <a href="https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--lg">
-                <!-- WhatsApp icon -->
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                Chat on WhatsApp
-              </a>
-            </div>
-          </div><!-- /hero__content -->
-
-                    <div class="hero__image-wrap">
-            <div class="hero__shape" aria-hidden="true"></div>
-            <div class="hero-slider" id="heroSlider" role="region" aria-label="Featured services">
-              <div class="hero-slider__track">
-                <img src="images/printer_office_optimized.jpg" alt="Printer and office IT setup" class="hero-slider__img" loading="eager" decoding="async">
-                <img src="images/laptop_support2_optimized.jpg" alt="Laptop support and maintenance" class="hero-slider__img" loading="lazy" decoding="async">
-                <img src="images/access_control_optimized.jpg" alt="Access control systems" class="hero-slider__img" loading="lazy" decoding="async">
-                <img src="images/surveillance.jpg" alt="Surveillance and CCTV" class="hero-slider__img" loading="lazy">
-                <img src="images/repair.jpg" alt="Hardware repair services" class="hero-slider__img" loading="lazy">
-              </div>
-            </div>
-          </div>
-
-        </div><!-- /hero__inner -->
-      </div>
-    </section><!-- /hero -->
-
-    <!-- ===== WHY CHOOSE US ===== -->
-    <section class="section" aria-labelledby="why-title">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__label">Why Us</span>
-          <h2 class="section__title" id="why-title">Why Businesses & Homes Trust Us</h2>
-          <p class="section__subtitle">A decade of reliable service, certified professionals, and genuine commitment to your security and connectivity.</p>
-        </div>
-
-        <div class="features-grid">
-
-          <!-- Feature 1 -->
-          <div class="feature-card card">
-            <div class="feature-card__icon-wrap">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3 class="feature-card__title">10+ Years Experience</h3>
-            <p class="feature-card__desc">Since 2010, we've solved real IT and security challenges for hundreds of clients across Nepal.</p>
-          </div>
-
-          <!-- Feature 2 -->
-          <div class="feature-card card">
-            <div class="feature-card__icon-wrap">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <h3 class="feature-card__title">Certified Technicians</h3>
-            <p class="feature-card__desc">Our engineers hold industry certifications and undergo regular training on the latest security and networking technologies.</p>
-          </div>
-
-          <!-- Feature 3 -->
-          <div class="feature-card card">
-            <div class="feature-card__icon-wrap">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.91 12c-.3-.86-.5-1.76-.57-2.67a2 2 0 0 1 1.97-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.91 12c.78 1.35 1.78 2.59 2.9 3.72.88.83 1.89 1.57 2.98 2.19l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2z"/></svg>
-            </div>
-            <h3 class="feature-card__title">24/7 Support</h3>
-            <p class="feature-card__desc">Security never sleeps. Our support team is available around the clock for emergencies and critical issues.</p>
-          </div>
-
-          <!-- Feature 4 -->
-          <div class="feature-card card">
-            <div class="feature-card__icon-wrap">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <h3 class="feature-card__title">Nationwide Service</h3>
-            <p class="feature-card__desc">From Kathmandu Valley to Pokhara and beyond — our team delivers consistent quality across Nepal.</p>
-          </div>
-
-        </div><!-- /features-grid -->
-      </div>
-    </section><!-- /Why Choose US -->
-
-    <!-- ===== SERVICES PREVIEW ===== -->
-    <section class="section section--tint" aria-labelledby="services-title">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__label">Our Services</span>
-          <h2 class="section__title" id="services-title">End-to-End IT &amp; Security Solutions</h2>
-          <p class="section__subtitle">From surveillance systems to full networking and IT infrastructure — we bring expertise across the board.</p>
-        </div>
-
-        <div class="services-grid">
-
-          <!-- Service 1 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-              </div>
-              <h3 class="service-card__title">CCTV Installation &amp; Monitoring</h3>
-              <p class="service-card__desc">HD IP &amp; analog CCTV cameras, DVR/NVR setup, remote monitoring, and 24/7 recording solutions for homes and enterprises.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Service 2 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-              </div>
-              <h3 class="service-card__title">Networking Setup (LAN/WAN/WiFi)</h3>
-              <p class="service-card__desc">Scalable enterprise LAN, WAN routing, secure WiFi access points, firewall configuration, and VPN setup for your business.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Service 3 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </div>
-              <h3 class="service-card__title">IT Support &amp; Maintenance</h3>
-              <p class="service-card__desc">Annual maintenance contracts, hardware repairs, OS support, antivirus deployment, and proactive IT monitoring for businesses.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Service 4 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
-              </div>
-              <h3 class="service-card__title">Structured Cabling</h3>
-              <p class="service-card__desc">Cat 5e/Cat 6 horizontal &amp; vertical cabling, patch panel installation, cable management, and certification testing.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Service 5 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              </div>
-              <h3 class="service-card__title">Access Control Systems</h3>
-              <p class="service-card__desc">Biometric readers, RFID card systems, electric door locks, and integrated visitor management for offices and buildings.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Service 6 -->
-          <div class="card service-card">
-            <div class="card__body">
-              <div class="service-card__icon">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              </div>
-              <h3 class="service-card__title">Server &amp; Cloud Setup</h3>
-              <p class="service-card__desc">On-premise server installation, cloud migration, data backup strategies, and hybrid infrastructure for growing businesses.</p>
-              <a href="html/services.html" class="service-card__link">
-                Learn more
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-              </a>
-            </div>
-          </div>
-
-        </div><!-- /services-grid -->
-
-        <div class="text-center">
-          <a href="html/services.html" class="btn btn--primary btn--lg">View All Services</a>
-        </div>
-      </div>
-    </section><!-- /Services Preview -->
-
-    <!-- ===== STATS BAR ===== -->
-    <div class="stats-bar" aria-label="Company statistics">
-      <div class="container">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-item__number">15+</div>
-            <div class="stat-item__label">Years in Business</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-item__number">500+</div>
-            <div class="stat-item__label">Projects Completed</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-item__number">350+</div>
-            <div class="stat-item__label">Happy Clients</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-item__number">12+</div>
-            <div class="stat-item__label">Cities Served</div>
-          </div>
-        </div>
-      </div>
-    </div><!-- /Stats -->
-
-    <!-- ===== PORTFOLIO PREVIEW ===== -->
-    <section class="section" aria-labelledby="portfolio-title">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__label">Our Work</span>
-          <h2 class="section__title" id="portfolio-title">Featured Projects</h2>
-          <p class="section__subtitle">Real installations. Real results. Take a look at some of our completed projects across Nepal.</p>
-        </div>
-
-        <div class="portfolio-grid">
-
-          <!-- Portfolio item 1 -->
-          <article class="portfolio-card" aria-label="Project: Commercial CCTV, Kathmandu office">
-            <img src="images/work1.jpeg" alt="40-camera CCTV installation at a commercial office complex in Kathmandu" class="portfolio-card__img" loading="lazy">
-            <div class="portfolio-card__content">
-              <span class="portfolio-card__cat">CCTV | Kathmandu</span>
-              <h3 class="portfolio-card__title">Commercial Office CCTV — Kathmandu</h3>
-            </div>
-          </article>
-
-          <!-- Portfolio item 2 -->
-          <article class="portfolio-card" aria-label="Project: Enterprise networking, Lalitpur">
-            <img src="images/work2.jpeg" alt="Structured cabling and network rack installation for a Lalitpur enterprise campus" class="portfolio-card__img" loading="lazy">
-            <div class="portfolio-card__content">
-              <span class="portfolio-card__cat">Networking | Lalitpur</span>
-              <h3 class="portfolio-card__title">Enterprise Network Infrastructure — Lalitpur</h3>
-            </div>
-          </article>
-
-          <!-- Portfolio item 3 -->
-          <article class="portfolio-card" aria-label="Project: Server room setup, Pokhara">
-            <img src="images/server.jpg" alt="On-premise server room build-out for a mid-size business in Pokhara" class="portfolio-card__img" loading="lazy">
-            <div class="portfolio-card__content">
-              <span class="portfolio-card__cat">Server Setup | Pokhara</span>
-              <h3 class="portfolio-card__title">Server Room Build-Out — Pokhara</h3>
-            </div>
-          </article>
-
-        </div><!-- /portfolio-grid -->
-
-        <div class="text-center">
-          <a href="html/portfolio.html" class="btn btn--outline btn--lg">View Full Portfolio</a>
-        </div>
-      </div>
-    </section><!-- /Portfolio Preview -->
-
-    <!-- ===== TESTIMONIALS ===== -->
-    <section class="section section--tint" aria-labelledby="testi-title">
-      <div class="container">
-        <div class="section__header">
-          <span class="section__label">Testimonials</span>
-          <h2 class="section__title" id="testi-title">What Our Clients Say</h2>
-          <p class="section__subtitle">Over 350 satisfied clients across Nepal — here's what some of them have shared.</p>
-        </div>
-
-        <div class="testi-grid">
-
-          <!-- Testimonial 1 -->
-          <article class="testi-card card">
-            <div class="testi-card__stars" aria-label="5 out of 5 stars">
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <blockquote class="testi-card__text">
-              "Recognized IT installed a 24-camera system across our factory floor in Bhaktapur within two days. The remote monitoring setup runs flawlessly, and their after-sales support has been exceptional."
-            </blockquote>
-            <div class="testi-card__author">
-              <div class="testi-card__avatar" aria-hidden="true">R</div>
-              <div class="testi-card__info">
-                <h5>Rajendra Shrestha</h5>
-                <p>Operations Manager, Bhaktapur Manufacturing</p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Testimonial 2 -->
-          <article class="testi-card card">
-            <div class="testi-card__stars" aria-label="5 out of 5 stars">
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <blockquote class="testi-card__text">
-              "We hired them to set up the entire network infrastructure for our new Kathmandu office — 80 workstations, VoIP, and a dedicated server room. Everything was delivered on time and within budget."
-            </blockquote>
-            <div class="testi-card__author">
-              <div class="testi-card__avatar" aria-hidden="true">S</div>
-              <div class="testi-card__info">
-                <h5>Sunita Tamang</h5>
-                <p>IT Head, Kathmandu Finance Corp.</p>
-              </div>
-            </div>
-          </article>
-
-          <!-- Testimonial 3 -->
-          <article class="testi-card card">
-            <div class="testi-card__stars" aria-label="5 out of 5 stars">
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <blockquote class="testi-card__text">
-              "I called them at 11 PM when our main router crashed right before a critical presentation the next morning. Their technician had it resolved within 90 minutes. That kind of reliability is rare in Nepal."
-            </blockquote>
-            <div class="testi-card__author">
-              <div class="testi-card__avatar" aria-hidden="true">A</div>
-              <div class="testi-card__info">
-                <h5>Aakash Rai</h5>
-                <p>Director, Pokhara Digital Agency</p>
-              </div>
-            </div>
-          </article>
-
-        </div><!-- /testi-grid -->
-      </div>
-    </section><!-- /Testimonials -->
-
-    <!-- ===== CTA BANNER ===== -->
-    <section class="cta-banner" aria-labelledby="cta-title">
-      <div class="cta-banner__inner">
-        <h2 class="cta-banner__title" id="cta-title">Ready to Secure &amp; Connect Your Business?</h2>
-        <p class="cta-banner__text">Get a free consultation and quote from our team today. No obligation — just expert advice tailored to your needs.</p>
-        <div class="hero__actions" style="justify-content:center;">
-          <a href="tel:+97715326218" class="btn btn--outline-white btn--lg">Call Us Now</a>
-        </div>
-      </div>
-    </section>
-
-  </main><!-- /main -->
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer__top">
-
-        <!-- Brand column -->
-        <div>
-          <img src="images/company_optimized.png" alt="Recognized IT Service &amp; Solution" class="footer__brand-logo" loading="lazy" decoding="async">
-          <p class="footer__brand-name">Recognized IT Service &amp; Solution Pvt. Ltd.</p>
-          <p class="footer__brand-desc">Reliable CCTV, Networking &amp; IT Support serving homes and businesses across Nepal since 2010. Your security and connectivity, our commitment.</p>
-          <div class="footer__social">
-            <!-- Facebook -->
-            <a href="https://www.facebook.com/profile.php?id=100054583954360/" target="_blank" class="footer__social-link" aria-label="Follow us on Facebook" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <!-- Instagram -->
-            <a href="https://www.instagram.com/reco.gnizedit/" target="_blank" class="footer__social-link" aria-label="Follow us on Instagram" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            </a>
-            <!-- LinkedIn -->
-            <a href="#" class="footer__social-link" aria-label="Follow us on LinkedIn" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
-            <!-- YouTube -->
-            <a href="#" class="footer__social-link" aria-label="Watch on YouTube" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon fill="currentColor" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
-            </a>
-          </div>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h3 class="footer__col-title">Quick Links</h3>
-          <ul class="footer__links" role="list">
-            <li><a href="index.html"    class="footer__link">Home</a></li>
-            <li><a href="html/about.html"    class="footer__link">About Us</a></li>
-            <li><a href="html/services.html" class="footer__link">Services</a></li>
-            <li><a href="html/portfolio.html"class="footer__link">Portfolio</a></li>
-            <li><a href="html/shop.html"     class="footer__link">Shop</a></li>
-            <li><a href="html/contact.html"  class="footer__link">Contact</a></li>
-          </ul>
-        </div>
-
-        <!-- Services Links -->
-        <div>
-          <h3 class="footer__col-title">Services</h3>
-          <ul class="footer__links" role="list">
-            <li><a href="html/services.html" class="footer__link">CCTV Installation</a></li>
-            <li><a href="html/services.html" class="footer__link">Networking Setup</a></li>
-            <li><a href="html/services.html" class="footer__link">IT Support</a></li>
-            <li><a href="html/services.html" class="footer__link">Structured Cabling</a></li>
-            <li><a href="html/services.html" class="footer__link">Access Control</a></li>
-            <li><a href="html/services.html" class="footer__link">Server &amp; Cloud</a></li>
-          </ul>
-        </div>
-
-        <!-- Contact Info -->
-        <div>
-          <h3 class="footer__col-title">Contact</h3>
-          <address style="font-style:normal">
-            <div class="footer__contact-item">
-              <!-- Location icon -->
-              <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Khechapokhari, New Rd, Kathmandu, Bagmati Province 44600</span>
-            </div>
-            <div class="footer__contact-item">
-              <!-- Phone icon -->
-              <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 11.37 19c-.3-.09-.62-.19-.93-.32A19.5 19.5 0 0 1 4.91 12a19.79 19.79 0 0 1-2.91-8.45A2 2 0 0 1 3.97 1.5h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.97 9.91a16 16 0 0 0 6.12 6.12l1.77-1.26a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-              <a href="tel:+97715326218" class="footer__link">01-5326218</a>
-            </div>
-            <div class="footer__contact-item">
-              <!-- Mail icon -->
-              <svg class="footer__contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-              <a href="mailto:recognizedit@gmail.com" class="footer__link">recognizedit@gmail.com</a>
-            </div>
-          </address>
-        </div>
-
-      </div><!-- /footer__top -->
-
-      <div class="footer__bottom">
-        <p>&copy; 2026 Recognized IT Service &amp; Solution Pvt. Ltd. All rights reserved.</p>
-      </div>
-
-    </div><!-- /container -->
-  </footer><!-- /footer -->
-
-  <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
-  <!--
-  -->
-  <div class="whatsapp-float" aria-label="Chat with us on WhatsApp">
-    <a href="https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h"
-       target="_blank"
-       rel="noopener noreferrer"
-       class="whatsapp-float__btn"
-       aria-label="Open WhatsApp chat">
-      <!-- Official WhatsApp SVG icon (white) -->
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    <!-- ===== SCROLL TO TOP ===== -->
+    <button class="scroll-top" id="scrollTop" aria-label="Scroll back to top">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="18 15 12 9 6 15" />
       </svg>
-      <span class="whatsapp-float__label">Chat with us</span>
-    </a>
-  </div>
+    </button>
 
-  <!-- ===== SCROLL TO TOP ===== -->
-  <button class="scroll-top" id="scrollTop" aria-label="Scroll back to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="18 15 12 9 6 15"/>
-    </svg>
-  </button>
-
-  <!-- Main JS -->
-  <script src="js/main.js"></script>
-</body>
+    <!-- Main JS -->
+    <script src="js/main.js"></script>
+  </body>
 </html>
