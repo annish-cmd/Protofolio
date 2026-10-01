@@ -1,19 +1,50 @@
 import { supabase } from "./supabase.js";
 
-const testBtn = document.getElementById("testBtn");
-const status = document.getElementById("status");
+const form = document.getElementById("login-form");
+const message = document.getElementById("message");
 
-testBtn.addEventListener("click", async () => {
-  status.textContent = "Connecting...";
-  const { data, error } = await supabase.from("test").select("*");
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  message.textContent = "Loggin in..";
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
   if (error) {
-    console.error(error);
-    status.textContent = "Connection failed: " + error.message;
+    message.textContent = error.message;
     return;
   }
 
-  console.log(data);
+  async function checkUser() {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    if (error || !user) {
+      return;
+    }
+    document.getElementById("user").textContent = `Logged in as: ${user.email}`;
+  }
+  checkUser();
 
-  status.textContent = `Connection successful! Found ${data.length} products.`;
+  console.log("Logged in user: ", data.email);
+
+  const { data: profile, error: profileError } = await supabase
+    .from("profiles")
+    .select("full_name", "role")
+    .eq("id", user.id)
+    .single();
+
+  if (profileError) {
+    message.textContent = error.message;
+    return;
+  }
+
+  message.textContent = `Login success, hello ${profile}`;
 });

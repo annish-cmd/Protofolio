@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Admin Login</title>
+  </head>
+  <body>
+    <h1>Test</h1>
+    <form id="login-form">
+      <input id="email" type="email" placeholder="Email" required />
+      <input id="password" type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+
+    <p id="message"></p>
+
+    <!-- supabase library - load first among scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- other scripts import -->
+    <script type="module" src="../js/admin.js"></script>
+  </body>
+</html>
