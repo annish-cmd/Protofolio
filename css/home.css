@@ -162,6 +162,61 @@
   color: var(--color-primary);
 }
 
+.feature-card__icon-wrap--experience {
+  width: 160px;
+  height: 160px;
+  flex: 0 0 160px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 164, 72, 0.5);
+  border-radius: 18px;
+  background: #0b1830;
+  box-shadow: 0 8px 22px rgba(10, 22, 40, 0.2), 0 0 0 4px rgba(201, 164, 72, 0.12);
+  transition: transform 350ms ease, box-shadow 350ms ease;
+}
+
+.feature-card__experience-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.feature-card__icon-wrap--artwork {
+  width: 160px;
+  height: 160px;
+  flex: 0 0 160px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 164, 72, 0.5);
+  border-radius: 18px;
+  background: #0b1830;
+  box-shadow: 0 8px 22px rgba(10, 22, 40, 0.2), 0 0 0 4px rgba(201, 164, 72, 0.12);
+  transition: transform 350ms ease, box-shadow 350ms ease;
+}
+
+.feature-card__artwork-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.feature-card--experience:hover .feature-card__icon-wrap--experience,
+.feature-card--experience:focus-within .feature-card__icon-wrap--experience,
+.feature-card:hover .feature-card__icon-wrap--artwork,
+.feature-card:focus-within .feature-card__icon-wrap--artwork {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(10, 22, 40, 0.24), 0 0 0 5px rgba(201, 164, 72, 0.2);
+}
+
+.feature-card--experience:hover .feature-card__experience-image,
+.feature-card--experience:focus-within .feature-card__experience-image,
+.feature-card:hover .feature-card__artwork-image,
+.feature-card:focus-within .feature-card__artwork-image {
+  transform: scale(1.05);
+}
+
 .feature-card__title {
   margin-bottom: var(--space-sm);
 }
@@ -169,6 +224,15 @@
 .feature-card__desc {
   color: var(--color-text-muted);
   font-size: 0.95rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card__icon-wrap--experience,
+  .feature-card__experience-image,
+  .feature-card__icon-wrap--artwork,
+  .feature-card__artwork-image {
+    transition: none;
+  }
 }
 
 /* ===== SERVICES PREVIEW ===== */
