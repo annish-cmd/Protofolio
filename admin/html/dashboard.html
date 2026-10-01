@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#08a1be" />
+    <meta
+      name="description"
+      content="Recognized IT Service &amp; Solution administration dashboard."
+    />
+    <title>Dashboard | Recognized IT Service &amp; Solution</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "DM Sans", sans-serif;
+        color: #20383b;
+        background: #f5f8f8;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        --ink: #20383b;
+        --muted: #718184;
+        --cyan: #08a1be;
+        --cyan-dark: #067a92;
+        --gold: #b99a00;
+        --line: #dfe8e8;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100vh;
+        min-height: 100svh;
+        margin: 0;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      .topbar {
+        display: flex;
+        min-height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 12px max(24px, calc((100vw - 1280px) / 2));
+        border-bottom: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .brand,
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+      }
+
+      .brand {
+        min-width: 0;
+        gap: 16px;
+      }
+
+      .brand img {
+        display: block;
+        width: min(230px, 48vw);
+        height: 48px;
+        object-fit: contain;
+        object-position: left center;
+      }
+
+      .brand-divider {
+        width: 1px;
+        height: 30px;
+        background: var(--line);
+      }
+
+      .brand-label {
+        color: #527074;
+        font-size: 0.8rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .topbar-actions {
+        gap: 18px;
+      }
+
+      .topbar-email {
+        max-width: 260px;
+        overflow: hidden;
+        color: #63777a;
+        font-size: 0.84rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .signout-button {
+        display: inline-flex;
+        min-height: 40px;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 0 13px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        color: #375154;
+        background: #fff;
+        font-size: 0.83rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+          border-color 150ms ease,
+          color 150ms ease,
+          background 150ms ease;
+      }
+
+      .signout-button:hover {
+        border-color: var(--cyan);
+        color: var(--cyan-dark);
+        background: #f4fbfc;
+      }
+
+      .signout-button:focus-visible {
+        outline: 3px solid rgba(8, 161, 190, 0.24);
+        outline-offset: 3px;
+      }
+
+      .signout-button:disabled {
+        cursor: wait;
+        opacity: 0.7;
+      }
+
+      .signout-button svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .page-content {
+        width: min(100% - 48px, 1120px);
+        margin: 0 auto;
+        padding: 44px 0 64px;
+      }
+
+      .breadcrumb {
+        margin: 0 0 14px;
+        color: var(--muted);
+        font-size: 0.81rem;
+      }
+
+      .breadcrumb span {
+        padding-inline: 7px;
+        color: #a3b1b2;
+      }
+
+      .page-heading {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(1.9rem, 4vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .page-subtitle {
+        margin: 10px 0 30px;
+        color: var(--muted);
+        font-size: 0.96rem;
+      }
+
+      .welcome-panel {
+        position: relative;
+        overflow: hidden;
+        padding: clamp(24px, 4vw, 38px);
+        border: 1px solid #cce7eb;
+        border-left: 4px solid var(--cyan);
+        border-radius: 6px;
+        background: linear-gradient(110deg, #fff 0%, #f0fafb 100%);
+      }
+
+      .welcome-panel::after {
+        position: absolute;
+        top: -82px;
+        right: -30px;
+        width: 210px;
+        height: 210px;
+        border: 1px solid rgba(8, 161, 190, 0.13);
+        border-radius: 50%;
+        box-shadow: 0 0 0 28px rgba(8, 161, 190, 0.035);
+        content: "";
+        pointer-events: none;
+      }
+
+      .welcome-kicker,
+      .welcome-title,
+      .welcome-copy {
+        position: relative;
+        z-index: 1;
+      }
+
+      .welcome-kicker {
+        margin: 0 0 8px;
+        color: var(--cyan-dark);
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .welcome-title {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Manrope", sans-serif;
+        font-size: clamp(1.4rem, 3vw, 1.85rem);
+        font-weight: 700;
+      }
+
+      .welcome-copy {
+        max-width: 620px;
+        margin: 9px 0 0;
+        color: #62777a;
+        font-size: 0.92rem;
+        line-height: 1.65;
+      }
+
+      .section-heading {
+        margin: 34px 0 14px;
+        color: var(--ink);
+        font-family: "Manrope", sans-serif;
+        font-size: 1.08rem;
+        font-weight: 700;
+      }
+
+      .account-panel {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: #fff;
+      }
+
+      .account-row {
+        display: grid;
+        grid-template-columns: minmax(150px, 0.38fr) minmax(0, 1fr);
+        gap: 20px;
+        padding: 17px 20px;
+      }
+
+      .account-row + .account-row {
+        border-top: 1px solid #edf1f1;
+      }
+
+      .account-row dt {
+        color: var(--muted);
+        font-size: 0.86rem;
+      }
+
+      .account-row dd {
+        min-width: 0;
+        margin: 0;
+        overflow-wrap: anywhere;
+        color: #30494c;
+        font-size: 0.88rem;
+        font-weight: 600;
+      }
+
+      .role-value {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-transform: capitalize;
+      }
+
+      .role-value::before {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--gold);
+        content: "";
+      }
+
+      #dashboard-status {
+        min-height: 1.5em;
+        margin: 20px 0 0;
+        color: #8a5e10;
+        font-size: 0.85rem;
+      }
+
+      .page-footer {
+        margin-top: 48px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: #829295;
+        font-size: 0.78rem;
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          min-height: 68px;
+          gap: 12px;
+          padding-inline: 16px;
+        }
+
+        .brand {
+          gap: 10px;
+        }
+
+        .brand img {
+          width: min(175px, 43vw);
+          height: 40px;
+        }
+
+        .brand-label,
+        .brand-divider,
+        .topbar-email,
+        .signout-label {
+          display: none;
+        }
+
+        .topbar-actions {
+          gap: 0;
+        }
+
+        .signout-button {
+          width: 40px;
+          padding: 0;
+        }
+
+        .page-content {
+          width: min(100% - 32px, 1120px);
+          padding-top: 32px;
+        }
+
+        .account-row {
+          grid-template-columns: 1fr;
+          gap: 5px;
+          padding: 14px 16px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <img
+          src="../../images/company_optimized.png"
+          alt="Recognized IT Service &amp; Solution"
+          width="230"
+          height="48"
+        />
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-label">Admin portal</span>
+      </div>
+      <div class="topbar-actions">
+        <span id="header-email" class="topbar-email"></span>
+        <button
+          id="signout-button"
+          class="signout-button"
+          type="button"
+          aria-label="Sign out"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M10 17l5-5-5-5" />
+            <path d="M15 12H3" />
+            <path d="M12 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5" />
+          </svg>
+          <span class="signout-label">Sign out</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-content">
+      <p class="breadcrumb">
+        Administration<span aria-hidden="true">/</span>Overview
+      </p>
+      <h1 class="page-heading">Overview</h1>
+      <p class="page-subtitle">Your administration workspace.</p>
+
+      <section class="welcome-panel" aria-labelledby="welcome-title">
+        <p class="welcome-kicker">Recognized IT Service &amp; Solution</p>
+        <h2 id="welcome-title" class="welcome-title">Welcome</h2>
+        <p class="welcome-copy">
+          Your account is signed in and ready. Account information is shown
+          below.
+        </p>
+      </section>
+
+      <section aria-labelledby="account-heading">
+        <h2 id="account-heading" class="section-heading">Account details</h2>
+        <dl class="account-panel">
+          <div class="account-row">
+            <dt>Name</dt>
+            <dd id="account-name">Loading...</dd>
+          </div>
+          <div class="account-row">
+            <dt>Email</dt>
+            <dd id="account-email">Loading...</dd>
+          </div>
+          <div class="account-row">
+            <dt>Role</dt>
+            <dd id="account-role" class="role-value">Loading...</dd>
+          </div>
+        </dl>
+        <p id="dashboard-status" role="status" aria-live="polite">
+          Checking your session...
+        </p>
+      </section>
+
+      <footer class="page-footer">
+        Recognized IT Service &amp; Solution Pvt. Ltd.
+      </footer>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module" src="../js/dashboard.js"></script>
+  </body>
+</html>
