@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Gallery | Recognized IT Service &amp; Solution</title>
+    <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/project_gallery.css" />
+  </head>
+  <body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <div class="navbar__inner">
+        <a href="../index.html" class="navbar__logo" aria-label="Home">
+          <img
+            src="../images/company_white.png"
+            alt="Recognized IT Service &amp; Solution"
+            class="navbar__logo-img"
+          />
+        </a>
+        <ul class="navbar__links" role="list">
+          <li><a href="../index.html" class="navbar__link">Home</a></li>
+          <li>
+            <a href="../html/services.html" class="navbar__link">Services</a>
+          </li>
+          <li>
+            <a href="../html/portfolio.html" class="navbar__link">Portfolio</a>
+          </li>
+          <li><a href="../html/shop.html" class="navbar__link">Shop</a></li>
+          <li><a href="../html/about.html" class="navbar__link">About</a></li>
+          <li>
+            <a
+              href="../html/project_gallery.html"
+              class="navbar__link active"
+              aria-current="page"
+              >Project Gallery</a
+            >
+          </li>
+          <li>
+            <a href="../html/contact.html" class="navbar__link">Contact</a>
+          </li>
+        </ul>
+        <div class="navbar__actions">
+          <a
+            href="../html/cart.html"
+            class="navbar__action-btn"
+            aria-label="Shopping cart"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              />
+            </svg>
+            <span class="navbar__cart-count" aria-label="items in cart">0</span>
+          </a>
+          <a
+            href="../html/account.html"
+            class="navbar__action-btn"
+            aria-label="My Account"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+          </a>
+        </div>
+        <button
+          class="navbar__hamburger"
+          id="navbarHamburger"
+          aria-controls="navbarMobile"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div
+        class="navbar__mobile"
+        id="navbarMobile"
+        role="dialog"
+        aria-label="Mobile navigation"
+      >
+        <a href="../index.html" class="navbar__link">Home</a>
+        <a href="../html/services.html" class="navbar__link">Services</a>
+        <a href="../html/portfolio.html" class="navbar__link">Portfolio</a>
+        <a href="../html/shop.html" class="navbar__link">Shop</a>
+        <a href="../html/about.html" class="navbar__link">About</a>
+        <a
+          href="../html/project_gallery.html"
+          class="navbar__link active"
+          aria-current="page"
+          >Project Gallery</a
+        >
+        <a href="../html/contact.html" class="navbar__link">Contact</a>
+        <div class="navbar__mobile-actions">
+          <a href="../html/cart.html" aria-label="Cart">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="9" cy="21" r="1" />
+              <circle cx="20" cy="21" r="1" />
+              <path
+                d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+              />
+            </svg>
+            Cart
+          </a>
+          <a href="../html/account.html" aria-label="My Account">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Account
+          </a>
+        </div>
+      </div>
+    </nav>
+    <main class="project-gallery">
+      <section class="project-gallery__section" aria-labelledby="gallery-title">
+        <div class="container">
+          <header class="project-gallery__header">
+            <p class="project-gallery__eyebrow">Our Work</p>
+            <h1 id="gallery-title">Project Gallery</h1>
+            <p class="project-gallery__intro">
+              A look at projects completed by the Recognized IT team.
+            </p>
+          </header>
+
+          <div class="project-gallery__grid" aria-label="Project photos">
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a1.webp"
+                  alt="Project photo A1"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a2.webp"
+                  alt="Project photo A2"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a3.webp"
+                  alt="Project photo A3"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a4.webp"
+                  alt="Project photo A4"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a5.webp"
+                  alt="Project photo A5"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a6.webp"
+                  alt="Project photo A6"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a8.webp"
+                  alt="Project photo A8"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a9.webp"
+                  alt="Project photo A9"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a10.webp"
+                  alt="Project photo A10"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a11.webp"
+                  alt="Project photo A11"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a14.webp"
+                  alt="Project photo A14"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a15.webp"
+                  alt="Project photo A15"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a16.webp"
+                  alt="Project photo A16"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a17.webp"
+                  alt="Project photo A17"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a19.webp"
+                  alt="Project photo A19"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a20.webp"
+                  alt="Project photo A20"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a21.webp"
+                  alt="Project photo A21"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a22.webp"
+                  alt="Project photo A22"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a23.webp"
+                  alt="Project photo A23"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a24.webp"
+                  alt="Project photo A24"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a25.webp"
+                  alt="Project photo A25"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a26.webp"
+                  alt="Project photo A26"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a27.webp"
+                  alt="Project photo A27"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a30.webp"
+                  alt="Project photo A30"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a31.webp"
+                  alt="Project photo A31"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a32.webp"
+                  alt="Project photo A32"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a34.webp"
+                  alt="Project photo A34"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a35.webp"
+                  alt="Project photo A35"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a36.webp"
+                  alt="Project photo A36"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a38.webp"
+                  alt="Project photo A38"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a40.webp"
+                  alt="Project photo A40"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a41.webp"
+                  alt="Project photo A41"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a42.webp"
+                  alt="Project photo A42"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a44.webp"
+                  alt="Project photo A44"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a45.webp"
+                  alt="Project photo A45"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a48.webp"
+                  alt="Project photo A48"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a49.webp"
+                  alt="Project photo A49"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a51.webp"
+                  alt="Project photo A51"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a52.webp"
+                  alt="Project photo A52"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a53.webp"
+                  alt="Project photo A53"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a54.webp"
+                  alt="Project photo A54"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a55.webp"
+                  alt="Project photo A55"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a56.webp"
+                  alt="Project photo A56"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a57.webp"
+                  alt="Project photo A57"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a58.webp"
+                  alt="Project photo A58"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+            <figure class="project-gallery__card">
+              <div class="project-gallery__image-wrap">
+                <img
+                  src="../pro-gallery/a60.webp"
+                  alt="Project photo A60"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </figure>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="../js/project_gallery.js"></script>
+    <script src="../js/main.js"></script>
+  </body>
+</html>
