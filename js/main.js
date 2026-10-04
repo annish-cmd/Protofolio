@@ -1,10 +1,55 @@
+
+// ===== WHATSAPP SMART DEEP-LINK =====
+// Group invite code shared across all pages
+const WA_GROUP_CODE = 'BgjdHugKar5CXt8mFNxq2h';
+
 /**
- * ========================================================
- * main.js — Recognized IT Service & Solution Pvt. Ltd.
- * Global Navigation, WhatsApp click, basic UI state
- * Cart is also initialized here for cross-page counting
- * ========================================================
+ * Detects whether the visitor is on a mobile/tablet device.
+ * Uses the modern `navigator.userAgentData` API where available,
+ * with a regex fallback for older browsers.
  */
+function isMobileDevice() {
+  if (navigator.userAgentData) {
+    return navigator.userAgentData.mobile;
+  }
+  return /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+/**
+ * Opens WhatsApp correctly on every platform:
+ *   Mobile (Android) → intent:// URI  → opens the native WhatsApp app directly
+ *   Mobile (iOS)     → universal link → iOS opens the installed app automatically
+ *   Desktop          → web.whatsapp.com group invite → WhatsApp Web in the browser
+ *
+ * Attach to any WhatsApp anchor via:
+ *   onclick="openWhatsApp(event)"
+ */
+function openWhatsApp(event) {
+  event.preventDefault();
+
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const groupUrl  = 'https://chat.whatsapp.com/' + WA_GROUP_CODE;
+
+  if (isAndroid) {
+    // Android intent URI: tries the installed app first, falls back to Play Store
+    const intentUri =
+      'intent://chat.whatsapp.com/' + WA_GROUP_CODE +
+      '#Intent;scheme=https;package=com.whatsapp;' +
+      'S.browser_fallback_url=' + encodeURIComponent(groupUrl) + ';end';
+    window.location.href = intentUri;
+  } else if (isIOS) {
+    // iOS universal link — if WhatsApp is installed it opens automatically
+    window.location.href = groupUrl;
+  } else {
+    // Desktop browser → WhatsApp Web group join page
+    window.open(
+      'https://web.whatsapp.com/accept?code=' + WA_GROUP_CODE,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
