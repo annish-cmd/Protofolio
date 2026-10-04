@@ -1,25 +1,14 @@
 
-// ===== WHATSAPP SMART DEEP-LINK =====
-// Group invite code shared across all pages
-const WA_GROUP_CODE = 'BgjdHugKar5CXt8mFNxq2h';
+// ===== WHATSAPP GROUP SMART DEEP-LINK =====
+// Group invite code with full URL
+const WA_GROUP_URL = 'https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h?s=sw&p=a&ilr=4&iam=2';
 
 /**
- * Detects whether the visitor is on a mobile/tablet device.
- * Uses the modern `navigator.userAgentData` API where available,
- * with a regex fallback for older browsers.
- */
-function isMobileDevice() {
-  if (navigator.userAgentData) {
-    return navigator.userAgentData.mobile;
-  }
-  return /Android|iPhone|iPad|iPod|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-/**
- * Opens WhatsApp correctly on every platform:
- *   Mobile (Android) → intent:// URI  → opens the native WhatsApp app directly
- *   Mobile (iOS)     → universal link → iOS opens the installed app automatically
- *   Desktop          → web.whatsapp.com group invite → WhatsApp Web in the browser
+ * Opens WhatsApp Group correctly on every platform:
+ *   Mobile (Android) → Opens native WhatsApp app directly via intent URI
+ *   Mobile (iOS)     → Opens WhatsApp app automatically if installed
+ *   Desktop          → Opens WhatsApp Web in new tab
+ *   Tablet           → Same as mobile device type
  *
  * Attach to any WhatsApp anchor via:
  *   onclick="openWhatsApp(event)"
@@ -27,27 +16,27 @@ function isMobileDevice() {
 function openWhatsApp(event) {
   event.preventDefault();
 
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS     = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const groupUrl  = 'https://chat.whatsapp.com/' + WA_GROUP_CODE;
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isAndroid = /android/i.test(userAgent);
+  const isIOS = /iphone|ipad|ipod/i.test(userAgent);
+  const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
+
+  // Extract just the code part from the group URL for Android intent
+  const groupCode = 'BgjdHugKar5CXt8mFNxq2h';
 
   if (isAndroid) {
-    // Android intent URI: tries the installed app first, falls back to Play Store
+    // Android: Use intent URI to open app first, with web fallback
     const intentUri =
-      'intent://chat.whatsapp.com/' + WA_GROUP_CODE +
+      'intent://chat.whatsapp.com/' + groupCode +
       '#Intent;scheme=https;package=com.whatsapp;' +
-      'S.browser_fallback_url=' + encodeURIComponent(groupUrl) + ';end';
+      'S.browser_fallback_url=' + encodeURIComponent(WA_GROUP_URL) + ';end';
     window.location.href = intentUri;
-  } else if (isIOS) {
-    // iOS universal link — if WhatsApp is installed it opens automatically
-    window.location.href = groupUrl;
+  } else if (isIOS || isTablet) {
+    // iOS & iPad: Universal link — opens app if installed, otherwise web
+    window.location.href = WA_GROUP_URL;
   } else {
-    // Desktop browser → WhatsApp Web group join page
-    window.open(
-      'https://web.whatsapp.com/accept?code=' + WA_GROUP_CODE,
-      '_blank',
-      'noopener,noreferrer'
-    );
+    // Desktop (Windows, Mac, Linux): Open WhatsApp Web in new tab
+    window.open(WA_GROUP_URL, '_blank', 'noopener,noreferrer');
   }
 }
 
