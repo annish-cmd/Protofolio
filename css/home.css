@@ -402,8 +402,8 @@
 .partners-group img {
   display: block;
   flex: 0 0 auto;
-  width: clamp(260px, 24vw, 360px);
-  height: 240px;
+  width: clamp(230px, 20vw, 300px);
+  height: 200px;
   object-fit: contain;
   opacity: 0.82;
   transition: opacity var(--transition-base);
@@ -651,8 +651,8 @@
   }
 
   .partners-group img {
-    width: clamp(220px, 56vw, 260px);
-    height: 170px;
+    width: clamp(200px, 52vw, 230px);
+    height: 150px;
   }
 }
 
