@@ -448,6 +448,81 @@ textarea.form-control {
   opacity: 0.4;
 }
 
+/* ===== CONTACT & SOCIAL TOP BAR ===== */
+.topbar {
+  background: var(--color-primary-dark);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1440px;
+  min-height: 40px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 1.5vw, 1.5rem);
+}
+
+.topbar__socials,
+.topbar__contact {
+  display: flex;
+  align-items: center;
+}
+
+.topbar__socials {
+  gap: 0.35rem;
+}
+
+.topbar__social-link {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: #fff;
+  transition:
+    color var(--transition-base),
+    background-color var(--transition-base);
+}
+
+.topbar__social-link:hover {
+  color: var(--color-primary-dark);
+  background: #fff;
+}
+
+.topbar__social-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+.topbar__contact {
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+}
+
+.topbar__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #fff;
+  white-space: nowrap;
+  transition: opacity var(--transition-base);
+}
+
+.topbar__contact-link:hover {
+  color: #fff;
+  opacity: 0.78;
+}
+
+.topbar__contact-link svg {
+  flex: 0 0 auto;
+  width: 15px;
+  height: 15px;
+}
+
 /* ===== NAVIGATION ===== */
 .navbar {
   position: sticky;
@@ -1164,5 +1239,27 @@ textarea.form-control {
 @media (max-width: 480px) {
   :root {
     --container-padding: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .topbar__inner {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-block: 0.25rem;
+  }
+
+  .topbar__contact {
+    gap: 0.35rem;
+  }
+
+  .topbar__contact-link {
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+  }
+
+  .topbar__contact-link span {
+    display: none;
   }
 }
