@@ -324,6 +324,51 @@
   letter-spacing: 0.08em;
 }
 
+/* ===== BRANDS WE SUPPLY ===== */
+.brands-section {
+  background: var(--color-bg-tint);
+}
+
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+}
+
+.brand-card {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: var(--space-sm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg-white);
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.brand-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(8, 161, 190, 0.35);
+  box-shadow: var(--shadow-md);
+}
+
+.brand-card__image {
+  display: block;
+  width: 100%;
+  height: clamp(96px, 11vw, 136px);
+  object-fit: contain;
+  transition: transform 300ms ease;
+}
+
+.brand-card:hover .brand-card__image {
+  transform: scale(1.06);
+}
+
 /* ===== PORTFOLIO PREVIEW ===== */
 .portfolio-grid {
   display: grid;
@@ -529,6 +574,9 @@
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  .brands-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 768px) {
@@ -573,6 +621,11 @@
   .scroll-reveal.is-revealed {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .brand-card,
+  .brand-card__image {
     transition: none;
   }
 }

@@ -11,7 +11,8 @@
 
   document
     .querySelectorAll(
-      ".features-grid, .services-grid, .stats-grid, .portfolio-grid, .testi-grid",
+      ".features-grid, .services-grid, .stats-grid, .portfolio-grid, " +
+        ".testi-grid, .brands-grid",
     )
     .forEach((grid) => {
       Array.from(grid.children).forEach((item, index) => {
