@@ -34,7 +34,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-auto-rows: 8px;
-  grid-auto-flow: row dense;
+  grid-auto-flow: row;
   gap: 0.9rem;
 }
 
@@ -60,11 +60,10 @@
 }
 
 .project-gallery__image-wrap img {
+  display: block;
   width: 100%;
   height: auto;
   max-width: 100%;
-  object-fit: initial;
-  vertical-align: middle;
   transition: transform 350ms ease;
 }
 
