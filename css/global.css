@@ -36,8 +36,8 @@
   --space-lg:  1.5rem;
   --space-xl:  2rem;
   --space-2xl: 3rem;
-  --space-3xl: 4rem;
-  --space-4xl: 6rem;
+  --space-3xl: clamp(4rem, 3.5vw, 5rem);
+  --space-4xl: clamp(6rem, 5vw, 8rem);
 
   /* Shadows */
   --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
@@ -58,8 +58,8 @@
   --transition-slow: 350ms ease;
 
   /* Container */
-  --container-max: 1200px;
-  --container-padding: 1.5rem;
+  --container-max: 1680px;
+  --container-padding: clamp(1rem, 1.75vw, 2rem);
 
   /* Nav height */
   --nav-height: 88px;
@@ -461,10 +461,10 @@ textarea.form-control {
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--container-max);
   min-height: 40px;
   margin-inline: auto;
-  padding-inline: clamp(1rem, 1.5vw, 1.5rem);
+  padding-inline: var(--container-padding);
 }
 
 .topbar__socials,
@@ -543,9 +543,9 @@ textarea.form-control {
   gap: var(--space-lg);
   height: 100%;
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: clamp(1rem, 1.5vw, 1.5rem);
+  padding-inline: var(--container-padding);
 }
 
 /* Logo */

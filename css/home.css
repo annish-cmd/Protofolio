@@ -16,7 +16,7 @@
 }
 
 .hero > .container {
-  max-width: 1440px;
+  max-width: var(--container-max);
   padding-inline: clamp(1rem, 1.4vw, 1.25rem);
 }
 
