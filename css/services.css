@@ -139,7 +139,7 @@
   display: flex;
   width: 100%;
   min-width: 0;
-  max-width: none;
+  max-width: 1200px;
   padding-inline: clamp(0.75rem, 2vw, 1.5rem);
 }
 
@@ -209,6 +209,7 @@
 }
 
 .services-page .service-detail__desc {
+  max-width: 68ch;
   margin-bottom: var(--space-md);
   font-size: 0.95rem;
 }
@@ -294,7 +295,7 @@
   .process-steps::before { display: none; }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .services-page {
     grid-template-columns: minmax(0, 1fr);
   }
