@@ -1,42 +1,30 @@
-
-// ===== WHATSAPP GROUP SMART DEEP-LINK =====
-// Group invite code with full URL
-const WA_GROUP_URL = 'https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h?s=sw&p=a&ilr=4&iam=2';
+/**
+ * ============================================================================
+ * WHATSAPP INTEGRATION
+ * ============================================================================
+ * Uses the universal WhatsApp handler (whatsapp-handler.js) for all
+ * WhatsApp functionality. The handler is loaded separately and provides:
+ * - openWhatsAppGroup() for group chat links
+ * - sendWhatsAppOrder() for order messages
+ * - Cross-platform support (Android, iOS, Desktop, Flutter WebView)
+ * ============================================================================
+ */
 
 /**
- * Opens WhatsApp Group correctly on every platform:
- *   Mobile (Android) → Opens native WhatsApp app directly via intent URI
- *   Mobile (iOS)     → Opens WhatsApp app automatically if installed
- *   Desktop          → Opens WhatsApp Web in new tab
- *   Tablet           → Same as mobile device type
- *
- * Attach to any WhatsApp anchor via:
- *   onclick="openWhatsApp(event)"
+ * Legacy openWhatsApp function - now delegates to universal handler
+ * Kept for backward compatibility with existing onclick handlers
  */
 function openWhatsApp(event) {
-  event.preventDefault();
+  if (event) event.preventDefault();
 
-  const userAgent = navigator.userAgent.toLowerCase();
-  const isAndroid = /android/i.test(userAgent);
-  const isIOS = /iphone|ipad|ipod/i.test(userAgent);
-  const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
-
-  // Extract just the code part from the group URL for Android intent
-  const groupCode = 'BgjdHugKar5CXt8mFNxq2h';
-
-  if (isAndroid) {
-    // Android: Use intent URI to open app first, with web fallback
-    const intentUri =
-      'intent://chat.whatsapp.com/' + groupCode +
-      '#Intent;scheme=https;package=com.whatsapp;' +
-      'S.browser_fallback_url=' + encodeURIComponent(WA_GROUP_URL) + ';end';
-    window.location.href = intentUri;
-  } else if (isIOS || isTablet) {
-    // iOS & iPad: Universal link — opens app if installed, otherwise web
-    window.location.href = WA_GROUP_URL;
+  // Check if universal handler is loaded
+  if (typeof openWhatsAppGroup === 'function') {
+    openWhatsAppGroup(event);
   } else {
-    // Desktop (Windows, Mac, Linux): Open WhatsApp Web in new tab
-    window.open(WA_GROUP_URL, '_blank', 'noopener,noreferrer');
+    console.error('[WhatsApp] Universal handler not loaded. Include whatsapp-handler.js before main.js');
+    // Fallback to direct link
+    const groupUrl = 'https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h';
+    window.open(groupUrl, '_blank', 'noopener,noreferrer');
   }
 }
 
