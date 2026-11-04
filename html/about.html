@@ -33,6 +33,7 @@
 
     <!-- CSS: Global first, then page-specific -->
     <link rel="stylesheet" href="../css/global.css" />
+    <link rel="stylesheet" href="../css/scroll-animations.css" />
     <link rel="stylesheet" href="../css/about.css" />
   </head>
   <body>
@@ -802,7 +803,15 @@
       </svg>
     </button>
 
-    <!-- Main JS -->
+    <!-- Smooth Navigation (load first for instant transitions) -->
+    <script src="../js/smooth-navigation.js"></script>
+
+    <!-- Scroll Animations -->
+    <script src="../js/scroll-animations.js"></script>
+
+    <!-- WhatsApp Handler (must load before main.js) -->
+    <script src="../js/whatsapp-handler.js"></script>
+
     <script src="../js/main.js"></script>
   </body>
 </html>
