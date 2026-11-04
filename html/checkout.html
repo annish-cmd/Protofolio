@@ -21,7 +21,7 @@
       content="Reliable CCTV, Networking & IT Support — serving homes and businesses across Nepal since 2010."
     />
     <meta property="og:type" content="website" />
-    <title>Secure Checkout | Recognized IT Service & Solution</title>
+    <title>Order via WhatsApp | Recognized IT Service & Solution</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -213,27 +213,6 @@
             </svg>
             <span class="navbar__cart-count" aria-label="items in cart">0</span>
           </a>
-          <a
-            href="../html/account.html"
-            class="navbar__action-btn"
-            aria-label="My Account"
-          >
-            <!-- User icon -->
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-          </a>
         </div>
 
         <!-- Mobile Hamburger -->
@@ -289,23 +268,6 @@
             </svg>
             Cart
           </a>
-          <a href="../html/account.html" aria-label="My Account">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>
-            Account
-          </a>
         </div>
       </div>
     </nav>
@@ -315,247 +277,80 @@
       <header class="page-hero" style="padding: var(--space-2xl) 0">
         <div class="container">
           <h1 class="page-hero__title" style="font-size: 2rem; margin: 0">
-            Secure Checkout
+            Order via WhatsApp
           </h1>
         </div>
       </header>
 
       <section class="section">
         <div class="container">
-          <!-- Form visible state -->
-          <div
-            id="checkoutFormWrap"
-            class="checkout-layout"
-            style="display: none"
-          >
+          <!-- Order Summary -->
+          <div class="checkout-layout" id="orderSummaryView">
             <div class="checkout-main">
-              <form id="checkoutForm">
-                <div class="checkout-section">
-                  <h2 class="checkout-section__title">
-                    <span class="checkout-section__num">1</span> Billing &
-                    Shipping Details
-                  </h2>
-
-                  <div class="checkout-form__row">
-                    <div class="form-group">
-                      <label class="form-label" for="b_name">Full Name *</label>
-                      <input
-                        type="text"
-                        id="b_name"
-                        class="form-control"
-                        required
-                        placeholder="John Doe"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label" for="b_phone"
-                        >Mobile Number *</label
-                      >
-                      <input
-                        type="tel"
-                        id="b_phone"
-                        class="form-control"
-                        required
-                        placeholder="98XXXXXXXX"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label" for="b_email"
-                      >Email Address</label
-                    >
-                    <input
-                      type="email"
-                      id="b_email"
-                      class="form-control"
-                      placeholder="john@example.com"
-                    />
-                  </div>
-
-                  <div class="form-group">
-                    <label class="form-label" for="b_address"
-                      >Delivery Address *</label
-                    >
-                    <input
-                      type="text"
-                      id="b_address"
-                      class="form-control"
-                      required
-                      placeholder="Street name, House number"
-                    />
-                  </div>
-
-                  <div class="checkout-form__row">
-                    <div class="form-group">
-                      <label class="form-label" for="b_city">City/Area *</label>
-                      <input
-                        type="text"
-                        id="b_city"
-                        class="form-control"
-                        required
-                        placeholder="Kathmandu"
-                      />
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label">Province *</label>
-                      <select class="form-control" required>
-                        <option value="Bagmati">Bagmati Province</option>
-                        <option value="Gandaki">Gandaki Province</option>
-                        <option value="Lumbini">Lumbini Province</option>
-                        <option value="Koshi">Koshi Province</option>
-                        <option value="Madhesh">Madhesh Province</option>
-                        <option value="Karnali">Karnali Province</option>
-                        <option value="Sudurpashchim">
-                          Sudurpashchim Province
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="form-group mb-0">
-                    <label class="form-label" for="b_notes"
-                      >Order Notes (Optional)</label
-                    >
-                    <textarea
-                      id="b_notes"
-                      class="form-control"
-                      placeholder="e.g. Need installation services, Call before delivery"
-                      style="min-height: 80px"
-                    ></textarea>
-                  </div>
-                </div>
-
-                <div class="checkout-section">
-                  <h2 class="checkout-section__title">
-                    <span class="checkout-section__num">2</span> Payment Method
-                  </h2>
-
-                  <!-- Only COD allowed as per specifications -->
-                  <label class="payment-method-option">
-                    <input type="radio" name="payment" value="COD" checked />
-                    <div class="payment-method-option__icon">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <rect x="2" y="6" width="20" height="12" rx="2" />
-                        <circle cx="12" cy="12" r="2" />
-                        <path d="M6 12h.01M18 12h.01" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div class="payment-method-option__label">
-                        Cash on Delivery (COD)
-                      </div>
-                      <p class="payment-method-option__desc">
-                        Pay with cash when your equipment is delivered. Note: We
-                        do not process online payments currently.
-                      </p>
-                    </div>
-                  </label>
-                </div>
-              </form>
-            </div>
-
-            <aside class="checkout-sidebar">
-              <div class="order-summary">
-                <h3 class="order-summary__title">Your Order</h3>
-                <div id="checkoutItemsList">
-                  <!-- Items injected here via JS -->
-                </div>
-
+              <div class="order-summary-card">
+                <h2 class="order-summary-card__title">Your Order Summary</h2>
+                <div id="checkoutItemsList"></div>
                 <div class="order-total-row mt-md">
                   <span>Subtotal</span>
                   <span id="chkSubtotal">Rs. 0</span>
                 </div>
-                <div class="order-total-row">
-                  <span>Shipping</span>
-                  <span>Calculated via phone</span>
-                </div>
                 <div class="order-total-row order-total-row--grand">
-                  <span>Total</span>
+                  <span>Grand Total</span>
                   <span id="chkTotal" class="text-primary">Rs. 0</span>
                 </div>
-
-                <button
-                  type="submit"
-                  form="checkoutForm"
-                  class="btn btn--accent btn--full btn--lg mt-xl"
-                >
-                  Place Order Now
+              </div>
+            </div>
+            <aside class="checkout-sidebar">
+              <div class="whatsapp-order-card">
+                <div class="whatsapp-order-card__icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                </div>
+                <h3 class="whatsapp-order-card__title">Order via WhatsApp</h3>
+                <p class="whatsapp-order-card__desc">
+                  Send your order directly to our Marketing team. We'll confirm availability and delivery options quickly!
+                </p>
+                <button type="button" id="whatsappOrderBtn" class="btn btn--accent btn--full btn--lg">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  Send Order via WhatsApp
                 </button>
+                <p class="whatsapp-order-card__note">
+                  Click to open WhatsApp with your order details. Our team will respond shortly.
+                </p>
               </div>
             </aside>
           </div>
-          <!-- /checkout-layout -->
 
-          <div
-            id="checkoutEmpty"
-            class="text-center"
-            style="display: none; padding: var(--space-3xl) 0"
-          >
+          <!-- Empty Cart -->
+          <div id="checkoutEmpty" class="text-center" style="display: none; padding: var(--space-3xl) 0">
             <h2>Your cart is empty</h2>
-            <a href="../html/shop.html" class="btn btn--primary mt-lg"
-              >Return to Shop</a
-            >
-          </div>
-
-          <!-- Success Confirmation State (Static Demo) -->
-          <div id="orderConfirmation" class="order-confirmation">
-            <div class="order-confirmation__icon">
-              <svg
-                width="48"
-                height="48"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <h2 class="order-confirmation__title">
-              Order Placed Successfully!
-            </h2>
-            <div class="order-confirmation__id">
-              Order #NPL-<span id="randOrderId"></span>
-            </div>
-            <p class="order-confirmation__text">
-              Thank you for your order. We have received your details safely.
-              <br />Our sales team will contact you shortly via phone/WhatsApp
-              to confirm shipping details and total costs.
-            </p>
-            <a href="../index.html" class="btn btn--primary">Return to Home</a>
+            <a href="../html/shop.html" class="btn btn--primary mt-lg">Return to Shop</a>
           </div>
         </div>
       </section>
 
       <!-- Checkout JS Logic -->
       <script>
+        const WHATSAPP_NUMBER = "9779763690362";
+
         document.addEventListener("DOMContentLoaded", () => {
           const cart = getCart();
-          const formWrap = document.getElementById("checkoutFormWrap");
+          const orderView = document.getElementById("orderSummaryView");
           const emptyMsg = document.getElementById("checkoutEmpty");
           const itemsList = document.getElementById("checkoutItemsList");
           const sub = document.getElementById("chkSubtotal");
           const tot = document.getElementById("chkTotal");
 
           if (cart.length === 0) {
-            formWrap.style.display = "none";
+            orderView.style.display = "none";
             emptyMsg.style.display = "block";
             return;
           }
 
-          formWrap.style.display = "grid";
+          orderView.style.display = "grid";
           let total = 0;
 
           cart.forEach((item) => {
@@ -576,26 +371,41 @@
           sub.textContent = `Rs. ${total.toLocaleString()}`;
           tot.textContent = `Rs. ${total.toLocaleString()}`;
 
-          // Handle Submission Mock
-          document
-            .getElementById("checkoutForm")
-            .addEventListener("submit", (e) => {
-              e.preventDefault();
+          // WhatsApp Order Functionality
+          document.getElementById('whatsappOrderBtn').addEventListener('click', function() {
+            const cart = getCart();
+            if (cart.length === 0) {
+              alert('Your cart is empty. Please add some products first.');
+              return;
+            }
 
-              // Clear cart
-              localStorage.removeItem("recognized_cart");
-              updateCartBadge();
+            let message = "Hello! I would like to place an order. Here are my requested products:\n\n";
+            let grandTotal = 0;
+            const baseUrl = window.location.origin + window.location.pathname.replace(/html\/.*$/, '');
 
-              // Show confirmation
-              formWrap.style.display = "none";
-              document
-                .getElementById("orderConfirmation")
-                .classList.add("visible");
-              document.getElementById("randOrderId").textContent = Math.floor(
-                100000 + Math.random() * 900000,
-              );
-              window.scrollTo(0, 0);
+            cart.forEach((item, index) => {
+              const subtotal = item.price * item.quantity;
+              grandTotal += subtotal;
+              const productUrl = item.img ? baseUrl + item.img : 'N/A';
+
+              message += `${index + 1}. *${item.name}*\n`;
+              message += `   Price: Rs. ${item.price.toLocaleString()}\n`;
+              message += `   Quantity: ${item.quantity}\n`;
+              message += `   Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
+              message += `   Product Link: ${productUrl}\n\n`;
             });
+
+            message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
+            message += `*GRAND TOTAL: Rs. ${grandTotal.toLocaleString()}*\n`;
+            message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
+            message += "Dear Marketing Team,\n\n";
+            message += "Please confirm the availability of these products and let me know about delivery options.\n\n";
+            message += "Thank you!\n";
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+            window.open(whatsappUrl, '_blank');
+          });
         });
       </script>
     </main>
