@@ -334,8 +334,6 @@
 
       <!-- Checkout JS Logic -->
       <script>
-        const WHATSAPP_NUMBER = "9779763690362";
-
         document.addEventListener("DOMContentLoaded", () => {
           const cart = getCart();
           const orderView = document.getElementById("orderSummaryView");
@@ -371,7 +369,7 @@
           sub.textContent = `Rs. ${total.toLocaleString()}`;
           tot.textContent = `Rs. ${total.toLocaleString()}`;
 
-          // WhatsApp Order Functionality
+          // WhatsApp Order Functionality (using universal handler)
           document.getElementById('whatsappOrderBtn').addEventListener('click', function() {
             const cart = getCart();
             if (cart.length === 0) {
@@ -379,32 +377,11 @@
               return;
             }
 
-            let message = "Hello! I would like to place an order. Here are my requested products:\n\n";
-            let grandTotal = 0;
-            const baseUrl = window.location.origin + window.location.pathname.replace(/html\/.*$/, '');
+            // Build order message using the universal handler
+            const message = buildOrderMessage(cart);
 
-            cart.forEach((item, index) => {
-              const subtotal = item.price * item.quantity;
-              grandTotal += subtotal;
-              const productUrl = item.img ? baseUrl + item.img : 'N/A';
-
-              message += `${index + 1}. *${item.name}*\n`;
-              message += `   Price: Rs. ${item.price.toLocaleString()}\n`;
-              message += `   Quantity: ${item.quantity}\n`;
-              message += `   Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
-              message += `   Product Link: ${productUrl}\n\n`;
-            });
-
-            message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
-            message += `*GRAND TOTAL: Rs. ${grandTotal.toLocaleString()}*\n`;
-            message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-            message += "Dear Marketing Team,\n\n";
-            message += "Please confirm the availability of these products and let me know about delivery options.\n\n";
-            message += "Thank you!\n";
-
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
+            // Send via WhatsApp using cross-platform handler
+            sendWhatsAppOrder(message, true);
           });
         });
       </script>
@@ -671,6 +648,12 @@
         <polyline points="18 15 12 9 6 15" />
       </svg>
     </button>
+
+    <!-- Smooth Navigation (load first for instant transitions) -->
+    <script src="../js/smooth-navigation.js"></script>
+
+    <!-- WhatsApp Handler (must load before main.js) -->
+    <script src="../js/whatsapp-handler.js"></script>
 
     <!-- Main JS -->
     <script src="../js/main.js"></script>

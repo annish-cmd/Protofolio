@@ -449,9 +449,7 @@
           renderCartPage();
         }
 
-        // WhatsApp Order Functionality
-        const WHATSAPP_NUMBER = "9779763690362";
-
+        // WhatsApp Order Functionality (using universal handler)
         document.getElementById('whatsappOrderBtn').addEventListener('click', function() {
           const cart = getCart();
           if (cart.length === 0) {
@@ -459,36 +457,11 @@
             return;
           }
 
-          // Build the order message
-          let message = "Hello! I would like to place an order. Here are my requested products:\n\n";
+          // Build order message using the universal handler
+          const message = buildOrderMessage(cart);
 
-          let grandTotal = 0;
-
-          cart.forEach((item, index) => {
-            const subtotal = item.price * item.quantity;
-            grandTotal += subtotal;
-            const productUrl = item.img ? window.location.origin + window.location.pathname.replace(/html\/.*$/, '') + item.img : 'N/A';
-
-            message += `${index + 1}. *${item.name}*\n`;
-            message += `   Price: Rs. ${item.price.toLocaleString()}\n`;
-            message += `   Quantity: ${item.quantity}\n`;
-            message += `   Subtotal: Rs. ${subtotal.toLocaleString()}\n`;
-            message += `   Product Link: ${productUrl}\n\n`;
-          });
-
-          message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n";
-          message += `*GRAND TOTAL: Rs. ${grandTotal.toLocaleString()}*\n`;
-          message += "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n";
-          message += "Dear Marketing Team,\n\n";
-          message += "Please confirm the availability of these products and let me know about delivery options.\n\n";
-          message += "Thank you!\n";
-
-          // Encode and redirect to WhatsApp
-          const encodedMessage = encodeURIComponent(message);
-          const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
-
-          // Open WhatsApp in new tab
-          window.open(whatsappUrl, '_blank');
+          // Send via WhatsApp using cross-platform handler
+          sendWhatsAppOrder(message, true);
         });
       </script>
     </main>
@@ -754,6 +727,12 @@
         <polyline points="18 15 12 9 6 15" />
       </svg>
     </button>
+
+    <!-- Smooth Navigation (load first for instant transitions) -->
+    <script src="../js/smooth-navigation.js"></script>
+
+    <!-- WhatsApp Handler (must load before main.js) -->
+    <script src="../js/whatsapp-handler.js"></script>
 
     <!-- Main JS -->
     <script src="../js/main.js"></script>
