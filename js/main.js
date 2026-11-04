@@ -1,10 +1,44 @@
+
+// ===== WHATSAPP GROUP SMART DEEP-LINK =====
+// Group invite code with full URL
+const WA_GROUP_URL = 'https://chat.whatsapp.com/BgjdHugKar5CXt8mFNxq2h?s=sw&p=a&ilr=4&iam=2';
+
 /**
- * ========================================================
- * main.js — Recognized IT Service & Solution Pvt. Ltd.
- * Global Navigation, WhatsApp click, basic UI state
- * Cart is also initialized here for cross-page counting
- * ========================================================
+ * Opens WhatsApp Group correctly on every platform:
+ *   Mobile (Android) → Opens native WhatsApp app directly via intent URI
+ *   Mobile (iOS)     → Opens WhatsApp app automatically if installed
+ *   Desktop          → Opens WhatsApp Web in new tab
+ *   Tablet           → Same as mobile device type
+ *
+ * Attach to any WhatsApp anchor via:
+ *   onclick="openWhatsApp(event)"
  */
+function openWhatsApp(event) {
+  event.preventDefault();
+
+  const userAgent = navigator.userAgent.toLowerCase();
+  const isAndroid = /android/i.test(userAgent);
+  const isIOS = /iphone|ipad|ipod/i.test(userAgent);
+  const isTablet = /ipad|android(?!.*mobile)/i.test(userAgent);
+
+  // Extract just the code part from the group URL for Android intent
+  const groupCode = 'BgjdHugKar5CXt8mFNxq2h';
+
+  if (isAndroid) {
+    // Android: Use intent URI to open app first, with web fallback
+    const intentUri =
+      'intent://chat.whatsapp.com/' + groupCode +
+      '#Intent;scheme=https;package=com.whatsapp;' +
+      'S.browser_fallback_url=' + encodeURIComponent(WA_GROUP_URL) + ';end';
+    window.location.href = intentUri;
+  } else if (isIOS || isTablet) {
+    // iOS & iPad: Universal link — opens app if installed, otherwise web
+    window.location.href = WA_GROUP_URL;
+  } else {
+    // Desktop (Windows, Mac, Linux): Open WhatsApp Web in new tab
+    window.open(WA_GROUP_URL, '_blank', 'noopener,noreferrer');
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 
