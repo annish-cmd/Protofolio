@@ -184,6 +184,42 @@
   margin-bottom: var(--space-xl);
 }
 
+.cart-summary #whatsappOrderBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  border: 0;
+  background: var(--color-whatsapp);
+  color: #fff;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.cart-summary #whatsappOrderBtn:hover {
+  background: #1fbd5a;
+}
+
+.cart-summary #whatsappOrderBtn:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.35);
+  outline-offset: 3px;
+}
+
+.cart-summary #whatsappOrderBtn:active {
+  transform: translateY(1px);
+}
+
+.cart-summary #whatsappOrderBtn:disabled {
+  background: #a8cbb5;
+  cursor: not-allowed;
+}
+
+.cart-summary #whatsappOrderBtn svg {
+  flex: 0 0 auto;
+}
+
 .cart-summary__note {
   font-size: 0.78rem;
   color: var(--color-text-muted);
