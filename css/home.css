@@ -95,7 +95,9 @@
   overflow: hidden;
   border-radius: var(--radius-2xl);
   z-index: 5;
-  background: var(--color-bg-white);
+  /* Use a dark/neutral background instead of white so images don't
+     flash a blank white rectangle while loading or during page transitions */
+  background: var(--color-bg-tint);
 }
 
 .hero-slider__track {

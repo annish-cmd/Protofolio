@@ -14,11 +14,49 @@
     });
   }
 
+  /**
+   * Resolve a link href to an absolute pathname so we can compare it
+   * reliably with the current page, regardless of whether the href is
+   * "index.html", "./index.html", "../index.html", or just "/".
+   */
+  function resolvePathname(href) {
+    try {
+      return new URL(href, location.href).pathname;
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Check whether two pathnames point to the same page.
+   * Treats "/", "/index.html", and any path ending in "/index.html" as
+   * equivalent when they share the same directory.
+   */
+  function isSamePage(href) {
+    const target = resolvePathname(href);
+    if (!target) return false;
+
+    const current = location.pathname;
+    if (target === current) return true;
+
+    // Normalise: strip trailing "index.html" and trailing slash
+    const norm = p => p.replace(/\/index\.html$/i, '/').replace(/\/+$/, '') || '/';
+    return norm(target) === norm(current);
+  }
+
   function handleLinkClick(event) {
     const href = event.currentTarget.getAttribute('href');
 
     if (!href || href === '#' || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
     if (event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+    // If the link points to the page we're already on,
+    // just scroll to top — no reload, no transition, no white flash.
+    if (isSamePage(href)) {
+      event.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     event.preventDefault();
 
