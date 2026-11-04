@@ -164,34 +164,6 @@
   z-index: 1;
 }
 
-.product-card__wishlist {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 32px;
-  height: 32px;
-  background: rgba(255,255,255,0.9);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-text-muted);
-  transition: all var(--transition-base);
-  border: none;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.product-card__wishlist:hover {
-  background: #fff;
-  color: var(--color-accent);
-}
-
-.product-card__wishlist.is-saved {
-  background: #fff;
-  color: var(--color-accent);
-}
-
 .product-card__body {
   padding: var(--space-md);
   display: flex;
@@ -424,13 +396,6 @@
   top: 8px;
   left: 8px;
   font-size: 0.58rem;
-}
-
-.product-card__wishlist {
-  top: 7px;
-  right: 7px;
-  width: 29px;
-  height: 29px;
 }
 
 .product-card__body {
@@ -791,18 +756,65 @@ body.product-details-open {
 }
 
 .shop-cart-drawer__checkout {
-  background: var(--color-primary);
+  width: 100%;
+  gap: 9px;
+  border: 0;
+  background: var(--color-whatsapp);
   color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
 }
 
 .shop-cart-drawer__checkout:hover {
-  background: var(--color-primary-dark);
+  background: #1fbd5a;
   color: #fff;
+}
+
+.shop-cart-drawer__checkout:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.35);
+  outline-offset: 3px;
+}
+
+.shop-cart-drawer__checkout:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.shop-cart-drawer__checkout:disabled {
+  background: #a8cbb5;
+  cursor: not-allowed;
+}
+
+.shop-cart-drawer__checkout svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  fill: currentColor;
 }
 
 .shop-cart-drawer__view {
   margin-top: 7px;
-  color: #067a92;
+  border: 1px solid var(--color-whatsapp);
+  background: #f0fff5;
+  color: #16803c;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.shop-cart-drawer__view:hover {
+  background: #e1f9e9;
+  color: #126b32;
+}
+
+.shop-cart-drawer__view:focus-visible {
+  outline: 3px solid rgba(37, 211, 102, 0.35);
+  outline-offset: 3px;
 }
 
 @media (min-width: 1400px) {
