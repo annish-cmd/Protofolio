@@ -98,14 +98,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburger = document.getElementById('navbarHamburger');
   const mobileMenu = document.getElementById('navbarMobile');
 
-  if (hamburger && mobileMenu) {
-    const setMobileMenuOpen = isOpen => {
-      hamburger.classList.toggle('open', isOpen);
-      mobileMenu.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    };
+  const setMobileMenuOpen = isOpen => {
+    if (!hamburger || !mobileMenu) return;
 
+    hamburger.classList.toggle('open', isOpen);
+    mobileMenu.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  };
+
+  if (hamburger && mobileMenu) {
     hamburger.addEventListener('click', () => {
       setMobileMenuOpen(!mobileMenu.classList.contains('open'));
     });
@@ -124,6 +126,31 @@ document.addEventListener('DOMContentLoaded', () => {
         hamburger.focus();
       }
     });
+  }
+
+  const logoLink = document.querySelector('.navbar__logo');
+  if (logoLink) {
+    const homeUrl = new URL(logoLink.href);
+    const isHomePage = window.location.pathname === homeUrl.pathname ||
+      (homeUrl.pathname.endsWith('/index.html') &&
+        window.location.pathname === homeUrl.pathname.slice(0, -'index.html'.length));
+
+    if (isHomePage) {
+      document.querySelectorAll('.navbar__logo, .navbar__link').forEach(link => {
+        if (new URL(link.href).pathname !== homeUrl.pathname) return;
+
+        link.addEventListener('click', event => {
+          if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+
+          event.preventDefault();
+          setMobileMenuOpen(false);
+          window.scrollTo({
+            top: 0,
+            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'
+          });
+        });
+      });
+    }
   }
 
   // ===== SCROLL-DEPENDENT UI =====
