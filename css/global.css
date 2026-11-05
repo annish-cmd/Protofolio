@@ -88,16 +88,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Smooth page load - prevent flash of unstyled content */
-body.page-loading {
-  opacity: 0;
-}
-
-body.page-loaded {
-  opacity: 1;
-  transition: opacity 300ms ease-out;
-}
-
 img {
   max-width: 100%;
   height: auto;
@@ -535,67 +525,7 @@ textarea.form-control {
   height: 15px;
 }
 
-/* ===== CROSS-PAGE TRANSITIONS ===== */
-
-/* Modern browsers with View Transitions API support */
-@supports (view-transition-name: none) {
-  @view-transition {
-    navigation: auto;
-  }
-
-  ::view-transition-old(root) {
-    animation: page-transition-out 200ms cubic-bezier(0.4, 0, 1, 1) both;
-  }
-
-  ::view-transition-new(root) {
-    animation: page-transition-in 300ms cubic-bezier(0, 0, 0.2, 1) both;
-  }
-}
-
-@keyframes page-transition-out {
-  to {
-    opacity: 0;
-    transform: scale(0.98);
-  }
-}
-
-@keyframes page-transition-in {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Fallback for browsers without View Transitions API */
-@supports not (view-transition-name: none) {
-  body {
-    animation: legacy-page-fade-in 400ms cubic-bezier(0.2, 0, 0.2, 1) both;
-  }
-}
-
-@keyframes legacy-page-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
-  }
-
-  body {
-    animation: none !important;
-  }
-
   html {
     scroll-behavior: auto;
   }
