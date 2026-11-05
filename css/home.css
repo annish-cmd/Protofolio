@@ -374,6 +374,8 @@
 /* ===== OUR PARTNERS ===== */
 .partners-section {
   padding-block: var(--space-2xl);
+  overflow: hidden;
+  width: 100%;
 }
 
 .partners-section .section__header {
@@ -382,33 +384,42 @@
 
 .partners-marquee {
   overflow: hidden;
+  position: relative;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.partners-track,
-.partners-group {
-  display: flex;
-  align-items: center;
+.partners-marquee::-webkit-scrollbar {
+  display: none;
 }
 
 .partners-track {
+  display: flex;
+  align-items: center;
   width: max-content;
-  animation: partners-scroll 48s linear infinite;
+  animation: partners-scroll 45s linear infinite;
+  will-change: transform;
 }
 
 .partners-group {
-  flex: 0 0 auto;
-  gap: clamp(2rem, 4.5vw, 4rem);
-  padding-right: clamp(2rem, 4.5vw, 4rem);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+  padding-right: clamp(2rem, 3.5vw, 3.5rem);
 }
 
 .partners-group img {
   display: block;
-  flex: 0 0 auto;
-  width: clamp(230px, 20vw, 300px);
-  height: 200px;
+  flex-shrink: 0;
+  width: clamp(180px, 16vw, 280px);
+  height: clamp(140px, 14vw, 200px);
   object-fit: contain;
   opacity: 0.82;
   transition: opacity var(--transition-base);
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .partners-group img:hover {
@@ -416,8 +427,11 @@
 }
 
 @keyframes partners-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -677,16 +691,8 @@
     transition: none;
   }
 
-  .partners-marquee {
-    overflow-x: auto;
-  }
-
   .partners-track {
-    animation: none;
-  }
-
-  .partners-group[aria-hidden="true"] {
-    display: none;
+    animation-duration: 90s;
   }
 
   .partners-group img {

@@ -192,6 +192,7 @@
             href="../html/cart.html"
             class="navbar__action-btn"
             aria-label="Shopping cart"
+            aria-current="page"
           >
             <!-- Cart icon -->
             <svg
@@ -248,7 +249,7 @@
         <a href="../html/contact.html" class="navbar__link">Contact</a>
 
         <div class="navbar__mobile-actions">
-          <a href="../html/cart.html" aria-label="Cart">
+          <a href="../html/cart.html" aria-label="Cart" aria-current="page">
             <svg
               width="18"
               height="18"
@@ -728,7 +729,7 @@
       </svg>
     </button>
 
-    <!-- Smooth Navigation (load first for instant transitions) -->
+    <!-- Navigation prefetch -->
     <script src="../js/smooth-navigation.js"></script>
 
     <!-- WhatsApp Handler (must load before main.js) -->
